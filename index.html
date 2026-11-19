@@ -1,636 +1,308 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Astra Linux — Cosmic Desktop Experience</title>
-  <meta name="description" content="A focused, design-driven, cosmic Linux desktop experience built around Niri and Noctalia v5 on Arch Linux.">
-  <meta name="theme-color" content="#05070D">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AstraOS — Curated Arch Linux Distribution | AmanicX</title>
+  <meta name="description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
+  <link rel="canonical" href="https://amanicx.github.io/astra-os/">
+  <meta name="theme-color" content="#0B0D12">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Astra Linux — Cosmic Desktop Experience">
-  <meta property="og:description" content="A focused, design-driven, cosmic Linux desktop experience built around Niri and Noctalia v5 on Arch Linux.">
+  <!-- OpenGraph -->
+  <meta property="og:title" content="AstraOS — Curated Arch Linux Distribution | AmanicX">
+  <meta property="og:description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="packages/astra-branding/files/usr/share/icons/hicolor/512x512/apps/astraos-logo.png">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta property="og:url" content="https://amanicx.github.io/astra-os/">
+  <meta property="og:image" content="https://amanicx.github.io/astra-os/assets/wallpaper.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AstraOS — Curated Arch Linux Distribution | AmanicX">
+  <meta name="twitter:description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
+  <meta name="twitter:image" content="https://amanicx.github.io/astra-os/assets/wallpaper.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="64x64" href="packages/astra-branding/files/usr/share/icons/hicolor/64x64/apps/astraos-logo.png">
-  <link rel="icon" type="image/png" sizes="256x256" href="packages/astra-branding/files/usr/share/icons/hicolor/256x256/apps/astraos-logo.png">
+  <link rel="icon" type="image/svg+xml" href="../shared/assets/favicon.svg">
 
-  <link rel="stylesheet" href="site-assets/style.css">
+  <!-- Unified Stylesheets -->
+  <link rel="stylesheet" href="../shared/styles/design-system.css">
+  <link rel="stylesheet" href="../shared/styles/motion.css">
+
+  <!-- Instant Theme Script (Zero-FOUC) -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('amanicx_theme') || 'system';
+        var effective = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+        document.documentElement.setAttribute('data-theme', effective);
+        document.documentElement.setAttribute('data-theme-setting', theme);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  CURSOR GLOW                                    -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <div class="cursor-glow" id="cursorGlow"></div>
+  <div id="scroll-progress"></div>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  STAR FIELD CANVAS                              -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <canvas id="starfield"></canvas>
-
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  NAVIGATION                                     -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <nav class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo" aria-label="Astra Linux Home">
-        <img src="packages/astra-branding/files/usr/share/icons/hicolor/64x64/apps/astraos-logo.png" alt="Astra Linux" width="32" height="32">
-        <span class="nav__wordmark">ASTRA<span class="nav__os">LINUX</span></span>
+    <!-- Floating Pill Navigation (Nexora Inspired) -->
+  <div class="nav-wrapper">
+    <header class="nav-bar">
+      <a href="../" class="nav-brand" aria-label="AmanicX Ecosystem Home">
+        <img class="nav-brand-mark" src="../shared/assets/favicon.svg" alt="AmanicX" width="26" height="26">
+        <span>AmanicX</span>
       </a>
-      <div class="nav__links">
-        <a href="#features" class="nav__link">Features</a>
-        <a href="#stack" class="nav__link">Stack</a>
-        <a href="#requirements" class="nav__link">Hardware</a>
-        <a href="#install" class="nav__link">Install</a>
-        <a href="#keybinds" class="nav__link">Shortcuts</a>
-        <a href="https://github.com/AmanicX/astra-os" class="nav__link nav__link--github" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="../" class="nav-link ">Overview</a>
+        <a href="../apps/" class="nav-link ">Apps</a>
+        <a href="../eva/" class="nav-link ">Eva</a>
+        <a href="../astra/" class="nav-link ">Astra</a>
+        <a href="../astra-os/" class="nav-link active">AstraOS</a>
+      </nav>
+
+      <div class="nav-controls">
+        <div class="theme-switcher" role="group" aria-label="Theme mode switcher">
+          <button class="theme-btn" data-mode="dark" title="Dark Theme" aria-label="Dark Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+          <button class="theme-btn" data-mode="light" title="Light Theme" aria-label="Light Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          </button>
+          <button class="theme-btn" data-mode="system" title="System Theme" aria-label="System Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          </button>
+        </div>
+
+        <a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" aria-label="GitHub Profile">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub</span>
         </a>
       </div>
-      <button class="nav__burger" id="navBurger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#features" class="mobile-menu__link">Features</a>
-    <a href="#stack" class="mobile-menu__link">Stack</a>
-    <a href="#requirements" class="mobile-menu__link">Hardware</a>
-    <a href="#install" class="mobile-menu__link">Install</a>
-    <a href="#keybinds" class="mobile-menu__link">Shortcuts</a>
-    <a href="https://github.com/AmanicX/astra-os" class="mobile-menu__link" target="_blank" rel="noopener">GitHub</a>
+    </header>
   </div>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  HERO                                           -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="hero" id="hero">
-    <div class="hero__bg-rings">
-      <div class="hero__ring hero__ring--1"></div>
-      <div class="hero__ring hero__ring--2"></div>
-      <div class="hero__ring hero__ring--3"></div>
-    </div>
 
-    <div class="hero__content">
-      <!-- Animated star mark -->
-      <div class="hero__mark" id="heroMark">
-        <svg viewBox="0 0 1024 1024" width="140" height="140" class="hero__star-svg">
-          <defs>
-            <linearGradient id="hero-star-grad" x1="0.2" y1="0.1" x2="0.8" y2="0.9">
-              <stop offset="0" stop-color="#FFFFFF"/>
-              <stop offset="0.55" stop-color="#E8EEF7"/>
-              <stop offset="1" stop-color="#A9D7E8"/>
-            </linearGradient>
-            <radialGradient id="hero-glow" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0" stop-color="#67E8F9" stop-opacity="0.25"/>
-              <stop offset="0.55" stop-color="#67E8F9" stop-opacity="0.05"/>
-              <stop offset="1" stop-color="#67E8F9" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="512" cy="512" r="470" fill="url(#hero-glow)" class="hero__glow-circle"/>
-          <circle cx="512" cy="512" r="432" fill="none" stroke="#E8EEF7" stroke-opacity="0.22" stroke-width="3" class="hero__orbit-ring"/>
-          <circle cx="512" cy="512" r="470" fill="none" stroke="#67E8F9" stroke-opacity="0.08" stroke-width="1.5" class="hero__outer-ring"/>
-          <g stroke="#67E8F9" stroke-opacity="0.50" stroke-width="3" stroke-linecap="round" class="hero__ticks">
-            <line x1="512" y1="52" x2="512" y2="104"/>
-            <line x1="512" y1="920" x2="512" y2="972"/>
-            <line x1="52" y1="512" x2="104" y2="512"/>
-            <line x1="920" y1="512" x2="972" y2="512"/>
-          </g>
-          <g fill="#D6B36A" fill-opacity="0.80" class="hero__corner-stars">
-            <circle cx="817" cy="817" r="5"/>
-            <circle cx="207" cy="817" r="5"/>
-            <circle cx="207" cy="207" r="5"/>
-            <circle cx="817" cy="207" r="5"/>
-          </g>
-          <path d="M512 128 C536 404 620 488 896 512 C620 536 536 620 512 896 C488 620 404 536 128 512 C404 488 488 404 512 128 Z" fill="url(#hero-star-grad)" class="hero__star-path"/>
-          <g transform="translate(512 512) rotate(45) scale(0.34) translate(-512 -512)">
-            <path d="M512 128 C536 404 620 488 896 512 C620 536 536 620 512 896 C488 620 404 536 128 512 C404 488 488 404 512 128 Z" fill="#05070D" fill-opacity="0.34"/>
-          </g>
-          <circle cx="512" cy="512" r="8" fill="#D6B36A" class="hero__center-dot"/>
-        </svg>
+  <!-- AstraOS Hero -->
+  <section class="section-lg" style="position:relative; overflow:hidden;">
+    <div class="ambient-flare flare-crimson" style="top:-80px; left:50%; width:650px; height:650px; transform:translateX(-50%);"></div>
+    <div class="container" style="text-align:center; position:relative; z-index:2;">
+      <div style="display:inline-flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;" class="reveal">
+        <img src="../astra-os/assets/astraos-logo.svg" alt="AstraOS Logo" width="48" height="48" style="border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
+        <span class="badge badge-dev" style="font-size:0.8125rem;">v1.0 Preview</span>
       </div>
 
-      <h1 class="hero__title" data-animate="split-text">
-        <span class="hero__title-main">ASTRA<span class="hero__title-accent">LINUX</span></span>
+      <h1 class="title-display reveal delay-100" style="margin-bottom:1.5rem; max-width:920px; margin-left:auto; margin-right:auto;">
+        Curated Arch Linux with Niri & Noctalia
       </h1>
-
-      <div class="hero__line" data-animate="line-expand"></div>
-
-      <p class="hero__subtitle" data-animate="fade-up" data-delay="200">
-        A focused, design-driven, cosmic Linux desktop experience<br>
-        built around <strong>Niri</strong> and <strong>Noctalia v5</strong>.
+      <p class="lead reveal delay-200" style="margin:0 auto 2.5rem;">
+        A curated, design-driven Arch-based Linux distribution featuring the Niri scrollable tiling compositor and Noctalia v5 desktop shell.
       </p>
 
-      <div class="hero__badge" data-animate="fade-up" data-delay="300">
-        <span class="hero__badge-dot"></span>
-        Arch Linux Base &middot; Rolling Release
-      </div>
-
-      <div class="hero__actions" data-animate="fade-up" data-delay="400">
-        <a href="#install" class="btn btn--primary">
-          <span class="btn__glow"></span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Quick Install
+      <div class="reveal delay-300" style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:4rem;">
+        <a href="#install" class="btn btn-lg btn-primary">
+          <span>Installation Guide & Hardware Specs</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
         </a>
-        <a href="https://github.com/AmanicX/astra-os" class="btn btn--ghost" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
+        <a href="./releases/" class="btn btn-lg btn-secondary">
+          <span>Build ISO from Source</span>
         </a>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  FEATURES                                       -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="section features" id="features">
-    <div class="container">
-      <div class="section__header" data-animate="fade-up">
-        <span class="section__tag">Features</span>
-        <h2 class="section__title">Designed with intention.<br>Crafted with care.</h2>
-        <p class="section__desc">Every detail of Astra Linux exists because someone thought hard about whether it should.</p>
-      </div>
-
-      <div class="features__grid">
-        <!-- Feature 1 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="0">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <rect x="4" y="4" width="40" height="40" rx="8"/>
-              <rect x="12" y="10" width="10" height="28" rx="2" fill="#67E8F9" fill-opacity="0.15"/>
-              <rect x="26" y="10" width="10" height="14" rx="2" fill="#67E8F9" fill-opacity="0.15"/>
-              <rect x="26" y="28" width="10" height="10" rx="2" fill="#67E8F9" fill-opacity="0.15"/>
-            </svg>
+      <!-- Wallpaper & Desktop Preview -->
+      <div class="reveal delay-400 mockup-window" style="max-width:1040px; margin:0 auto;">
+        <div class="mockup-header">
+          <div class="mockup-dots">
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
           </div>
-          <h3 class="feature-card__title">Scrollable Tiling</h3>
-          <p class="feature-card__desc">Niri arranges windows along an infinite horizontal ribbon. Fluid, ergonomic, and infinite workspace navigation powered by native Wayland.</p>
+          <span style="font-size:0.8125rem; color:var(--text-muted); font-family:var(--font-mono);">AstraOS — Niri Wayland Compositor + Noctalia v5</span>
+          <span class="badge badge-dev" style="padding:0.15rem 0.5rem; font-size:0.7rem;">UEFI ONLY</span>
         </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="100">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <circle cx="24" cy="24" r="20"/>
-              <path d="M24 8 C26 20 28 22 40 24 C28 26 26 28 24 40 C22 28 20 26 8 24 C20 22 22 20 24 8Z" fill="#67E8F9" fill-opacity="0.2" stroke="#67E8F9"/>
-            </svg>
-          </div>
-          <h3 class="feature-card__title">Noctalia v5 Shell</h3>
-          <p class="feature-card__desc">A contemporary Wayland status bar, quick settings control center, workspace overview, and notification center unified in the transparent Noctalia palette.</p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="200">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <path d="M8 12L24 4L40 12V36L24 44L8 36V12Z" rx="2"/>
-              <path d="M24 4V44M8 12L40 36M40 12L8 36"/>
-            </svg>
-          </div>
-          <h3 class="feature-card__title">Automated Setup Pipeline</h3>
-          <p class="feature-card__desc">A structured 9-stage interactive Bash installer (<code>setup.sh</code>) with auto-keepalive, automated ALPM compatibility, AUR helper setup, and headless non-interactive automation flags.</p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="300">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <circle cx="24" cy="24" r="18"/>
-              <circle cx="24" cy="24" r="8" fill="#67E8F9" fill-opacity="0.2"/>
-              <path d="M6 24H16M32 24H42M24 6V16M24 32V42"/>
-            </svg>
-          </div>
-          <h3 class="feature-card__title">SilentSDDM & 10 Presets</h3>
-          <p class="feature-card__desc">Minimalist login greeter featuring 10 astronomical and daylight landscape themes (Daylight, Sunrise, Alpine, Earthrise, JWST Cosmic Cliffs), switchable via <code>astra-sddm-theme</code>.</p>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="400">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <rect x="4" y="8" width="40" height="32" rx="4"/>
-              <line x1="4" y1="16" x2="44" y2="16"/>
-              <text x="12" y="30" font-size="10" fill="#67E8F9" font-family="monospace">~$</text>
-            </svg>
-          </div>
-          <h3 class="feature-card__title">Kitty, LazyVim & OpenCode</h3>
-          <p class="feature-card__desc">Kitty terminal with transparent Noctalia palette, Zsh with Oh-My-Posh (<code>1_shell</code>), pre-baked LazyVim with base16 sync, and the OpenCode terminal AI assistant.</p>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="feature-card" data-animate="fade-up" data-delay="500">
-          <div class="feature-card__icon">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#67E8F9" stroke-width="1.5">
-              <path d="M24 4V12M24 36V44M4 24H12M36 24H44"/>
-              <circle cx="24" cy="24" r="14"/>
-              <circle cx="24" cy="24" r="6" fill="#67E8F9" fill-opacity="0.2"/>
-            </svg>
-          </div>
-          <h3 class="feature-card__title">Zero-Config Hardware & VMs</h3>
-          <p class="feature-card__desc">Automatic CPU microcode (Intel/AMD), GPU stacks (NVIDIA open drivers + DRM modesetting, AMD/Intel Mesa), and full VM guest integration (VirtualBox 3D, VMware, QEMU).</p>
+        <div style="background:var(--bg-surface-0); padding:0.5rem; display:flex; justify-content:center;">
+          <img src="../astra-os/assets/wallpaper.png" alt="AstraOS Desktop Wallpaper" style="border-radius:var(--radius-md); width:100%; height:auto;">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  MARQUEE STRIP                                  -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <div class="marquee-strip">
-    <div class="marquee-strip__track">
-      <span>ARCH LINUX</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>NIRI</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>NOCTALIA V5</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>KITTY</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>ZSH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>FASTFETCH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>LAZYVIM</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>OPENCODE</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>GRUB</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>PLYMOUTH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>SILENTSDDM</span>
-      <span class="marquee-strip__dot">✦</span>
-      <!-- Duplicated for seamless loop -->
-      <span>ARCH LINUX</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>NIRI</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>NOCTALIA V5</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>KITTY</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>ZSH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>FASTFETCH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>LAZYVIM</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>OPENCODE</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>GRUB</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>PLYMOUTH</span>
-      <span class="marquee-strip__dot">✦</span>
-      <span>SILENTSDDM</span>
-      <span class="marquee-strip__dot">✦</span>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  TECH STACK                                     -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="section stack" id="stack">
+  <!-- Architectural Pillars -->
+  <section class="section" style="background:var(--bg-surface-0); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle);">
     <div class="container">
-      <div class="section__header" data-animate="fade-up">
-        <span class="section__tag">Under the Hood</span>
-        <h2 class="section__title">Every layer, considered.</h2>
-        <p class="section__desc">A curated system where each component was chosen for coherence, not popularity.</p>
+      <div style="text-align:center; margin-bottom:4rem;">
+        <div class="eyebrow reveal">CURATED ENVIRONMENT</div>
+        <h2 class="title-section reveal delay-100">Every Detail Pre-Configured</h2>
+        <p class="lead reveal delay-200" style="margin:1rem auto 0;">
+          AstraOS pairs modern Wayland scrollable tiling with the tools developers actually use every day.
+        </p>
       </div>
 
-      <div class="stack__table-wrap" data-animate="fade-up" data-delay="100">
-        <table class="stack__table">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Upstream Choice</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="stack__row" data-animate="fade-up" data-delay="100">
-              <td><span class="stack__label">Base System</span></td>
-              <td><strong>Arch Linux</strong></td>
-              <td>The simple, lightweight, flexible rolling release base.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="140">
-              <td><span class="stack__label">Compositor</span></td>
-              <td><strong>Niri</strong></td>
-              <td>Scrollable tiling Wayland compositor arranging windows in an infinite horizontal ribbon.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="180">
-              <td><span class="stack__label">Desktop Shell</span></td>
-              <td><strong>Noctalia (v5)</strong></td>
-              <td>Contemporary status bar, quick settings control center, and wallpaper picker.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="220">
-              <td><span class="stack__label">Setup Pipeline</span></td>
-              <td><strong>Interactive Bash (<code>setup.sh</code>)</strong></td>
-              <td>Structured 9-stage pipeline with automated hardware &amp; driver detection.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="260">
-              <td><span class="stack__label">Greeter</span></td>
-              <td><strong>SilentSDDM</strong></td>
-              <td>Minimalist login greeter featuring 10 astronomical and daylight landscape presets.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="300">
-              <td><span class="stack__label">Terminal &amp; Prompt</span></td>
-              <td><strong>Kitty + Zsh</strong></td>
-              <td>GPU-accelerated terminal paired with Oh-My-Posh (<code>1_shell</code>) and autosuggestions.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="340">
-              <td><span class="stack__label">System Info</span></td>
-              <td><strong>Fastfetch</strong></td>
-              <td>Pre-configured system info monitor featuring the Astra celestial diamond star in solar gold &amp; void cyan.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="380">
-              <td><span class="stack__label">Developer Suite</span></td>
-              <td><strong>Neovim + LazyVim + OpenCode</strong></td>
-              <td>Pre-baked LazyVim environment with base16 sync plus OpenCode terminal AI assistant.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="420">
-              <td><span class="stack__label">Boot &amp; Splash</span></td>
-              <td><strong>GNU GRUB + Plymouth</strong></td>
-              <td>Custom 1080p cosmic GRUB theme paired with a 24-frame pulsing star boot splash.</td>
-            </tr>
-            <tr class="stack__row" data-animate="fade-up" data-delay="460">
-              <td><span class="stack__label">Web Browser</span></td>
-              <td><strong>Firefox / Helium / Chromium / Brave</strong></td>
-              <td>Selectable during setup (defaulting to Firefox or lightweight modern Helium).</td>
-            </tr>
-          </tbody>
-        </table>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem;">
+        
+        <div class="card reveal delay-100">
+          <div class="badge badge-dev" style="margin-bottom:1rem;">WINDOW COMPOSITOR</div>
+          <h3 class="title-card" style="margin-bottom:0.75rem;">Niri Scrollable Tiling</h3>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Windows arrange themselves along an infinite horizontal ribbon. Scroll smoothly between tasks without squishing windows or manually juggling complex grid layouts.
+          </p>
+        </div>
+
+        <div class="card reveal delay-200">
+          <div class="badge badge-dev" style="margin-bottom:1rem;">DESKTOP SHELL</div>
+          <h3 class="title-card" style="margin-bottom:0.75rem;">Noctalia v5 Wayland Shell</h3>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Integrated status bar, system monitors, network controls, volume slider, notifications, and application launcher triggered via <code>Super + Space</code>.
+          </p>
+        </div>
+
+        <div class="card reveal delay-300">
+          <div class="badge badge-dev" style="margin-bottom:1rem;">DEVELOPER CORE</div>
+          <h3 class="title-card" style="margin-bottom:0.75rem;">Kitty + Zsh + LazyVim</h3>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Kitty GPU terminal with Oh My Posh 1_shell prompt, fastfetch diagnostics, and a pinned Neovim tree with LazyVim fully pre-baked and cached for instant offline launch.
+          </p>
+        </div>
+
+        <div class="card reveal delay-400">
+          <div class="badge badge-dev" style="margin-bottom:1rem;">STORAGE & RELIABILITY</div>
+          <h3 class="title-card" style="margin-bottom:0.75rem;">Btrfs Subvolumes & Snapshots</h3>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Configured with <code>@</code> (root), <code>@home</code>, <code>@snapshots</code>, and <code>@pkg</code> subvolumes. Built on the Arch Linux Archive snapshot <code>2026/10/18</code> for reproducible stability.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  SYSTEM REQUIREMENTS & HARDWARE ARCHITECTURE    -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="section requirements" id="requirements">
-    <div class="container">
-      <div class="section__header" data-animate="fade-up">
-        <span class="section__tag">Hardware Specifications</span>
-        <h2 class="section__title">Engineered for modern silicon.</h2>
-        <p class="section__desc">Astra Linux runs bare-metal on 64-bit UEFI hardware and in virtualized environments.</p>
+  <!-- Hardware Requirements & Installation Walkthrough -->
+  <section class="section-lg" id="install">
+    <div class="container container-narrow">
+      <div style="margin-bottom:3.5rem;">
+        <div class="eyebrow reveal">INSTALLATION & REQUIREMENTS</div>
+        <h2 class="title-section reveal delay-100" style="margin-bottom:1rem;">System Compatibility & Setup</h2>
+        <p class="lead reveal delay-200">
+          AstraOS targets modern 64-bit UEFI systems. Secure Boot must be disabled.
+        </p>
       </div>
 
-      <div class="reqs__grid" data-animate="fade-up" data-delay="100">
-        <!-- 1. CPU -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">CPU</span>
-            <div class="req-card__status">Required</div>
+      <!-- Requirements Table -->
+      <div class="card card-glass reveal delay-300" style="margin-bottom:3rem;">
+        <h3 class="title-card" style="margin-bottom:1.25rem;">Hardware Requirements</h3>
+        <div style="display:flex; flex-direction:column; gap:0.875rem; font-size:0.9375rem;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Processor</span>
+            <span style="font-weight:600;">64-bit x86_64 (Intel or AMD)</span>
           </div>
-          <h3 class="req-card__val">64-bit x86_64</h3>
-          <p class="req-card__title">Processor</p>
-          <p class="req-card__desc">Intel Core or AMD Ryzen with SSE4.2+ vector extensions. Automatic microcode detection (<code>intel-ucode</code> / <code>amd-ucode</code>).</p>
-        </div>
-
-        <!-- 2. RAM -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">RAM</span>
-            <div class="req-card__status">4 GiB Floor</div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Firmware</span>
+            <span style="font-weight:600; color:var(--accent-primary);">UEFI only (CSM/Legacy not supported)</span>
           </div>
-          <h3 class="req-card__val">4 &ndash; 8 GiB</h3>
-          <p class="req-card__title">System Memory</p>
-          <p class="req-card__desc">4 GiB minimum, 8 GiB recommended. Niri + Noctalia maintains an exceptionally light idle footprint (~600 MB).</p>
-        </div>
-
-        <!-- 3. BASE OS -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">BASE</span>
-            <div class="req-card__status">Distribution</div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Secure Boot</span>
+            <span style="font-weight:600; color:#F59E0B;">Disabled</span>
           </div>
-          <h3 class="req-card__val">Arch Linux</h3>
-          <p class="req-card__title">Base Installation</p>
-          <p class="req-card__desc">Any fresh minimal Arch Linux base system installed via standard <code>archinstall</code> or manual bootstrap.</p>
-        </div>
-
-        <!-- 4. FIRMWARE & VIRTUALIZATION -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">PLATFORM</span>
-            <div class="req-card__status req-card__status--accent">Universal</div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Memory (RAM)</span>
+            <span style="font-weight:600;">4 GB minimum (8 GB recommended)</span>
           </div>
-          <h3 class="req-card__val">UEFI &amp; VMs</h3>
-          <p class="req-card__title">Hardware &amp; Hypervisors</p>
-          <p class="req-card__desc">Runs bare-metal on 64-bit UEFI hardware, or virtualized in VirtualBox (with 3D accel), VMware, and QEMU/KVM.</p>
-        </div>
-
-        <!-- 5. GRAPHICS -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">GPU</span>
-            <div class="req-card__status">Accelerated</div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
+            <span style="color:var(--text-muted);">Storage</span>
+            <span style="font-weight:600;">25 GB free disk space (Btrfs root)</span>
           </div>
-          <h3 class="req-card__val">Mesa &amp; NVIDIA</h3>
-          <p class="req-card__title">Graphics Stack</p>
-          <p class="req-card__desc">Open-source AMD and Intel Mesa &amp; Vulkan; NVIDIA supported via <code>nvidia-open</code> drivers with DRM modesetting.</p>
-        </div>
-
-        <!-- 6. NETWORK -->
-        <div class="req-card">
-          <div class="req-card__header">
-            <span class="req-card__code">NET</span>
-            <div class="req-card__status">Installer</div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted);">Graphics</span>
+            <span style="font-weight:600;">AMD / Intel open drivers (Mesa); NVIDIA 580xx</span>
           </div>
-          <h3 class="req-card__val">Live Online</h3>
-          <p class="req-card__title">Connectivity</p>
-          <p class="req-card__desc">Active internet connection required during <code>./setup.sh</code> to fetch desktop packages and compile AUR helpers.</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  INSTALL / CTA                                  -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="section install" id="install">
-    <div class="container">
-      <div class="install__card" data-animate="fade-up">
-        <div class="install__glow"></div>
-        <div class="install__content">
-          <span class="section__tag">Turnkey Deployment</span>
-          <h2 class="install__title">Transform your Arch base in minutes.</h2>
-          <p class="install__desc">Run the automated bootstrap installer on any fresh Arch Linux install, or inspect every step manually.</p>
-
-          <!-- HERO TERMINAL: ONE-LINE INSTALLER -->
-          <div class="install__terminal" data-animate="fade-up" data-delay="50">
-            <div class="install__terminal-bar">
-              <div class="install__terminal-dots">
-                <span class="term-dot term-dot--red"></span>
-                <span class="term-dot term-dot--yellow"></span>
-                <span class="term-dot term-dot--green"></span>
-              </div>
-              <div class="install__terminal-label">
-                <span class="terminal-star">✦</span>
-                <span>Instant One-Line Bootstrap</span>
-              </div>
-              <button class="install__copy-pill" id="copyOneLinerBtn" type="button" aria-label="Copy bootstrap command">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                <span class="copy-text">Copy</span>
+      <!-- Installation Steps -->
+      <div class="card reveal delay-400">
+        <h3 class="title-card" style="margin-bottom:1.25rem;">Live Session & Installation Process</h3>
+        <ol style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9375rem; line-height:1.8; margin-bottom:2rem;">
+          <li>Flash the generated ISO image to a USB flash drive using <code>dd</code>:
+            <div class="cmd-box" style="margin:0.75rem 0;">
+              <code>sudo dd if=astraos-v1-x86_64.iso of=/dev/sdX bs=4M status=progress conv=fsync</code>
+              <button class="copy-btn" data-copy-text="sudo dd if=astraos-v1-x86_64.iso of=/dev/sdX bs=4M status=progress conv=fsync">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </button>
             </div>
-            <div class="install__terminal-body" id="oneLinerCodeBlock" role="button" tabindex="0" title="Click to copy command">
-              <span class="term-prompt">$</span>
-              <span class="token-cmd">curl</span>
-              <span class="token-flag">-fsSL</span>
-              <span class="token-url">https://raw.githubusercontent.com/AmanicX/astra-os/main/install.sh</span>
-              <span class="token-pipe">|</span>
-              <span class="token-cmd">bash</span>
-            </div>
-            <div class="install__terminal-footer">
-              <span class="terminal-badge">Automated</span>
-              <span>Microcode, GPU drivers, Niri, Noctalia v5 &amp; SilentSDDM in one clean command.</span>
-            </div>
-          </div>
+          </li>
+          <li>Boot the USB stick in <strong>UEFI mode</strong>. The system boots into the SDDM login screen and automatically logs into the live Niri desktop.</li>
+          <li>Live session credentials:
+            <ul style="margin-left:1.5rem; margin-top:0.25rem;">
+              <li><strong>User:</strong> <code>astra</code></li>
+              <li><strong>Password:</strong> <code>astra</code> (for lockscreen and tty fallback)</li>
+              <li><strong>Sudo:</strong> Passwordless in live environment</li>
+            </ul>
+          </li>
+          <li>Launch the Astra Installer from the application menu (<code>Super + Space</code>) to partition and install to disk.</li>
+        </ol>
 
-          <!-- DIVIDER -->
-          <div class="install__divider" data-animate="fade-up" data-delay="100">
-            <span>OR MANUAL 3-STEP BOOTSTRAP</span>
-          </div>
-
-          <!-- MANUAL STEPS -->
-          <div class="install__steps" data-animate="fade-up" data-delay="150">
-            <div class="install__step">
-              <span class="install__step-num">01</span>
-              <div class="install__step-info">
-                <h4>Install Arch Base</h4>
-                <p>Bootstrap a minimal Arch base using <code>archinstall</code>, reboot, and log in with sudo privileges.</p>
-              </div>
-            </div>
-            <div class="install__step">
-              <span class="install__step-num">02</span>
-              <div class="install__step-info">
-                <h4>Clone Repository</h4>
-                <div class="install__step-code-box">
-                  <code>git clone https://github.com/AmanicX/astra-os.git
-cd astra-os</code>
-                </div>
-              </div>
-            </div>
-            <div class="install__step">
-              <span class="install__step-num">03</span>
-              <div class="install__step-info">
-                <h4>Run Setup Script</h4>
-                <div class="install__step-code-box">
-                  <code>./setup.sh</code>
-                </div>
-                <p class="install__step-sub">Executes the 9-stage pipeline.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- AUTOMATION / UNATTENDED BOX -->
-          <div class="install__quick-box" data-animate="fade-up" data-delay="200">
-            <div class="install__quick-box-label">✦ Unattended / Non-Interactive Automation</div>
-            <code>./setup.sh --aur paru --browser firefox --yes</code>
-          </div>
-
-          <div class="install__actions" data-animate="fade-up" data-delay="250">
-            <a href="https://github.com/AmanicX/astra-os#-what-setupsh-does-detailed-breakdown" class="btn btn--primary btn--lg" target="_blank" rel="noopener">
-              <span class="btn__glow"></span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              View Setup Breakdown on GitHub
-            </a>
-            <a href="https://github.com/AmanicX/astra-os" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              Star on GitHub
-            </a>
-          </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <a href="./catalog/" class="btn btn-secondary">Inspect Package Architecture</a>
+          <a href="./releases/" class="btn btn-primary">Build ISO from Source</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  KEYBINDS PREVIEW                               -->
-  <!-- ═══════════════════════════════════════════════ -->
-  <section class="section keybinds" id="keybinds">
-    <div class="container">
-      <div class="section__header" data-animate="fade-up">
-        <span class="section__tag">Quick Reference</span>
-        <h2 class="section__title">Navigate by feel.</h2>
-      </div>
-
-      <div class="keybinds__grid" data-animate="fade-up" data-delay="100">
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>Return</kbd>
-          <span>Open Terminal (Kitty)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>Space</kbd>
-          <span>App Launcher (Noctalia)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>S</kbd>
-          <span>Control Center (Settings)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>B</kbd>
-          <span>Web Browser (Firefox / Helium)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>E</kbd>
-          <span>File Manager (Nautilus)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>/</kbd>
-          <span>Keybind Cheatsheet (Quickshell)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>&larr;</kbd> / <kbd>&rarr;</kbd>
-          <span>Navigate Columns (Niri Ribbon)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>1</kbd> &hellip; <kbd>9</kbd>
-          <span>Switch Workspace</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>
-          <span>Lock Screen (Noctalia)</span>
-        </div>
-        <div class="keybind">
-          <kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>Space</kbd>
-          <span>Wallpaper Picker</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════ -->
-  <!--  FOOTER                                         -->
-  <!-- ═══════════════════════════════════════════════ -->
+    <!-- Unified Ecosystem Footer -->
   <footer class="footer">
-    <div class="footer__meridian"></div>
-    <div class="container footer__inner">
-      <div class="footer__left">
-        <div class="footer__logo">
-          <img src="packages/astra-branding/files/usr/share/icons/hicolor/64x64/apps/astraos-logo.png" alt="Astra Linux" width="28" height="28">
-          <span>ASTRA<span class="footer__os">LINUX</span></span>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex; align-items:center; gap:0.625rem; font-weight:700; font-size:1.125rem; margin-bottom:0.75rem;">
+            <img src="../shared/assets/favicon.svg" alt="AmanicX" width="24" height="24">
+            <span>AmanicX Ecosystem</span>
+          </div>
+          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6; margin-bottom:1.25rem;">
+            Software systems engineered for autonomy, control, and privacy. Built with open standards and verified local performance.
+          </p>
+          <div class="badge badge-dev">CRIMSON SYSTEM</div>
         </div>
-        <p class="footer__copy">A focused, design-driven, cosmic Linux desktop experience.<br>Built by <a href="https://github.com/AmanicX" target="_blank" rel="noopener">AmanicX</a>. MIT License.</p>
+
+        <div>
+          <div class="footer-title">Software Projects</div>
+          <ul class="footer-links">
+            <li><a href="../eva/">Eva Studio</a></li>
+            <li><a href="../astra/">Astra Assistant</a></li>
+            <li><a href="../astra-os/">AstraOS Linux</a></li>
+            <li><a href="../apps/">Application Catalog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Releases & Docs</div>
+          <ul class="footer-links">
+            <li><a href="../eva/releases/">Eva Downloads (v2.2.2)</a></li>
+            <li><a href="../astra/releases/">Astra Downloads (v0.1.0-pre)</a></li>
+            <li><a href="../astra-os/releases/">AstraOS Build & ISO</a></li>
+            <li><a href="../eva/catalog/">Eva Evolution Catalog</a></li>
+            <li><a href="../astra/catalog/">Astra Architecture</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Community & Source</div>
+          <ul class="footer-links">
+            <li><a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer">GitHub Organization</a></li>
+            <li><a href="https://github.com/AmanicX/eva" target="_blank" rel="noopener noreferrer">Eva Repository</a></li>
+            <li><a href="https://github.com/AmanicX/astra" target="_blank" rel="noopener noreferrer">Astra Repository</a></li>
+            <li><a href="https://github.com/AmanicX/astra-os" target="_blank" rel="noopener noreferrer">AstraOS Repository</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer__links">
-        <a href="https://github.com/AmanicX/astra-os" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/AmanicX/astra-os#%EF%B8%8F-what-setupsh-does-detailed-breakdown" target="_blank" rel="noopener">Setup Guide</a>
-        <a href="https://github.com/AmanicX/astra-os/releases" target="_blank" rel="noopener">Releases</a>
-        <a href="https://github.com/AmanicX/astra-os/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 AmanicX. Released under open-source licenses (MIT & Apache-2.0).</div>
+        <div>Hosted natively on GitHub Pages with automated release sync.</div>
       </div>
     </div>
   </footer>
 
-  <script src="site-assets/script.js"></script>
+  <!-- Scripts -->
+  <script src="../shared/scripts/theme.js"></script>
+  <script src="../shared/scripts/motion.js"></script>
+  <script src="../shared/scripts/ecosystem-client.js"></script>
 </body>
 </html>
+
