@@ -1,0 +1,3234 @@
+{
+  "total": 120,
+  "raw_total": 144,
+  "categories": [
+    "Applications",
+    "Window Management",
+    "Window Movement & Sizing",
+    "Navigation & Focus",
+    "Workspaces",
+    "Monitors",
+    "Media & Audio",
+    "Screenshots",
+    "System & Session",
+    "Mouse & Scroll"
+  ],
+  "groups": [
+    {
+      "name": "Applications",
+      "count": 5,
+      "items": [
+        {
+          "id": "bind_7",
+          "line_no": 7,
+          "raw_line": "    Mod+Space repeat=false hotkey-overlay-title=\"App launcher\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"launcher\"; }\n",
+          "key_spec": "Mod+Space",
+          "norm_spec": "Mod+Space",
+          "caps": [
+            "Super",
+            "Space"
+          ],
+          "display": "Super + Space",
+          "props": "repeat=false hotkey-overlay-title=\"App launcher\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"launcher\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "launcher"
+          ],
+          "title": "App launcher",
+          "category": "Applications",
+          "editable": true,
+          "is_group": false,
+          "search": "super + space app launcher applications spawn \"noctalia\" \"msg\" \"panel-toggle\" \"launcher\""
+        },
+        {
+          "id": "bind_8",
+          "line_no": 8,
+          "raw_line": "    Mod+Alt+Space repeat=false hotkey-overlay-title=\"Wallpaper picker\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"wallpaper\"; }\n",
+          "key_spec": "Mod+Alt+Space",
+          "norm_spec": "Mod+Alt+Space",
+          "caps": [
+            "Super",
+            "Alt",
+            "Space"
+          ],
+          "display": "Super + Alt + Space",
+          "props": "repeat=false hotkey-overlay-title=\"Wallpaper picker\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"wallpaper\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "wallpaper"
+          ],
+          "title": "Wallpaper picker",
+          "category": "Applications",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + space wallpaper picker applications spawn \"noctalia\" \"msg\" \"panel-toggle\" \"wallpaper\""
+        },
+        {
+          "id": "bind_32",
+          "line_no": 32,
+          "raw_line": "    Mod+Return repeat=false hotkey-overlay-title=\"Open terminal (Kitty)\" { spawn \"kitty\"; }\n",
+          "key_spec": "Mod+Return",
+          "norm_spec": "Mod+Return",
+          "caps": [
+            "Super",
+            "Enter"
+          ],
+          "display": "Super + Enter",
+          "props": "repeat=false hotkey-overlay-title=\"Open terminal (Kitty)\"",
+          "action": "spawn \"kitty\"",
+          "action_name": "spawn",
+          "args": [
+            "kitty"
+          ],
+          "title": "Open terminal (Kitty)",
+          "category": "Applications",
+          "editable": true,
+          "is_group": false,
+          "search": "super + enter open terminal (kitty) applications spawn \"kitty\""
+        },
+        {
+          "id": "bind_34",
+          "line_no": 34,
+          "raw_line": "    Mod+B repeat=false hotkey-overlay-title=\"Open default browser\" { spawn \"/usr/bin/astra-default-browser\"; }\n",
+          "key_spec": "Mod+B",
+          "norm_spec": "Mod+B",
+          "caps": [
+            "Super",
+            "B"
+          ],
+          "display": "Super + B",
+          "props": "repeat=false hotkey-overlay-title=\"Open default browser\"",
+          "action": "spawn \"/usr/bin/astra-default-browser\"",
+          "action_name": "spawn",
+          "args": [
+            "/usr/bin/astra-default-browser"
+          ],
+          "title": "Open default browser",
+          "category": "Applications",
+          "editable": true,
+          "is_group": false,
+          "search": "super + b open default browser applications spawn \"/usr/bin/astra-default-browser\""
+        },
+        {
+          "id": "bind_35",
+          "line_no": 35,
+          "raw_line": "    Mod+E repeat=false hotkey-overlay-title=\"Open files (Nautilus)\" { spawn \"nautilus\"; }\n",
+          "key_spec": "Mod+E",
+          "norm_spec": "Mod+E",
+          "caps": [
+            "Super",
+            "E"
+          ],
+          "display": "Super + E",
+          "props": "repeat=false hotkey-overlay-title=\"Open files (Nautilus)\"",
+          "action": "spawn \"nautilus\"",
+          "action_name": "spawn",
+          "args": [
+            "nautilus"
+          ],
+          "title": "Open files (Nautilus)",
+          "category": "Applications",
+          "editable": true,
+          "is_group": false,
+          "search": "super + e open files (nautilus) applications spawn \"nautilus\""
+        }
+      ]
+    },
+    {
+      "name": "Window Management",
+      "count": 7,
+      "items": [
+        {
+          "id": "bind_16",
+          "line_no": 16,
+          "raw_line": "    Alt+Tab repeat=false hotkey-overlay-title=\"Window switcher\" { spawn \"noctalia\" \"msg\" \"window-switcher\" \"hold\"; }\n",
+          "key_spec": "Alt+Tab",
+          "norm_spec": "Alt+Tab",
+          "caps": [
+            "Alt",
+            "Tab"
+          ],
+          "display": "Alt + Tab",
+          "props": "repeat=false hotkey-overlay-title=\"Window switcher\"",
+          "action": "spawn \"noctalia\" \"msg\" \"window-switcher\" \"hold\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "window-switcher",
+            "hold"
+          ],
+          "title": "Window switcher",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "alt + tab window switcher window management spawn \"noctalia\" \"msg\" \"window-switcher\" \"hold\""
+        },
+        {
+          "id": "bind_53",
+          "line_no": 53,
+          "raw_line": "    Mod+O repeat=false hotkey-overlay-title=\"Toggle overview\" { toggle-overview; }\n",
+          "key_spec": "Mod+O",
+          "norm_spec": "Mod+O",
+          "caps": [
+            "Super",
+            "O"
+          ],
+          "display": "Super + O",
+          "props": "repeat=false hotkey-overlay-title=\"Toggle overview\"",
+          "action": "toggle-overview",
+          "action_name": "toggle-overview",
+          "args": [],
+          "title": "Toggle overview",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + o toggle overview window management toggle-overview"
+        },
+        {
+          "id": "bind_55",
+          "line_no": 55,
+          "raw_line": "    Mod+Q repeat=false hotkey-overlay-title=\"Close window\" { close-window; }\n",
+          "key_spec": "Mod+Q",
+          "norm_spec": "Mod+Q",
+          "caps": [
+            "Super",
+            "Q"
+          ],
+          "display": "Super + Q",
+          "props": "repeat=false hotkey-overlay-title=\"Close window\"",
+          "action": "close-window",
+          "action_name": "close-window",
+          "args": [],
+          "title": "Close window",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + q close window window management close-window"
+        },
+        {
+          "id": "bind_163",
+          "line_no": 163,
+          "raw_line": "    Mod+Ctrl+F hotkey-overlay-title=\"Expand column to available width\" { expand-column-to-available-width; }\n",
+          "key_spec": "Mod+Ctrl+F",
+          "norm_spec": "Mod+Ctrl+F",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "F"
+          ],
+          "display": "Super + Ctrl + F",
+          "props": "hotkey-overlay-title=\"Expand column to available width\"",
+          "action": "expand-column-to-available-width",
+          "action_name": "expand-column-to-available-width",
+          "args": [],
+          "title": "Expand column to available width",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + f expand column to available width window management expand-column-to-available-width"
+        },
+        {
+          "id": "bind_175",
+          "line_no": 175,
+          "raw_line": "    Mod+Ctrl+V  hotkey-overlay-title=\"Toggle window floating\" { toggle-window-floating; }\n",
+          "key_spec": "Mod+Ctrl+V",
+          "norm_spec": "Mod+Ctrl+V",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "V"
+          ],
+          "display": "Super + Ctrl + V",
+          "props": "hotkey-overlay-title=\"Toggle window floating\"",
+          "action": "toggle-window-floating",
+          "action_name": "toggle-window-floating",
+          "args": [],
+          "title": "Toggle window floating",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + v toggle window floating window management toggle-window-floating"
+        },
+        {
+          "id": "bind_176",
+          "line_no": 176,
+          "raw_line": "    Mod+Shift+V hotkey-overlay-title=\"Switch focus between floating and tiling\" { switch-focus-between-floating-and-tiling; }\n",
+          "key_spec": "Mod+Shift+V",
+          "norm_spec": "Mod+Shift+V",
+          "caps": [
+            "Super",
+            "Shift",
+            "V"
+          ],
+          "display": "Super + Shift + V",
+          "props": "hotkey-overlay-title=\"Switch focus between floating and tiling\"",
+          "action": "switch-focus-between-floating-and-tiling",
+          "action_name": "switch-focus-between-floating-and-tiling",
+          "args": [],
+          "title": "Switch focus between floating and tiling",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + v switch focus between floating and tiling window management switch-focus-between-floating-and-tiling"
+        },
+        {
+          "id": "bind_178",
+          "line_no": 178,
+          "raw_line": "    Mod+W hotkey-overlay-title=\"Toggle tabbed column display\" { toggle-column-tabbed-display; }\n",
+          "key_spec": "Mod+W",
+          "norm_spec": "Mod+W",
+          "caps": [
+            "Super",
+            "W"
+          ],
+          "display": "Super + W",
+          "props": "hotkey-overlay-title=\"Toggle tabbed column display\"",
+          "action": "toggle-column-tabbed-display",
+          "action_name": "toggle-column-tabbed-display",
+          "args": [],
+          "title": "Toggle tabbed column display",
+          "category": "Window Management",
+          "editable": true,
+          "is_group": false,
+          "search": "super + w toggle tabbed column display window management toggle-column-tabbed-display"
+        }
+      ]
+    },
+    {
+      "name": "Window Movement & Sizing",
+      "count": 27,
+      "items": [
+        {
+          "id": "bind_66",
+          "line_no": 66,
+          "raw_line": "    Mod+Ctrl+Left  hotkey-overlay-title=\"Move column left\" { move-column-left; }\n",
+          "key_spec": "Mod+Ctrl+Left",
+          "norm_spec": "Mod+Ctrl+Left",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Left"
+          ],
+          "display": "Super + Ctrl + Left",
+          "props": "hotkey-overlay-title=\"Move column left\"",
+          "action": "move-column-left",
+          "action_name": "move-column-left",
+          "args": [],
+          "title": "Move column left",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + left move column left window movement & sizing move-column-left"
+        },
+        {
+          "id": "bind_67",
+          "line_no": 67,
+          "raw_line": "    Mod+Ctrl+Down  hotkey-overlay-title=\"Move window down\" { move-window-down; }\n",
+          "key_spec": "Mod+Ctrl+Down",
+          "norm_spec": "Mod+Ctrl+Down",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Down"
+          ],
+          "display": "Super + Ctrl + Down",
+          "props": "hotkey-overlay-title=\"Move window down\"",
+          "action": "move-window-down",
+          "action_name": "move-window-down",
+          "args": [],
+          "title": "Move window down",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + down move window down window movement & sizing move-window-down"
+        },
+        {
+          "id": "bind_68",
+          "line_no": 68,
+          "raw_line": "    Mod+Ctrl+Up    hotkey-overlay-title=\"Move window up\" { move-window-up; }\n",
+          "key_spec": "Mod+Ctrl+Up",
+          "norm_spec": "Mod+Ctrl+Up",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Up"
+          ],
+          "display": "Super + Ctrl + Up",
+          "props": "hotkey-overlay-title=\"Move window up\"",
+          "action": "move-window-up",
+          "action_name": "move-window-up",
+          "args": [],
+          "title": "Move window up",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + up move window up window movement & sizing move-window-up"
+        },
+        {
+          "id": "bind_69",
+          "line_no": 69,
+          "raw_line": "    Mod+Ctrl+Right hotkey-overlay-title=\"Move column right\" { move-column-right; }\n",
+          "key_spec": "Mod+Ctrl+Right",
+          "norm_spec": "Mod+Ctrl+Right",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Right"
+          ],
+          "display": "Super + Ctrl + Right",
+          "props": "hotkey-overlay-title=\"Move column right\"",
+          "action": "move-column-right",
+          "action_name": "move-column-right",
+          "args": [],
+          "title": "Move column right",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + right move column right window movement & sizing move-column-right"
+        },
+        {
+          "id": "bind_70",
+          "line_no": 70,
+          "raw_line": "    Mod+Ctrl+H     hotkey-overlay-title=\"Move column left\" { move-column-left; }\n",
+          "key_spec": "Mod+Ctrl+H",
+          "norm_spec": "Mod+Ctrl+H",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "H"
+          ],
+          "display": "Super + Ctrl + H",
+          "props": "hotkey-overlay-title=\"Move column left\"",
+          "action": "move-column-left",
+          "action_name": "move-column-left",
+          "args": [],
+          "title": "Move column left",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + h move column left window movement & sizing move-column-left"
+        },
+        {
+          "id": "bind_71",
+          "line_no": 71,
+          "raw_line": "    Mod+Ctrl+J     hotkey-overlay-title=\"Move window down\" { move-window-down; }\n",
+          "key_spec": "Mod+Ctrl+J",
+          "norm_spec": "Mod+Ctrl+J",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "J"
+          ],
+          "display": "Super + Ctrl + J",
+          "props": "hotkey-overlay-title=\"Move window down\"",
+          "action": "move-window-down",
+          "action_name": "move-window-down",
+          "args": [],
+          "title": "Move window down",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + j move window down window movement & sizing move-window-down"
+        },
+        {
+          "id": "bind_72",
+          "line_no": 72,
+          "raw_line": "    Mod+Ctrl+K     hotkey-overlay-title=\"Move window up\" { move-window-up; }\n",
+          "key_spec": "Mod+Ctrl+K",
+          "norm_spec": "Mod+Ctrl+K",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "K"
+          ],
+          "display": "Super + Ctrl + K",
+          "props": "hotkey-overlay-title=\"Move window up\"",
+          "action": "move-window-up",
+          "action_name": "move-window-up",
+          "args": [],
+          "title": "Move window up",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + k move window up window movement & sizing move-window-up"
+        },
+        {
+          "id": "bind_73",
+          "line_no": 73,
+          "raw_line": "    Mod+Ctrl+L     hotkey-overlay-title=\"Move column right\" { move-column-right; }\n",
+          "key_spec": "Mod+Ctrl+L",
+          "norm_spec": "Mod+Ctrl+L",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "L"
+          ],
+          "display": "Super + Ctrl + L",
+          "props": "hotkey-overlay-title=\"Move column right\"",
+          "action": "move-column-right",
+          "action_name": "move-column-right",
+          "args": [],
+          "title": "Move column right",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + l move column right window movement & sizing move-column-right"
+        },
+        {
+          "id": "bind_77",
+          "line_no": 77,
+          "raw_line": "    Mod+Ctrl+Home hotkey-overlay-title=\"Move column to first\" { move-column-to-first; }\n",
+          "key_spec": "Mod+Ctrl+Home",
+          "norm_spec": "Mod+Ctrl+Home",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Home"
+          ],
+          "display": "Super + Ctrl + Home",
+          "props": "hotkey-overlay-title=\"Move column to first\"",
+          "action": "move-column-to-first",
+          "action_name": "move-column-to-first",
+          "args": [],
+          "title": "Move column to first",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + home move column to first window movement & sizing move-column-to-first"
+        },
+        {
+          "id": "bind_78",
+          "line_no": 78,
+          "raw_line": "    Mod+Ctrl+End  hotkey-overlay-title=\"Move column to last\" { move-column-to-last; }\n",
+          "key_spec": "Mod+Ctrl+End",
+          "norm_spec": "Mod+Ctrl+End",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "End"
+          ],
+          "display": "Super + Ctrl + End",
+          "props": "hotkey-overlay-title=\"Move column to last\"",
+          "action": "move-column-to-last",
+          "action_name": "move-column-to-last",
+          "args": [],
+          "title": "Move column to last",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + end move column to last window movement & sizing move-column-to-last"
+        },
+        {
+          "id": "bind_146",
+          "line_no": 146,
+          "raw_line": "    Mod+BracketLeft  hotkey-overlay-title=\"Consume or expel window left\" { consume-or-expel-window-left; }\n",
+          "key_spec": "Mod+BracketLeft",
+          "norm_spec": "Mod+BracketLeft",
+          "caps": [
+            "Super",
+            "["
+          ],
+          "display": "Super + [",
+          "props": "hotkey-overlay-title=\"Consume or expel window left\"",
+          "action": "consume-or-expel-window-left",
+          "action_name": "consume-or-expel-window-left",
+          "args": [],
+          "title": "Consume or expel window left",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + [ consume or expel window left window movement & sizing consume-or-expel-window-left"
+        },
+        {
+          "id": "bind_147",
+          "line_no": 147,
+          "raw_line": "    Mod+BracketRight hotkey-overlay-title=\"Consume or expel window right\" { consume-or-expel-window-right; }\n",
+          "key_spec": "Mod+BracketRight",
+          "norm_spec": "Mod+BracketRight",
+          "caps": [
+            "Super",
+            "]"
+          ],
+          "display": "Super + ]",
+          "props": "hotkey-overlay-title=\"Consume or expel window right\"",
+          "action": "consume-or-expel-window-right",
+          "action_name": "consume-or-expel-window-right",
+          "args": [],
+          "title": "Consume or expel window right",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ] consume or expel window right window movement & sizing consume-or-expel-window-right"
+        },
+        {
+          "id": "bind_149",
+          "line_no": 149,
+          "raw_line": "    Mod+Comma  hotkey-overlay-title=\"Consume window into column\" { consume-window-into-column; }\n",
+          "key_spec": "Mod+Comma",
+          "norm_spec": "Mod+Comma",
+          "caps": [
+            "Super",
+            ","
+          ],
+          "display": "Super + ,",
+          "props": "hotkey-overlay-title=\"Consume window into column\"",
+          "action": "consume-window-into-column",
+          "action_name": "consume-window-into-column",
+          "args": [],
+          "title": "Consume window into column",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + , consume window into column window movement & sizing consume-window-into-column"
+        },
+        {
+          "id": "bind_150",
+          "line_no": 150,
+          "raw_line": "    Mod+Period hotkey-overlay-title=\"Expel window from column\" { expel-window-from-column; }\n",
+          "key_spec": "Mod+Period",
+          "norm_spec": "Mod+Period",
+          "caps": [
+            "Super",
+            "."
+          ],
+          "display": "Super + .",
+          "props": "hotkey-overlay-title=\"Expel window from column\"",
+          "action": "expel-window-from-column",
+          "action_name": "expel-window-from-column",
+          "args": [],
+          "title": "Expel window from column",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + . expel window from column window movement & sizing expel-window-from-column"
+        },
+        {
+          "id": "bind_152",
+          "line_no": 152,
+          "raw_line": "    Mod+R hotkey-overlay-title=\"Cycle column width forward\" { switch-preset-column-width; }\n",
+          "key_spec": "Mod+R",
+          "norm_spec": "Mod+R",
+          "caps": [
+            "Super",
+            "R"
+          ],
+          "display": "Super + R",
+          "props": "hotkey-overlay-title=\"Cycle column width forward\"",
+          "action": "switch-preset-column-width",
+          "action_name": "switch-preset-column-width",
+          "args": [],
+          "title": "Cycle column width forward",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + r cycle column width forward window movement & sizing switch-preset-column-width"
+        },
+        {
+          "id": "bind_153",
+          "line_no": 153,
+          "raw_line": "    Mod+Shift+R hotkey-overlay-title=\"Cycle column width backward\" { switch-preset-column-width-back; }\n",
+          "key_spec": "Mod+Shift+R",
+          "norm_spec": "Mod+Shift+R",
+          "caps": [
+            "Super",
+            "Shift",
+            "R"
+          ],
+          "display": "Super + Shift + R",
+          "props": "hotkey-overlay-title=\"Cycle column width backward\"",
+          "action": "switch-preset-column-width-back",
+          "action_name": "switch-preset-column-width-back",
+          "args": [],
+          "title": "Cycle column width backward",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + r cycle column width backward window movement & sizing switch-preset-column-width-back"
+        },
+        {
+          "id": "bind_155",
+          "line_no": 155,
+          "raw_line": "    Mod+Ctrl+Shift+R hotkey-overlay-title=\"Cycle window height\" { switch-preset-window-height; }\n",
+          "key_spec": "Mod+Ctrl+Shift+R",
+          "norm_spec": "Mod+Ctrl+Shift+R",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "R"
+          ],
+          "display": "Super + Ctrl + Shift + R",
+          "props": "hotkey-overlay-title=\"Cycle window height\"",
+          "action": "switch-preset-window-height",
+          "action_name": "switch-preset-window-height",
+          "args": [],
+          "title": "Cycle window height",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + r cycle window height window movement & sizing switch-preset-window-height"
+        },
+        {
+          "id": "bind_156",
+          "line_no": 156,
+          "raw_line": "    Mod+Ctrl+R hotkey-overlay-title=\"Reset window height\" { reset-window-height; }\n",
+          "key_spec": "Mod+Ctrl+R",
+          "norm_spec": "Mod+Ctrl+R",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "R"
+          ],
+          "display": "Super + Ctrl + R",
+          "props": "hotkey-overlay-title=\"Reset window height\"",
+          "action": "reset-window-height",
+          "action_name": "reset-window-height",
+          "args": [],
+          "title": "Reset window height",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + r reset window height window movement & sizing reset-window-height"
+        },
+        {
+          "id": "bind_158",
+          "line_no": 158,
+          "raw_line": "    Mod+F hotkey-overlay-title=\"Maximize column\" { maximize-column; }\n",
+          "key_spec": "Mod+F",
+          "norm_spec": "Mod+F",
+          "caps": [
+            "Super",
+            "F"
+          ],
+          "display": "Super + F",
+          "props": "hotkey-overlay-title=\"Maximize column\"",
+          "action": "maximize-column",
+          "action_name": "maximize-column",
+          "args": [],
+          "title": "Maximize column",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + f maximize column window movement & sizing maximize-column"
+        },
+        {
+          "id": "bind_159",
+          "line_no": 159,
+          "raw_line": "    Mod+Shift+F hotkey-overlay-title=\"Fullscreen window\" { fullscreen-window; }\n",
+          "key_spec": "Mod+Shift+F",
+          "norm_spec": "Mod+Shift+F",
+          "caps": [
+            "Super",
+            "Shift",
+            "F"
+          ],
+          "display": "Super + Shift + F",
+          "props": "hotkey-overlay-title=\"Fullscreen window\"",
+          "action": "fullscreen-window",
+          "action_name": "fullscreen-window",
+          "args": [],
+          "title": "Fullscreen window",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + f fullscreen window window movement & sizing fullscreen-window"
+        },
+        {
+          "id": "bind_161",
+          "line_no": 161,
+          "raw_line": "    Mod+M hotkey-overlay-title=\"Maximize window to edges\" { maximize-window-to-edges; }\n",
+          "key_spec": "Mod+M",
+          "norm_spec": "Mod+M",
+          "caps": [
+            "Super",
+            "M"
+          ],
+          "display": "Super + M",
+          "props": "hotkey-overlay-title=\"Maximize window to edges\"",
+          "action": "maximize-window-to-edges",
+          "action_name": "maximize-window-to-edges",
+          "args": [],
+          "title": "Maximize window to edges",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + m maximize window to edges window movement & sizing maximize-window-to-edges"
+        },
+        {
+          "id": "bind_165",
+          "line_no": 165,
+          "raw_line": "    Mod+C hotkey-overlay-title=\"Center column\" { center-column; }\n",
+          "key_spec": "Mod+C",
+          "norm_spec": "Mod+C",
+          "caps": [
+            "Super",
+            "C"
+          ],
+          "display": "Super + C",
+          "props": "hotkey-overlay-title=\"Center column\"",
+          "action": "center-column",
+          "action_name": "center-column",
+          "args": [],
+          "title": "Center column",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + c center column window movement & sizing center-column"
+        },
+        {
+          "id": "bind_167",
+          "line_no": 167,
+          "raw_line": "    Mod+Ctrl+C hotkey-overlay-title=\"Center visible columns\" { center-visible-columns; }\n",
+          "key_spec": "Mod+Ctrl+C",
+          "norm_spec": "Mod+Ctrl+C",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "C"
+          ],
+          "display": "Super + Ctrl + C",
+          "props": "hotkey-overlay-title=\"Center visible columns\"",
+          "action": "center-visible-columns",
+          "action_name": "center-visible-columns",
+          "args": [],
+          "title": "Center visible columns",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + c center visible columns window movement & sizing center-visible-columns"
+        },
+        {
+          "id": "bind_169",
+          "line_no": 169,
+          "raw_line": "    Mod+Minus hotkey-overlay-title=\"Shrink column width by 10%\" { set-column-width \"-10%\"; }\n",
+          "key_spec": "Mod+Minus",
+          "norm_spec": "Mod+Minus",
+          "caps": [
+            "Super",
+            "-"
+          ],
+          "display": "Super + -",
+          "props": "hotkey-overlay-title=\"Shrink column width by 10%\"",
+          "action": "set-column-width \"-10%\"",
+          "action_name": "set-column-width",
+          "args": [
+            "-10%"
+          ],
+          "title": "Shrink column width by 10%",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + - shrink column width by 10% window movement & sizing set-column-width \"-10%\""
+        },
+        {
+          "id": "bind_170",
+          "line_no": 170,
+          "raw_line": "    Mod+Equal hotkey-overlay-title=\"Grow column width by 10%\" { set-column-width \"+10%\"; }\n",
+          "key_spec": "Mod+Equal",
+          "norm_spec": "Mod+Equal",
+          "caps": [
+            "Super",
+            "="
+          ],
+          "display": "Super + =",
+          "props": "hotkey-overlay-title=\"Grow column width by 10%\"",
+          "action": "set-column-width \"+10%\"",
+          "action_name": "set-column-width",
+          "args": [
+            "+10%"
+          ],
+          "title": "Grow column width by 10%",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + = grow column width by 10% window movement & sizing set-column-width \"+10%\""
+        },
+        {
+          "id": "bind_172",
+          "line_no": 172,
+          "raw_line": "    Mod+Shift+Minus hotkey-overlay-title=\"Shrink window height by 10%\" { set-window-height \"-10%\"; }\n",
+          "key_spec": "Mod+Shift+Minus",
+          "norm_spec": "Mod+Shift+Minus",
+          "caps": [
+            "Super",
+            "Shift",
+            "-"
+          ],
+          "display": "Super + Shift + -",
+          "props": "hotkey-overlay-title=\"Shrink window height by 10%\"",
+          "action": "set-window-height \"-10%\"",
+          "action_name": "set-window-height",
+          "args": [
+            "-10%"
+          ],
+          "title": "Shrink window height by 10%",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + - shrink window height by 10% window movement & sizing set-window-height \"-10%\""
+        },
+        {
+          "id": "bind_173",
+          "line_no": 173,
+          "raw_line": "    Mod+Shift+Equal hotkey-overlay-title=\"Grow window height by 10%\" { set-window-height \"+10%\"; }\n",
+          "key_spec": "Mod+Shift+Equal",
+          "norm_spec": "Mod+Shift+Equal",
+          "caps": [
+            "Super",
+            "Shift",
+            "="
+          ],
+          "display": "Super + Shift + =",
+          "props": "hotkey-overlay-title=\"Grow window height by 10%\"",
+          "action": "set-window-height \"+10%\"",
+          "action_name": "set-window-height",
+          "args": [
+            "+10%"
+          ],
+          "title": "Grow window height by 10%",
+          "category": "Window Movement & Sizing",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + = grow window height by 10% window movement & sizing set-window-height \"+10%\""
+        }
+      ]
+    },
+    {
+      "name": "Navigation & Focus",
+      "count": 10,
+      "items": [
+        {
+          "id": "bind_57",
+          "line_no": 57,
+          "raw_line": "    Mod+Left  hotkey-overlay-title=\"Focus column left\" { focus-column-left; }\n",
+          "key_spec": "Mod+Left",
+          "norm_spec": "Mod+Left",
+          "caps": [
+            "Super",
+            "Left"
+          ],
+          "display": "Super + Left",
+          "props": "hotkey-overlay-title=\"Focus column left\"",
+          "action": "focus-column-left",
+          "action_name": "focus-column-left",
+          "args": [],
+          "title": "Focus column left",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + left focus column left navigation & focus focus-column-left"
+        },
+        {
+          "id": "bind_58",
+          "line_no": 58,
+          "raw_line": "    Mod+Down  hotkey-overlay-title=\"Focus window down\" { focus-window-down; }\n",
+          "key_spec": "Mod+Down",
+          "norm_spec": "Mod+Down",
+          "caps": [
+            "Super",
+            "Down"
+          ],
+          "display": "Super + Down",
+          "props": "hotkey-overlay-title=\"Focus window down\"",
+          "action": "focus-window-down",
+          "action_name": "focus-window-down",
+          "args": [],
+          "title": "Focus window down",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + down focus window down navigation & focus focus-window-down"
+        },
+        {
+          "id": "bind_59",
+          "line_no": 59,
+          "raw_line": "    Mod+Up    hotkey-overlay-title=\"Focus window up\" { focus-window-up; }\n",
+          "key_spec": "Mod+Up",
+          "norm_spec": "Mod+Up",
+          "caps": [
+            "Super",
+            "Up"
+          ],
+          "display": "Super + Up",
+          "props": "hotkey-overlay-title=\"Focus window up\"",
+          "action": "focus-window-up",
+          "action_name": "focus-window-up",
+          "args": [],
+          "title": "Focus window up",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + up focus window up navigation & focus focus-window-up"
+        },
+        {
+          "id": "bind_60",
+          "line_no": 60,
+          "raw_line": "    Mod+Right hotkey-overlay-title=\"Focus column right\" { focus-column-right; }\n",
+          "key_spec": "Mod+Right",
+          "norm_spec": "Mod+Right",
+          "caps": [
+            "Super",
+            "Right"
+          ],
+          "display": "Super + Right",
+          "props": "hotkey-overlay-title=\"Focus column right\"",
+          "action": "focus-column-right",
+          "action_name": "focus-column-right",
+          "args": [],
+          "title": "Focus column right",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + right focus column right navigation & focus focus-column-right"
+        },
+        {
+          "id": "bind_61",
+          "line_no": 61,
+          "raw_line": "    Mod+H     hotkey-overlay-title=\"Focus column left\" { focus-column-left; }\n",
+          "key_spec": "Mod+H",
+          "norm_spec": "Mod+H",
+          "caps": [
+            "Super",
+            "H"
+          ],
+          "display": "Super + H",
+          "props": "hotkey-overlay-title=\"Focus column left\"",
+          "action": "focus-column-left",
+          "action_name": "focus-column-left",
+          "args": [],
+          "title": "Focus column left",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + h focus column left navigation & focus focus-column-left"
+        },
+        {
+          "id": "bind_62",
+          "line_no": 62,
+          "raw_line": "    Mod+J     hotkey-overlay-title=\"Focus window down\" { focus-window-down; }\n",
+          "key_spec": "Mod+J",
+          "norm_spec": "Mod+J",
+          "caps": [
+            "Super",
+            "J"
+          ],
+          "display": "Super + J",
+          "props": "hotkey-overlay-title=\"Focus window down\"",
+          "action": "focus-window-down",
+          "action_name": "focus-window-down",
+          "args": [],
+          "title": "Focus window down",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + j focus window down navigation & focus focus-window-down"
+        },
+        {
+          "id": "bind_63",
+          "line_no": 63,
+          "raw_line": "    Mod+K     hotkey-overlay-title=\"Focus window up\" { focus-window-up; }\n",
+          "key_spec": "Mod+K",
+          "norm_spec": "Mod+K",
+          "caps": [
+            "Super",
+            "K"
+          ],
+          "display": "Super + K",
+          "props": "hotkey-overlay-title=\"Focus window up\"",
+          "action": "focus-window-up",
+          "action_name": "focus-window-up",
+          "args": [],
+          "title": "Focus window up",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + k focus window up navigation & focus focus-window-up"
+        },
+        {
+          "id": "bind_64",
+          "line_no": 64,
+          "raw_line": "    Mod+L     hotkey-overlay-title=\"Focus column right\" { focus-column-right; }\n",
+          "key_spec": "Mod+L",
+          "norm_spec": "Mod+L",
+          "caps": [
+            "Super",
+            "L"
+          ],
+          "display": "Super + L",
+          "props": "hotkey-overlay-title=\"Focus column right\"",
+          "action": "focus-column-right",
+          "action_name": "focus-column-right",
+          "args": [],
+          "title": "Focus column right",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + l focus column right navigation & focus focus-column-right"
+        },
+        {
+          "id": "bind_75",
+          "line_no": 75,
+          "raw_line": "    Mod+Home hotkey-overlay-title=\"Focus first column\" { focus-column-first; }\n",
+          "key_spec": "Mod+Home",
+          "norm_spec": "Mod+Home",
+          "caps": [
+            "Super",
+            "Home"
+          ],
+          "display": "Super + Home",
+          "props": "hotkey-overlay-title=\"Focus first column\"",
+          "action": "focus-column-first",
+          "action_name": "focus-column-first",
+          "args": [],
+          "title": "Focus first column",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + home focus first column navigation & focus focus-column-first"
+        },
+        {
+          "id": "bind_76",
+          "line_no": 76,
+          "raw_line": "    Mod+End  hotkey-overlay-title=\"Focus last column\" { focus-column-last; }\n",
+          "key_spec": "Mod+End",
+          "norm_spec": "Mod+End",
+          "caps": [
+            "Super",
+            "End"
+          ],
+          "display": "Super + End",
+          "props": "hotkey-overlay-title=\"Focus last column\"",
+          "action": "focus-column-last",
+          "action_name": "focus-column-last",
+          "args": [],
+          "title": "Focus last column",
+          "category": "Navigation & Focus",
+          "editable": true,
+          "is_group": false,
+          "search": "super + end focus last column navigation & focus focus-column-last"
+        }
+      ]
+    },
+    {
+      "name": "Workspaces",
+      "count": 16,
+      "items": [
+        {
+          "id": "bind_17",
+          "line_no": 17,
+          "raw_line": "    Mod+Tab repeat=false hotkey-overlay-title=\"Switch to previous workspace\" { focus-workspace-previous; }\n",
+          "key_spec": "Mod+Tab",
+          "norm_spec": "Mod+Tab",
+          "caps": [
+            "Super",
+            "Tab"
+          ],
+          "display": "Super + Tab",
+          "props": "repeat=false hotkey-overlay-title=\"Switch to previous workspace\"",
+          "action": "focus-workspace-previous",
+          "action_name": "focus-workspace-previous",
+          "args": [],
+          "title": "Switch to previous workspace",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + tab switch to previous workspace workspaces focus-workspace-previous"
+        },
+        {
+          "id": "group_20",
+          "is_group": true,
+          "group_type": "move-window-to-workspace",
+          "mods": "Mod+Shift",
+          "num_range": "1–9",
+          "caps": [
+            "Super",
+            "Shift",
+            "1–9"
+          ],
+          "display": "Super + Shift + 1–9",
+          "title": "Move window to workspace 1–9",
+          "category": "Workspaces",
+          "action": "move-window-to-workspace [1–9]",
+          "sub_items": [
+            {
+              "id": "bind_20",
+              "line_no": 20,
+              "key_spec": "Mod+Shift+1",
+              "norm_spec": "Mod+Shift+1",
+              "caps": [
+                "Super",
+                "Shift",
+                "1"
+              ],
+              "display": "Super + Shift + 1",
+              "action": "move-window-to-workspace 1",
+              "title": "Move window to workspace 1",
+              "num": 1,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_21",
+              "line_no": 21,
+              "key_spec": "Mod+Shift+2",
+              "norm_spec": "Mod+Shift+2",
+              "caps": [
+                "Super",
+                "Shift",
+                "2"
+              ],
+              "display": "Super + Shift + 2",
+              "action": "move-window-to-workspace 2",
+              "title": "Move window to workspace 2",
+              "num": 2,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_22",
+              "line_no": 22,
+              "key_spec": "Mod+Shift+3",
+              "norm_spec": "Mod+Shift+3",
+              "caps": [
+                "Super",
+                "Shift",
+                "3"
+              ],
+              "display": "Super + Shift + 3",
+              "action": "move-window-to-workspace 3",
+              "title": "Move window to workspace 3",
+              "num": 3,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_23",
+              "line_no": 23,
+              "key_spec": "Mod+Shift+4",
+              "norm_spec": "Mod+Shift+4",
+              "caps": [
+                "Super",
+                "Shift",
+                "4"
+              ],
+              "display": "Super + Shift + 4",
+              "action": "move-window-to-workspace 4",
+              "title": "Move window to workspace 4",
+              "num": 4,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_24",
+              "line_no": 24,
+              "key_spec": "Mod+Shift+5",
+              "norm_spec": "Mod+Shift+5",
+              "caps": [
+                "Super",
+                "Shift",
+                "5"
+              ],
+              "display": "Super + Shift + 5",
+              "action": "move-window-to-workspace 5",
+              "title": "Move window to workspace 5",
+              "num": 5,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_25",
+              "line_no": 25,
+              "key_spec": "Mod+Shift+6",
+              "norm_spec": "Mod+Shift+6",
+              "caps": [
+                "Super",
+                "Shift",
+                "6"
+              ],
+              "display": "Super + Shift + 6",
+              "action": "move-window-to-workspace 6",
+              "title": "Move window to workspace 6",
+              "num": 6,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_26",
+              "line_no": 26,
+              "key_spec": "Mod+Shift+7",
+              "norm_spec": "Mod+Shift+7",
+              "caps": [
+                "Super",
+                "Shift",
+                "7"
+              ],
+              "display": "Super + Shift + 7",
+              "action": "move-window-to-workspace 7",
+              "title": "Move window to workspace 7",
+              "num": 7,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_27",
+              "line_no": 27,
+              "key_spec": "Mod+Shift+8",
+              "norm_spec": "Mod+Shift+8",
+              "caps": [
+                "Super",
+                "Shift",
+                "8"
+              ],
+              "display": "Super + Shift + 8",
+              "action": "move-window-to-workspace 8",
+              "title": "Move window to workspace 8",
+              "num": 8,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_28",
+              "line_no": 28,
+              "key_spec": "Mod+Shift+9",
+              "norm_spec": "Mod+Shift+9",
+              "caps": [
+                "Super",
+                "Shift",
+                "9"
+              ],
+              "display": "Super + Shift + 9",
+              "action": "move-window-to-workspace 9",
+              "title": "Move window to workspace 9",
+              "num": 9,
+              "category": "Workspaces",
+              "editable": true
+            }
+          ],
+          "editable": true,
+          "search": "super + shift + 1–9 move window to workspace 1–9 workspaces move-window-to-workspace [1–9] super + shift + 1 move window to workspace 1 super + shift + 2 move window to workspace 2 super + shift + 3 move window to workspace 3 super + shift + 4 move window to workspace 4 super + shift + 5 move window to workspace 5 super + shift + 6 move window to workspace 6 super + shift + 7 move window to workspace 7 super + shift + 8 move window to workspace 8 super + shift + 9 move window to workspace 9"
+        },
+        {
+          "id": "bind_98",
+          "line_no": 98,
+          "raw_line": "    Mod+Page_Down      hotkey-overlay-title=\"Focus workspace down\" { focus-workspace-down; }\n",
+          "key_spec": "Mod+Page_Down",
+          "norm_spec": "Mod+Page_Down",
+          "caps": [
+            "Super",
+            "PageDown"
+          ],
+          "display": "Super + PageDown",
+          "props": "hotkey-overlay-title=\"Focus workspace down\"",
+          "action": "focus-workspace-down",
+          "action_name": "focus-workspace-down",
+          "args": [],
+          "title": "Focus workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + pagedown focus workspace down workspaces focus-workspace-down"
+        },
+        {
+          "id": "bind_99",
+          "line_no": 99,
+          "raw_line": "    Mod+Page_Up        hotkey-overlay-title=\"Focus workspace up\" { focus-workspace-up; }\n",
+          "key_spec": "Mod+Page_Up",
+          "norm_spec": "Mod+Page_Up",
+          "caps": [
+            "Super",
+            "PageUp"
+          ],
+          "display": "Super + PageUp",
+          "props": "hotkey-overlay-title=\"Focus workspace up\"",
+          "action": "focus-workspace-up",
+          "action_name": "focus-workspace-up",
+          "args": [],
+          "title": "Focus workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + pageup focus workspace up workspaces focus-workspace-up"
+        },
+        {
+          "id": "bind_100",
+          "line_no": 100,
+          "raw_line": "    Mod+U              hotkey-overlay-title=\"Focus workspace down\" { focus-workspace-down; }\n",
+          "key_spec": "Mod+U",
+          "norm_spec": "Mod+U",
+          "caps": [
+            "Super",
+            "U"
+          ],
+          "display": "Super + U",
+          "props": "hotkey-overlay-title=\"Focus workspace down\"",
+          "action": "focus-workspace-down",
+          "action_name": "focus-workspace-down",
+          "args": [],
+          "title": "Focus workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + u focus workspace down workspaces focus-workspace-down"
+        },
+        {
+          "id": "bind_101",
+          "line_no": 101,
+          "raw_line": "    Mod+I              hotkey-overlay-title=\"Focus workspace up\" { focus-workspace-up; }\n",
+          "key_spec": "Mod+I",
+          "norm_spec": "Mod+I",
+          "caps": [
+            "Super",
+            "I"
+          ],
+          "display": "Super + I",
+          "props": "hotkey-overlay-title=\"Focus workspace up\"",
+          "action": "focus-workspace-up",
+          "action_name": "focus-workspace-up",
+          "args": [],
+          "title": "Focus workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + i focus workspace up workspaces focus-workspace-up"
+        },
+        {
+          "id": "bind_102",
+          "line_no": 102,
+          "raw_line": "    Mod+Ctrl+Page_Down hotkey-overlay-title=\"Move column to workspace down\" { move-column-to-workspace-down; }\n",
+          "key_spec": "Mod+Ctrl+Page_Down",
+          "norm_spec": "Mod+Ctrl+Page_Down",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "PageDown"
+          ],
+          "display": "Super + Ctrl + PageDown",
+          "props": "hotkey-overlay-title=\"Move column to workspace down\"",
+          "action": "move-column-to-workspace-down",
+          "action_name": "move-column-to-workspace-down",
+          "args": [],
+          "title": "Move column to workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + pagedown move column to workspace down workspaces move-column-to-workspace-down"
+        },
+        {
+          "id": "bind_103",
+          "line_no": 103,
+          "raw_line": "    Mod+Ctrl+Page_Up   hotkey-overlay-title=\"Move column to workspace up\" { move-column-to-workspace-up; }\n",
+          "key_spec": "Mod+Ctrl+Page_Up",
+          "norm_spec": "Mod+Ctrl+Page_Up",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "PageUp"
+          ],
+          "display": "Super + Ctrl + PageUp",
+          "props": "hotkey-overlay-title=\"Move column to workspace up\"",
+          "action": "move-column-to-workspace-up",
+          "action_name": "move-column-to-workspace-up",
+          "args": [],
+          "title": "Move column to workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + pageup move column to workspace up workspaces move-column-to-workspace-up"
+        },
+        {
+          "id": "bind_104",
+          "line_no": 104,
+          "raw_line": "    Mod+Ctrl+U         hotkey-overlay-title=\"Move column to workspace down\" { move-column-to-workspace-down; }\n",
+          "key_spec": "Mod+Ctrl+U",
+          "norm_spec": "Mod+Ctrl+U",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "U"
+          ],
+          "display": "Super + Ctrl + U",
+          "props": "hotkey-overlay-title=\"Move column to workspace down\"",
+          "action": "move-column-to-workspace-down",
+          "action_name": "move-column-to-workspace-down",
+          "args": [],
+          "title": "Move column to workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + u move column to workspace down workspaces move-column-to-workspace-down"
+        },
+        {
+          "id": "bind_105",
+          "line_no": 105,
+          "raw_line": "    Mod+Ctrl+I         hotkey-overlay-title=\"Move column to workspace up\" { move-column-to-workspace-up; }\n",
+          "key_spec": "Mod+Ctrl+I",
+          "norm_spec": "Mod+Ctrl+I",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "I"
+          ],
+          "display": "Super + Ctrl + I",
+          "props": "hotkey-overlay-title=\"Move column to workspace up\"",
+          "action": "move-column-to-workspace-up",
+          "action_name": "move-column-to-workspace-up",
+          "args": [],
+          "title": "Move column to workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + i move column to workspace up workspaces move-column-to-workspace-up"
+        },
+        {
+          "id": "bind_107",
+          "line_no": 107,
+          "raw_line": "    Mod+Shift+Page_Down hotkey-overlay-title=\"Move workspace down\" { move-workspace-down; }\n",
+          "key_spec": "Mod+Shift+Page_Down",
+          "norm_spec": "Mod+Shift+Page_Down",
+          "caps": [
+            "Super",
+            "Shift",
+            "PageDown"
+          ],
+          "display": "Super + Shift + PageDown",
+          "props": "hotkey-overlay-title=\"Move workspace down\"",
+          "action": "move-workspace-down",
+          "action_name": "move-workspace-down",
+          "args": [],
+          "title": "Move workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + pagedown move workspace down workspaces move-workspace-down"
+        },
+        {
+          "id": "bind_108",
+          "line_no": 108,
+          "raw_line": "    Mod+Shift+Page_Up   hotkey-overlay-title=\"Move workspace up\" { move-workspace-up; }\n",
+          "key_spec": "Mod+Shift+Page_Up",
+          "norm_spec": "Mod+Shift+Page_Up",
+          "caps": [
+            "Super",
+            "Shift",
+            "PageUp"
+          ],
+          "display": "Super + Shift + PageUp",
+          "props": "hotkey-overlay-title=\"Move workspace up\"",
+          "action": "move-workspace-up",
+          "action_name": "move-workspace-up",
+          "args": [],
+          "title": "Move workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + pageup move workspace up workspaces move-workspace-up"
+        },
+        {
+          "id": "bind_109",
+          "line_no": 109,
+          "raw_line": "    Mod+Shift+U         hotkey-overlay-title=\"Move workspace down\" { move-workspace-down; }\n",
+          "key_spec": "Mod+Shift+U",
+          "norm_spec": "Mod+Shift+U",
+          "caps": [
+            "Super",
+            "Shift",
+            "U"
+          ],
+          "display": "Super + Shift + U",
+          "props": "hotkey-overlay-title=\"Move workspace down\"",
+          "action": "move-workspace-down",
+          "action_name": "move-workspace-down",
+          "args": [],
+          "title": "Move workspace down",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + u move workspace down workspaces move-workspace-down"
+        },
+        {
+          "id": "bind_110",
+          "line_no": 110,
+          "raw_line": "    Mod+Shift+I         hotkey-overlay-title=\"Move workspace up\" { move-workspace-up; }\n",
+          "key_spec": "Mod+Shift+I",
+          "norm_spec": "Mod+Shift+I",
+          "caps": [
+            "Super",
+            "Shift",
+            "I"
+          ],
+          "display": "Super + Shift + I",
+          "props": "hotkey-overlay-title=\"Move workspace up\"",
+          "action": "move-workspace-up",
+          "action_name": "move-workspace-up",
+          "args": [],
+          "title": "Move workspace up",
+          "category": "Workspaces",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + i move workspace up workspaces move-workspace-up"
+        },
+        {
+          "id": "group_127",
+          "is_group": true,
+          "group_type": "focus-workspace",
+          "mods": "Mod",
+          "num_range": "1–9",
+          "caps": [
+            "Super",
+            "1–9"
+          ],
+          "display": "Super + 1–9",
+          "title": "Switch to workspace 1–9",
+          "category": "Workspaces",
+          "action": "focus-workspace [1–9]",
+          "sub_items": [
+            {
+              "id": "bind_127",
+              "line_no": 127,
+              "key_spec": "Mod+1",
+              "norm_spec": "Mod+1",
+              "caps": [
+                "Super",
+                "1"
+              ],
+              "display": "Super + 1",
+              "action": "focus-workspace 1",
+              "title": "Focus workspace 1",
+              "num": 1,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_128",
+              "line_no": 128,
+              "key_spec": "Mod+2",
+              "norm_spec": "Mod+2",
+              "caps": [
+                "Super",
+                "2"
+              ],
+              "display": "Super + 2",
+              "action": "focus-workspace 2",
+              "title": "Focus workspace 2",
+              "num": 2,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_129",
+              "line_no": 129,
+              "key_spec": "Mod+3",
+              "norm_spec": "Mod+3",
+              "caps": [
+                "Super",
+                "3"
+              ],
+              "display": "Super + 3",
+              "action": "focus-workspace 3",
+              "title": "Focus workspace 3",
+              "num": 3,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_130",
+              "line_no": 130,
+              "key_spec": "Mod+4",
+              "norm_spec": "Mod+4",
+              "caps": [
+                "Super",
+                "4"
+              ],
+              "display": "Super + 4",
+              "action": "focus-workspace 4",
+              "title": "Focus workspace 4",
+              "num": 4,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_131",
+              "line_no": 131,
+              "key_spec": "Mod+5",
+              "norm_spec": "Mod+5",
+              "caps": [
+                "Super",
+                "5"
+              ],
+              "display": "Super + 5",
+              "action": "focus-workspace 5",
+              "title": "Focus workspace 5",
+              "num": 5,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_132",
+              "line_no": 132,
+              "key_spec": "Mod+6",
+              "norm_spec": "Mod+6",
+              "caps": [
+                "Super",
+                "6"
+              ],
+              "display": "Super + 6",
+              "action": "focus-workspace 6",
+              "title": "Focus workspace 6",
+              "num": 6,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_133",
+              "line_no": 133,
+              "key_spec": "Mod+7",
+              "norm_spec": "Mod+7",
+              "caps": [
+                "Super",
+                "7"
+              ],
+              "display": "Super + 7",
+              "action": "focus-workspace 7",
+              "title": "Focus workspace 7",
+              "num": 7,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_134",
+              "line_no": 134,
+              "key_spec": "Mod+8",
+              "norm_spec": "Mod+8",
+              "caps": [
+                "Super",
+                "8"
+              ],
+              "display": "Super + 8",
+              "action": "focus-workspace 8",
+              "title": "Focus workspace 8",
+              "num": 8,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_135",
+              "line_no": 135,
+              "key_spec": "Mod+9",
+              "norm_spec": "Mod+9",
+              "caps": [
+                "Super",
+                "9"
+              ],
+              "display": "Super + 9",
+              "action": "focus-workspace 9",
+              "title": "Focus workspace 9",
+              "num": 9,
+              "category": "Workspaces",
+              "editable": true
+            }
+          ],
+          "editable": true,
+          "search": "super + 1–9 switch to workspace 1–9 workspaces focus-workspace [1–9] super + 1 focus workspace 1 super + 2 focus workspace 2 super + 3 focus workspace 3 super + 4 focus workspace 4 super + 5 focus workspace 5 super + 6 focus workspace 6 super + 7 focus workspace 7 super + 8 focus workspace 8 super + 9 focus workspace 9"
+        },
+        {
+          "id": "group_136",
+          "is_group": true,
+          "group_type": "move-column-to-workspace",
+          "mods": "Mod+Ctrl",
+          "num_range": "1–9",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "1–9"
+          ],
+          "display": "Super + Ctrl + 1–9",
+          "title": "Move column to workspace 1–9",
+          "category": "Workspaces",
+          "action": "move-column-to-workspace [1–9]",
+          "sub_items": [
+            {
+              "id": "bind_136",
+              "line_no": 136,
+              "key_spec": "Mod+Ctrl+1",
+              "norm_spec": "Mod+Ctrl+1",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "1"
+              ],
+              "display": "Super + Ctrl + 1",
+              "action": "move-column-to-workspace 1",
+              "title": "Move column to workspace 1",
+              "num": 1,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_137",
+              "line_no": 137,
+              "key_spec": "Mod+Ctrl+2",
+              "norm_spec": "Mod+Ctrl+2",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "2"
+              ],
+              "display": "Super + Ctrl + 2",
+              "action": "move-column-to-workspace 2",
+              "title": "Move column to workspace 2",
+              "num": 2,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_138",
+              "line_no": 138,
+              "key_spec": "Mod+Ctrl+3",
+              "norm_spec": "Mod+Ctrl+3",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "3"
+              ],
+              "display": "Super + Ctrl + 3",
+              "action": "move-column-to-workspace 3",
+              "title": "Move column to workspace 3",
+              "num": 3,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_139",
+              "line_no": 139,
+              "key_spec": "Mod+Ctrl+4",
+              "norm_spec": "Mod+Ctrl+4",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "4"
+              ],
+              "display": "Super + Ctrl + 4",
+              "action": "move-column-to-workspace 4",
+              "title": "Move column to workspace 4",
+              "num": 4,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_140",
+              "line_no": 140,
+              "key_spec": "Mod+Ctrl+5",
+              "norm_spec": "Mod+Ctrl+5",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "5"
+              ],
+              "display": "Super + Ctrl + 5",
+              "action": "move-column-to-workspace 5",
+              "title": "Move column to workspace 5",
+              "num": 5,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_141",
+              "line_no": 141,
+              "key_spec": "Mod+Ctrl+6",
+              "norm_spec": "Mod+Ctrl+6",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "6"
+              ],
+              "display": "Super + Ctrl + 6",
+              "action": "move-column-to-workspace 6",
+              "title": "Move column to workspace 6",
+              "num": 6,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_142",
+              "line_no": 142,
+              "key_spec": "Mod+Ctrl+7",
+              "norm_spec": "Mod+Ctrl+7",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "7"
+              ],
+              "display": "Super + Ctrl + 7",
+              "action": "move-column-to-workspace 7",
+              "title": "Move column to workspace 7",
+              "num": 7,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_143",
+              "line_no": 143,
+              "key_spec": "Mod+Ctrl+8",
+              "norm_spec": "Mod+Ctrl+8",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "8"
+              ],
+              "display": "Super + Ctrl + 8",
+              "action": "move-column-to-workspace 8",
+              "title": "Move column to workspace 8",
+              "num": 8,
+              "category": "Workspaces",
+              "editable": true
+            },
+            {
+              "id": "bind_144",
+              "line_no": 144,
+              "key_spec": "Mod+Ctrl+9",
+              "norm_spec": "Mod+Ctrl+9",
+              "caps": [
+                "Super",
+                "Ctrl",
+                "9"
+              ],
+              "display": "Super + Ctrl + 9",
+              "action": "move-column-to-workspace 9",
+              "title": "Move column to workspace 9",
+              "num": 9,
+              "category": "Workspaces",
+              "editable": true
+            }
+          ],
+          "editable": true,
+          "search": "super + ctrl + 1–9 move column to workspace 1–9 workspaces move-column-to-workspace [1–9] super + ctrl + 1 move column to workspace 1 super + ctrl + 2 move column to workspace 2 super + ctrl + 3 move column to workspace 3 super + ctrl + 4 move column to workspace 4 super + ctrl + 5 move column to workspace 5 super + ctrl + 6 move column to workspace 6 super + ctrl + 7 move column to workspace 7 super + ctrl + 8 move column to workspace 8 super + ctrl + 9 move column to workspace 9"
+        }
+      ]
+    },
+    {
+      "name": "Monitors",
+      "count": 16,
+      "items": [
+        {
+          "id": "bind_80",
+          "line_no": 80,
+          "raw_line": "    Mod+Shift+Left  hotkey-overlay-title=\"Focus monitor left\" { focus-monitor-left; }\n",
+          "key_spec": "Mod+Shift+Left",
+          "norm_spec": "Mod+Shift+Left",
+          "caps": [
+            "Super",
+            "Shift",
+            "Left"
+          ],
+          "display": "Super + Shift + Left",
+          "props": "hotkey-overlay-title=\"Focus monitor left\"",
+          "action": "focus-monitor-left",
+          "action_name": "focus-monitor-left",
+          "args": [],
+          "title": "Focus monitor left",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + left focus monitor left monitors focus-monitor-left"
+        },
+        {
+          "id": "bind_81",
+          "line_no": 81,
+          "raw_line": "    Mod+Shift+Down  hotkey-overlay-title=\"Focus monitor down\" { focus-monitor-down; }\n",
+          "key_spec": "Mod+Shift+Down",
+          "norm_spec": "Mod+Shift+Down",
+          "caps": [
+            "Super",
+            "Shift",
+            "Down"
+          ],
+          "display": "Super + Shift + Down",
+          "props": "hotkey-overlay-title=\"Focus monitor down\"",
+          "action": "focus-monitor-down",
+          "action_name": "focus-monitor-down",
+          "args": [],
+          "title": "Focus monitor down",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + down focus monitor down monitors focus-monitor-down"
+        },
+        {
+          "id": "bind_82",
+          "line_no": 82,
+          "raw_line": "    Mod+Shift+Up    hotkey-overlay-title=\"Focus monitor up\" { focus-monitor-up; }\n",
+          "key_spec": "Mod+Shift+Up",
+          "norm_spec": "Mod+Shift+Up",
+          "caps": [
+            "Super",
+            "Shift",
+            "Up"
+          ],
+          "display": "Super + Shift + Up",
+          "props": "hotkey-overlay-title=\"Focus monitor up\"",
+          "action": "focus-monitor-up",
+          "action_name": "focus-monitor-up",
+          "args": [],
+          "title": "Focus monitor up",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + up focus monitor up monitors focus-monitor-up"
+        },
+        {
+          "id": "bind_83",
+          "line_no": 83,
+          "raw_line": "    Mod+Shift+Right hotkey-overlay-title=\"Focus monitor right\" { focus-monitor-right; }\n",
+          "key_spec": "Mod+Shift+Right",
+          "norm_spec": "Mod+Shift+Right",
+          "caps": [
+            "Super",
+            "Shift",
+            "Right"
+          ],
+          "display": "Super + Shift + Right",
+          "props": "hotkey-overlay-title=\"Focus monitor right\"",
+          "action": "focus-monitor-right",
+          "action_name": "focus-monitor-right",
+          "args": [],
+          "title": "Focus monitor right",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + right focus monitor right monitors focus-monitor-right"
+        },
+        {
+          "id": "bind_84",
+          "line_no": 84,
+          "raw_line": "    Mod+Shift+H     hotkey-overlay-title=\"Focus monitor left\" { focus-monitor-left; }\n",
+          "key_spec": "Mod+Shift+H",
+          "norm_spec": "Mod+Shift+H",
+          "caps": [
+            "Super",
+            "Shift",
+            "H"
+          ],
+          "display": "Super + Shift + H",
+          "props": "hotkey-overlay-title=\"Focus monitor left\"",
+          "action": "focus-monitor-left",
+          "action_name": "focus-monitor-left",
+          "args": [],
+          "title": "Focus monitor left",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + h focus monitor left monitors focus-monitor-left"
+        },
+        {
+          "id": "bind_85",
+          "line_no": 85,
+          "raw_line": "    Mod+Shift+J     hotkey-overlay-title=\"Focus monitor down\" { focus-monitor-down; }\n",
+          "key_spec": "Mod+Shift+J",
+          "norm_spec": "Mod+Shift+J",
+          "caps": [
+            "Super",
+            "Shift",
+            "J"
+          ],
+          "display": "Super + Shift + J",
+          "props": "hotkey-overlay-title=\"Focus monitor down\"",
+          "action": "focus-monitor-down",
+          "action_name": "focus-monitor-down",
+          "args": [],
+          "title": "Focus monitor down",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + j focus monitor down monitors focus-monitor-down"
+        },
+        {
+          "id": "bind_86",
+          "line_no": 86,
+          "raw_line": "    Mod+Shift+K     hotkey-overlay-title=\"Focus monitor up\" { focus-monitor-up; }\n",
+          "key_spec": "Mod+Shift+K",
+          "norm_spec": "Mod+Shift+K",
+          "caps": [
+            "Super",
+            "Shift",
+            "K"
+          ],
+          "display": "Super + Shift + K",
+          "props": "hotkey-overlay-title=\"Focus monitor up\"",
+          "action": "focus-monitor-up",
+          "action_name": "focus-monitor-up",
+          "args": [],
+          "title": "Focus monitor up",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + k focus monitor up monitors focus-monitor-up"
+        },
+        {
+          "id": "bind_87",
+          "line_no": 87,
+          "raw_line": "    Mod+Shift+L     hotkey-overlay-title=\"Focus monitor right\" { focus-monitor-right; }\n",
+          "key_spec": "Mod+Shift+L",
+          "norm_spec": "Mod+Shift+L",
+          "caps": [
+            "Super",
+            "Shift",
+            "L"
+          ],
+          "display": "Super + Shift + L",
+          "props": "hotkey-overlay-title=\"Focus monitor right\"",
+          "action": "focus-monitor-right",
+          "action_name": "focus-monitor-right",
+          "args": [],
+          "title": "Focus monitor right",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + l focus monitor right monitors focus-monitor-right"
+        },
+        {
+          "id": "bind_89",
+          "line_no": 89,
+          "raw_line": "    Mod+Shift+Ctrl+Left  hotkey-overlay-title=\"Move column to monitor left\" { move-column-to-monitor-left; }\n",
+          "key_spec": "Mod+Shift+Ctrl+Left",
+          "norm_spec": "Mod+Ctrl+Shift+Left",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Left"
+          ],
+          "display": "Super + Ctrl + Shift + Left",
+          "props": "hotkey-overlay-title=\"Move column to monitor left\"",
+          "action": "move-column-to-monitor-left",
+          "action_name": "move-column-to-monitor-left",
+          "args": [],
+          "title": "Move column to monitor left",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + left move column to monitor left monitors move-column-to-monitor-left"
+        },
+        {
+          "id": "bind_90",
+          "line_no": 90,
+          "raw_line": "    Mod+Shift+Ctrl+Down  hotkey-overlay-title=\"Move column to monitor down\" { move-column-to-monitor-down; }\n",
+          "key_spec": "Mod+Shift+Ctrl+Down",
+          "norm_spec": "Mod+Ctrl+Shift+Down",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Down"
+          ],
+          "display": "Super + Ctrl + Shift + Down",
+          "props": "hotkey-overlay-title=\"Move column to monitor down\"",
+          "action": "move-column-to-monitor-down",
+          "action_name": "move-column-to-monitor-down",
+          "args": [],
+          "title": "Move column to monitor down",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + down move column to monitor down monitors move-column-to-monitor-down"
+        },
+        {
+          "id": "bind_91",
+          "line_no": 91,
+          "raw_line": "    Mod+Shift+Ctrl+Up    hotkey-overlay-title=\"Move column to monitor up\" { move-column-to-monitor-up; }\n",
+          "key_spec": "Mod+Shift+Ctrl+Up",
+          "norm_spec": "Mod+Ctrl+Shift+Up",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Up"
+          ],
+          "display": "Super + Ctrl + Shift + Up",
+          "props": "hotkey-overlay-title=\"Move column to monitor up\"",
+          "action": "move-column-to-monitor-up",
+          "action_name": "move-column-to-monitor-up",
+          "args": [],
+          "title": "Move column to monitor up",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + up move column to monitor up monitors move-column-to-monitor-up"
+        },
+        {
+          "id": "bind_92",
+          "line_no": 92,
+          "raw_line": "    Mod+Shift+Ctrl+Right hotkey-overlay-title=\"Move column to monitor right\" { move-column-to-monitor-right; }\n",
+          "key_spec": "Mod+Shift+Ctrl+Right",
+          "norm_spec": "Mod+Ctrl+Shift+Right",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Right"
+          ],
+          "display": "Super + Ctrl + Shift + Right",
+          "props": "hotkey-overlay-title=\"Move column to monitor right\"",
+          "action": "move-column-to-monitor-right",
+          "action_name": "move-column-to-monitor-right",
+          "args": [],
+          "title": "Move column to monitor right",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + right move column to monitor right monitors move-column-to-monitor-right"
+        },
+        {
+          "id": "bind_93",
+          "line_no": 93,
+          "raw_line": "    Mod+Shift+Ctrl+H     hotkey-overlay-title=\"Move column to monitor left\" { move-column-to-monitor-left; }\n",
+          "key_spec": "Mod+Shift+Ctrl+H",
+          "norm_spec": "Mod+Ctrl+Shift+H",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "H"
+          ],
+          "display": "Super + Ctrl + Shift + H",
+          "props": "hotkey-overlay-title=\"Move column to monitor left\"",
+          "action": "move-column-to-monitor-left",
+          "action_name": "move-column-to-monitor-left",
+          "args": [],
+          "title": "Move column to monitor left",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + h move column to monitor left monitors move-column-to-monitor-left"
+        },
+        {
+          "id": "bind_94",
+          "line_no": 94,
+          "raw_line": "    Mod+Shift+Ctrl+J     hotkey-overlay-title=\"Move column to monitor down\" { move-column-to-monitor-down; }\n",
+          "key_spec": "Mod+Shift+Ctrl+J",
+          "norm_spec": "Mod+Ctrl+Shift+J",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "J"
+          ],
+          "display": "Super + Ctrl + Shift + J",
+          "props": "hotkey-overlay-title=\"Move column to monitor down\"",
+          "action": "move-column-to-monitor-down",
+          "action_name": "move-column-to-monitor-down",
+          "args": [],
+          "title": "Move column to monitor down",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + j move column to monitor down monitors move-column-to-monitor-down"
+        },
+        {
+          "id": "bind_95",
+          "line_no": 95,
+          "raw_line": "    Mod+Shift+Ctrl+K     hotkey-overlay-title=\"Move column to monitor up\" { move-column-to-monitor-up; }\n",
+          "key_spec": "Mod+Shift+Ctrl+K",
+          "norm_spec": "Mod+Ctrl+Shift+K",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "K"
+          ],
+          "display": "Super + Ctrl + Shift + K",
+          "props": "hotkey-overlay-title=\"Move column to monitor up\"",
+          "action": "move-column-to-monitor-up",
+          "action_name": "move-column-to-monitor-up",
+          "args": [],
+          "title": "Move column to monitor up",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + k move column to monitor up monitors move-column-to-monitor-up"
+        },
+        {
+          "id": "bind_96",
+          "line_no": 96,
+          "raw_line": "    Mod+Shift+Ctrl+L     hotkey-overlay-title=\"Move column to monitor right\" { move-column-to-monitor-right; }\n",
+          "key_spec": "Mod+Shift+Ctrl+L",
+          "norm_spec": "Mod+Ctrl+Shift+L",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "L"
+          ],
+          "display": "Super + Ctrl + Shift + L",
+          "props": "hotkey-overlay-title=\"Move column to monitor right\"",
+          "action": "move-column-to-monitor-right",
+          "action_name": "move-column-to-monitor-right",
+          "args": [],
+          "title": "Move column to monitor right",
+          "category": "Monitors",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + l move column to monitor right monitors move-column-to-monitor-right"
+        }
+      ]
+    },
+    {
+      "name": "Media & Audio",
+      "count": 14,
+      "items": [
+        {
+          "id": "bind_12",
+          "line_no": 12,
+          "raw_line": "    Mod+Alt+M repeat=false hotkey-overlay-title=\"Media controls\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\" \"media\"; }\n",
+          "key_spec": "Mod+Alt+M",
+          "norm_spec": "Mod+Alt+M",
+          "caps": [
+            "Super",
+            "Alt",
+            "M"
+          ],
+          "display": "Super + Alt + M",
+          "props": "repeat=false hotkey-overlay-title=\"Media controls\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\" \"media\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "control-center",
+            "media"
+          ],
+          "title": "Media controls",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + m media controls media & audio spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\" \"media\""
+        },
+        {
+          "id": "bind_13",
+          "line_no": 13,
+          "raw_line": "    Mod+Alt+P repeat=false hotkey-overlay-title=\"Play / pause media\" { spawn \"noctalia\" \"msg\" \"media\" \"toggle\"; }\n",
+          "key_spec": "Mod+Alt+P",
+          "norm_spec": "Mod+Alt+P",
+          "caps": [
+            "Super",
+            "Alt",
+            "P"
+          ],
+          "display": "Super + Alt + P",
+          "props": "repeat=false hotkey-overlay-title=\"Play / pause media\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"toggle\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "toggle"
+          ],
+          "title": "Play / pause media",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + p play / pause media media & audio spawn \"noctalia\" \"msg\" \"media\" \"toggle\""
+        },
+        {
+          "id": "bind_14",
+          "line_no": 14,
+          "raw_line": "    Mod+Alt+Left repeat=false hotkey-overlay-title=\"Previous track\" { spawn \"noctalia\" \"msg\" \"media\" \"previous\"; }\n",
+          "key_spec": "Mod+Alt+Left",
+          "norm_spec": "Mod+Alt+Left",
+          "caps": [
+            "Super",
+            "Alt",
+            "Left"
+          ],
+          "display": "Super + Alt + Left",
+          "props": "repeat=false hotkey-overlay-title=\"Previous track\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"previous\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "previous"
+          ],
+          "title": "Previous track",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + left previous track media & audio spawn \"noctalia\" \"msg\" \"media\" \"previous\""
+        },
+        {
+          "id": "bind_15",
+          "line_no": 15,
+          "raw_line": "    Mod+Alt+Right repeat=false hotkey-overlay-title=\"Next track\" { spawn \"noctalia\" \"msg\" \"media\" \"next\"; }\n",
+          "key_spec": "Mod+Alt+Right",
+          "norm_spec": "Mod+Alt+Right",
+          "caps": [
+            "Super",
+            "Alt",
+            "Right"
+          ],
+          "display": "Super + Alt + Right",
+          "props": "repeat=false hotkey-overlay-title=\"Next track\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"next\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "next"
+          ],
+          "title": "Next track",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + right next track media & audio spawn \"noctalia\" \"msg\" \"media\" \"next\""
+        },
+        {
+          "id": "bind_40",
+          "line_no": 40,
+          "raw_line": "    XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title=\"Volume up\" { spawn \"noctalia\" \"msg\" \"volume-up\"; }\n",
+          "key_spec": "XF86AudioRaiseVolume",
+          "norm_spec": "XF86AudioRaiseVolume",
+          "caps": [
+            "Volume Up"
+          ],
+          "display": "Volume Up",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Volume up\"",
+          "action": "spawn \"noctalia\" \"msg\" \"volume-up\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "volume-up"
+          ],
+          "title": "Volume up",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "volume up volume up media & audio spawn \"noctalia\" \"msg\" \"volume-up\""
+        },
+        {
+          "id": "bind_41",
+          "line_no": 41,
+          "raw_line": "    XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title=\"Volume down\" { spawn \"noctalia\" \"msg\" \"volume-down\"; }\n",
+          "key_spec": "XF86AudioLowerVolume",
+          "norm_spec": "XF86AudioLowerVolume",
+          "caps": [
+            "Volume Down"
+          ],
+          "display": "Volume Down",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Volume down\"",
+          "action": "spawn \"noctalia\" \"msg\" \"volume-down\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "volume-down"
+          ],
+          "title": "Volume down",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "volume down volume down media & audio spawn \"noctalia\" \"msg\" \"volume-down\""
+        },
+        {
+          "id": "bind_42",
+          "line_no": 42,
+          "raw_line": "    XF86AudioMute allow-when-locked=true hotkey-overlay-title=\"Mute audio\" { spawn \"noctalia\" \"msg\" \"volume-mute\"; }\n",
+          "key_spec": "XF86AudioMute",
+          "norm_spec": "XF86AudioMute",
+          "caps": [
+            "Mute Audio"
+          ],
+          "display": "Mute Audio",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Mute audio\"",
+          "action": "spawn \"noctalia\" \"msg\" \"volume-mute\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "volume-mute"
+          ],
+          "title": "Mute audio",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "mute audio mute audio media & audio spawn \"noctalia\" \"msg\" \"volume-mute\""
+        },
+        {
+          "id": "bind_43",
+          "line_no": 43,
+          "raw_line": "    XF86AudioMicMute allow-when-locked=true hotkey-overlay-title=\"Mute microphone\" { spawn \"noctalia\" \"msg\" \"mic-mute\"; }\n",
+          "key_spec": "XF86AudioMicMute",
+          "norm_spec": "XF86AudioMicMute",
+          "caps": [
+            "Mute Mic"
+          ],
+          "display": "Mute Mic",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Mute microphone\"",
+          "action": "spawn \"noctalia\" \"msg\" \"mic-mute\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "mic-mute"
+          ],
+          "title": "Mute microphone",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "mute mic mute microphone media & audio spawn \"noctalia\" \"msg\" \"mic-mute\""
+        },
+        {
+          "id": "bind_45",
+          "line_no": 45,
+          "raw_line": "    XF86AudioPlay allow-when-locked=true hotkey-overlay-title=\"Play / pause media\" { spawn \"noctalia\" \"msg\" \"media\" \"toggle\"; }\n",
+          "key_spec": "XF86AudioPlay",
+          "norm_spec": "XF86AudioPlay",
+          "caps": [
+            "Play / Pause"
+          ],
+          "display": "Play / Pause",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Play / pause media\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"toggle\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "toggle"
+          ],
+          "title": "Play / pause media",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "play / pause play / pause media media & audio spawn \"noctalia\" \"msg\" \"media\" \"toggle\""
+        },
+        {
+          "id": "bind_46",
+          "line_no": 46,
+          "raw_line": "    XF86AudioStop allow-when-locked=true hotkey-overlay-title=\"Stop media\" { spawn \"noctalia\" \"msg\" \"media\" \"stop\"; }\n",
+          "key_spec": "XF86AudioStop",
+          "norm_spec": "XF86AudioStop",
+          "caps": [
+            "Stop Media"
+          ],
+          "display": "Stop Media",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Stop media\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"stop\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "stop"
+          ],
+          "title": "Stop media",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "stop media stop media media & audio spawn \"noctalia\" \"msg\" \"media\" \"stop\""
+        },
+        {
+          "id": "bind_47",
+          "line_no": 47,
+          "raw_line": "    XF86AudioPrev allow-when-locked=true hotkey-overlay-title=\"Previous track\" { spawn \"noctalia\" \"msg\" \"media\" \"previous\"; }\n",
+          "key_spec": "XF86AudioPrev",
+          "norm_spec": "XF86AudioPrev",
+          "caps": [
+            "Previous Track"
+          ],
+          "display": "Previous Track",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Previous track\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"previous\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "previous"
+          ],
+          "title": "Previous track",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "previous track previous track media & audio spawn \"noctalia\" \"msg\" \"media\" \"previous\""
+        },
+        {
+          "id": "bind_48",
+          "line_no": 48,
+          "raw_line": "    XF86AudioNext allow-when-locked=true hotkey-overlay-title=\"Next track\" { spawn \"noctalia\" \"msg\" \"media\" \"next\"; }\n",
+          "key_spec": "XF86AudioNext",
+          "norm_spec": "XF86AudioNext",
+          "caps": [
+            "Next Track"
+          ],
+          "display": "Next Track",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Next track\"",
+          "action": "spawn \"noctalia\" \"msg\" \"media\" \"next\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "media",
+            "next"
+          ],
+          "title": "Next track",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "next track next track media & audio spawn \"noctalia\" \"msg\" \"media\" \"next\""
+        },
+        {
+          "id": "bind_50",
+          "line_no": 50,
+          "raw_line": "    XF86MonBrightnessUp allow-when-locked=true hotkey-overlay-title=\"Brightness up\" { spawn \"noctalia\" \"msg\" \"brightness-up\"; }\n",
+          "key_spec": "XF86MonBrightnessUp",
+          "norm_spec": "XF86MonBrightnessUp",
+          "caps": [
+            "Brightness Up"
+          ],
+          "display": "Brightness Up",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Brightness up\"",
+          "action": "spawn \"noctalia\" \"msg\" \"brightness-up\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "brightness-up"
+          ],
+          "title": "Brightness up",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "brightness up brightness up media & audio spawn \"noctalia\" \"msg\" \"brightness-up\""
+        },
+        {
+          "id": "bind_51",
+          "line_no": 51,
+          "raw_line": "    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title=\"Brightness down\" { spawn \"noctalia\" \"msg\" \"brightness-down\"; }\n",
+          "key_spec": "XF86MonBrightnessDown",
+          "norm_spec": "XF86MonBrightnessDown",
+          "caps": [
+            "Brightness Down"
+          ],
+          "display": "Brightness Down",
+          "props": "allow-when-locked=true hotkey-overlay-title=\"Brightness down\"",
+          "action": "spawn \"noctalia\" \"msg\" \"brightness-down\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "brightness-down"
+          ],
+          "title": "Brightness down",
+          "category": "Media & Audio",
+          "editable": true,
+          "is_group": false,
+          "search": "brightness down brightness down media & audio spawn \"noctalia\" \"msg\" \"brightness-down\""
+        }
+      ]
+    },
+    {
+      "name": "Screenshots",
+      "count": 3,
+      "items": [
+        {
+          "id": "bind_180",
+          "line_no": 180,
+          "raw_line": "    Print hotkey-overlay-title=\"Screenshot (region)\" { screenshot; }\n",
+          "key_spec": "Print",
+          "norm_spec": "Print",
+          "caps": [
+            "Print"
+          ],
+          "display": "Print",
+          "props": "hotkey-overlay-title=\"Screenshot (region)\"",
+          "action": "screenshot",
+          "action_name": "screenshot",
+          "args": [],
+          "title": "Screenshot (region)",
+          "category": "Screenshots",
+          "editable": true,
+          "is_group": false,
+          "search": "print screenshot (region) screenshots screenshot"
+        },
+        {
+          "id": "bind_181",
+          "line_no": 181,
+          "raw_line": "    Ctrl+Print hotkey-overlay-title=\"Screenshot (full screen)\" { screenshot-screen; }\n",
+          "key_spec": "Ctrl+Print",
+          "norm_spec": "Ctrl+Print",
+          "caps": [
+            "Ctrl",
+            "Print"
+          ],
+          "display": "Ctrl + Print",
+          "props": "hotkey-overlay-title=\"Screenshot (full screen)\"",
+          "action": "screenshot-screen",
+          "action_name": "screenshot-screen",
+          "args": [],
+          "title": "Screenshot (full screen)",
+          "category": "Screenshots",
+          "editable": true,
+          "is_group": false,
+          "search": "ctrl + print screenshot (full screen) screenshots screenshot-screen"
+        },
+        {
+          "id": "bind_182",
+          "line_no": 182,
+          "raw_line": "    Alt+Print hotkey-overlay-title=\"Screenshot (window)\" { screenshot-window; }\n",
+          "key_spec": "Alt+Print",
+          "norm_spec": "Alt+Print",
+          "caps": [
+            "Alt",
+            "Print"
+          ],
+          "display": "Alt + Print",
+          "props": "hotkey-overlay-title=\"Screenshot (window)\"",
+          "action": "screenshot-window",
+          "action_name": "screenshot-window",
+          "args": [],
+          "title": "Screenshot (window)",
+          "category": "Screenshots",
+          "editable": true,
+          "is_group": false,
+          "search": "alt + print screenshot (window) screenshots screenshot-window"
+        }
+      ]
+    },
+    {
+      "name": "System & Session",
+      "count": 10,
+      "items": [
+        {
+          "id": "bind_9",
+          "line_no": 9,
+          "raw_line": "    Mod+Alt+Return repeat=false hotkey-overlay-title=\"Noctalia settings\" { spawn \"noctalia\" \"msg\" \"settings-toggle\"; }\n",
+          "key_spec": "Mod+Alt+Return",
+          "norm_spec": "Mod+Alt+Return",
+          "caps": [
+            "Super",
+            "Alt",
+            "Enter"
+          ],
+          "display": "Super + Alt + Enter",
+          "props": "repeat=false hotkey-overlay-title=\"Noctalia settings\"",
+          "action": "spawn \"noctalia\" \"msg\" \"settings-toggle\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "settings-toggle"
+          ],
+          "title": "Noctalia settings",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + enter noctalia settings system & session spawn \"noctalia\" \"msg\" \"settings-toggle\""
+        },
+        {
+          "id": "bind_10",
+          "line_no": 10,
+          "raw_line": "    Mod+S repeat=false hotkey-overlay-title=\"Control Center\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\"; }\n",
+          "key_spec": "Mod+S",
+          "norm_spec": "Mod+S",
+          "caps": [
+            "Super",
+            "S"
+          ],
+          "display": "Super + S",
+          "props": "repeat=false hotkey-overlay-title=\"Control Center\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "control-center"
+          ],
+          "title": "Control Center",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + s control center system & session spawn \"noctalia\" \"msg\" \"panel-toggle\" \"control-center\""
+        },
+        {
+          "id": "bind_11",
+          "line_no": 11,
+          "raw_line": "    Mod+V repeat=false hotkey-overlay-title=\"Clipboard history\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"clipboard\"; }\n",
+          "key_spec": "Mod+V",
+          "norm_spec": "Mod+V",
+          "caps": [
+            "Super",
+            "V"
+          ],
+          "display": "Super + V",
+          "props": "repeat=false hotkey-overlay-title=\"Clipboard history\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"clipboard\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "clipboard"
+          ],
+          "title": "Clipboard history",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + v clipboard history system & session spawn \"noctalia\" \"msg\" \"panel-toggle\" \"clipboard\""
+        },
+        {
+          "id": "bind_30",
+          "line_no": 30,
+          "raw_line": "    Mod+Shift+Slash repeat=false hotkey-overlay-title=\"Show this keybind menu\" { spawn \"/usr/bin/astra-keybinds-toggle\"; }\n",
+          "key_spec": "Mod+Shift+Slash",
+          "norm_spec": "Mod+Shift+Slash",
+          "caps": [
+            "Super",
+            "Shift",
+            "/"
+          ],
+          "display": "Super + Shift + /",
+          "props": "repeat=false hotkey-overlay-title=\"Show this keybind menu\"",
+          "action": "spawn \"/usr/bin/astra-keybinds-toggle\"",
+          "action_name": "spawn",
+          "args": [
+            "/usr/bin/astra-keybinds-toggle"
+          ],
+          "title": "Show this keybind menu",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + / show this keybind menu system & session spawn \"/usr/bin/astra-keybinds-toggle\""
+        },
+        {
+          "id": "bind_33",
+          "line_no": 33,
+          "raw_line": "    Mod+Alt+L repeat=false allow-inhibiting=false hotkey-overlay-title=\"Lock screen\" { spawn \"noctalia\" \"msg\" \"session\" \"lock\"; }\n",
+          "key_spec": "Mod+Alt+L",
+          "norm_spec": "Mod+Alt+L",
+          "caps": [
+            "Super",
+            "Alt",
+            "L"
+          ],
+          "display": "Super + Alt + L",
+          "props": "repeat=false allow-inhibiting=false hotkey-overlay-title=\"Lock screen\"",
+          "action": "spawn \"noctalia\" \"msg\" \"session\" \"lock\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "session",
+            "lock"
+          ],
+          "title": "Lock screen",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + alt + l lock screen system & session spawn \"noctalia\" \"msg\" \"session\" \"lock\""
+        },
+        {
+          "id": "bind_184",
+          "line_no": 184,
+          "raw_line": "    Mod+Escape allow-inhibiting=false hotkey-overlay-title=\"Toggle keyboard shortcuts inhibit\" { toggle-keyboard-shortcuts-inhibit; }\n",
+          "key_spec": "Mod+Escape",
+          "norm_spec": "Mod+Escape",
+          "caps": [
+            "Super",
+            "Esc"
+          ],
+          "display": "Super + Esc",
+          "props": "allow-inhibiting=false hotkey-overlay-title=\"Toggle keyboard shortcuts inhibit\"",
+          "action": "toggle-keyboard-shortcuts-inhibit",
+          "action_name": "toggle-keyboard-shortcuts-inhibit",
+          "args": [],
+          "title": "Toggle keyboard shortcuts inhibit",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + esc toggle keyboard shortcuts inhibit system & session toggle-keyboard-shortcuts-inhibit"
+        },
+        {
+          "id": "bind_186",
+          "line_no": 186,
+          "raw_line": "    Mod+Shift+E repeat=false hotkey-overlay-title=\"Session menu\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\"; }\n",
+          "key_spec": "Mod+Shift+E",
+          "norm_spec": "Mod+Shift+E",
+          "caps": [
+            "Super",
+            "Shift",
+            "E"
+          ],
+          "display": "Super + Shift + E",
+          "props": "repeat=false hotkey-overlay-title=\"Session menu\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "session"
+          ],
+          "title": "Session menu",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + e session menu system & session spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\""
+        },
+        {
+          "id": "bind_187",
+          "line_no": 187,
+          "raw_line": "    Ctrl+Alt+Delete repeat=false hotkey-overlay-title=\"Session menu\" { spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\"; }\n",
+          "key_spec": "Ctrl+Alt+Delete",
+          "norm_spec": "Ctrl+Alt+Delete",
+          "caps": [
+            "Ctrl",
+            "Alt",
+            "Delete"
+          ],
+          "display": "Ctrl + Alt + Delete",
+          "props": "repeat=false hotkey-overlay-title=\"Session menu\"",
+          "action": "spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\"",
+          "action_name": "spawn",
+          "args": [
+            "noctalia",
+            "msg",
+            "panel-toggle",
+            "session"
+          ],
+          "title": "Session menu",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "ctrl + alt + delete session menu system & session spawn \"noctalia\" \"msg\" \"panel-toggle\" \"session\""
+        },
+        {
+          "id": "bind_188",
+          "line_no": 188,
+          "raw_line": "    Mod+Ctrl+Shift+Escape repeat=false hotkey-overlay-title=\"Quit Niri\" { quit; }\n",
+          "key_spec": "Mod+Ctrl+Shift+Escape",
+          "norm_spec": "Mod+Ctrl+Shift+Escape",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Esc"
+          ],
+          "display": "Super + Ctrl + Shift + Esc",
+          "props": "repeat=false hotkey-overlay-title=\"Quit Niri\"",
+          "action": "quit",
+          "action_name": "quit",
+          "args": [],
+          "title": "Quit Niri",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + ctrl + shift + esc quit niri system & session quit"
+        },
+        {
+          "id": "bind_190",
+          "line_no": 190,
+          "raw_line": "    Mod+Shift+P hotkey-overlay-title=\"Power off monitors\" { power-off-monitors; }\n",
+          "key_spec": "Mod+Shift+P",
+          "norm_spec": "Mod+Shift+P",
+          "caps": [
+            "Super",
+            "Shift",
+            "P"
+          ],
+          "display": "Super + Shift + P",
+          "props": "hotkey-overlay-title=\"Power off monitors\"",
+          "action": "power-off-monitors",
+          "action_name": "power-off-monitors",
+          "args": [],
+          "title": "Power off monitors",
+          "category": "System & Session",
+          "editable": true,
+          "is_group": false,
+          "search": "super + shift + p power off monitors system & session power-off-monitors"
+        }
+      ]
+    },
+    {
+      "name": "Mouse & Scroll",
+      "count": 12,
+      "items": [
+        {
+          "id": "bind_112",
+          "line_no": 112,
+          "raw_line": "    Mod+WheelScrollDown      cooldown-ms=150 hotkey-overlay-title=\"Focus workspace down\" { focus-workspace-down; }\n",
+          "key_spec": "Mod+WheelScrollDown",
+          "norm_spec": "Mod+WheelScrollDown",
+          "caps": [
+            "Super",
+            "Wheel Down"
+          ],
+          "display": "Super + Wheel Down",
+          "props": "cooldown-ms=150 hotkey-overlay-title=\"Focus workspace down\"",
+          "action": "focus-workspace-down",
+          "action_name": "focus-workspace-down",
+          "args": [],
+          "title": "Focus workspace down",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + wheel down focus workspace down mouse & scroll focus-workspace-down"
+        },
+        {
+          "id": "bind_113",
+          "line_no": 113,
+          "raw_line": "    Mod+WheelScrollUp        cooldown-ms=150 hotkey-overlay-title=\"Focus workspace up\" { focus-workspace-up; }\n",
+          "key_spec": "Mod+WheelScrollUp",
+          "norm_spec": "Mod+WheelScrollUp",
+          "caps": [
+            "Super",
+            "Wheel Up"
+          ],
+          "display": "Super + Wheel Up",
+          "props": "cooldown-ms=150 hotkey-overlay-title=\"Focus workspace up\"",
+          "action": "focus-workspace-up",
+          "action_name": "focus-workspace-up",
+          "args": [],
+          "title": "Focus workspace up",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + wheel up focus workspace up mouse & scroll focus-workspace-up"
+        },
+        {
+          "id": "bind_114",
+          "line_no": 114,
+          "raw_line": "    Mod+Ctrl+WheelScrollDown cooldown-ms=150 hotkey-overlay-title=\"Move column to workspace down\" { move-column-to-workspace-down; }\n",
+          "key_spec": "Mod+Ctrl+WheelScrollDown",
+          "norm_spec": "Mod+Ctrl+WheelScrollDown",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Wheel Down"
+          ],
+          "display": "Super + Ctrl + Wheel Down",
+          "props": "cooldown-ms=150 hotkey-overlay-title=\"Move column to workspace down\"",
+          "action": "move-column-to-workspace-down",
+          "action_name": "move-column-to-workspace-down",
+          "args": [],
+          "title": "Move column to workspace down",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + wheel down move column to workspace down mouse & scroll move-column-to-workspace-down"
+        },
+        {
+          "id": "bind_115",
+          "line_no": 115,
+          "raw_line": "    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 hotkey-overlay-title=\"Move column to workspace up\" { move-column-to-workspace-up; }\n",
+          "key_spec": "Mod+Ctrl+WheelScrollUp",
+          "norm_spec": "Mod+Ctrl+WheelScrollUp",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Wheel Up"
+          ],
+          "display": "Super + Ctrl + Wheel Up",
+          "props": "cooldown-ms=150 hotkey-overlay-title=\"Move column to workspace up\"",
+          "action": "move-column-to-workspace-up",
+          "action_name": "move-column-to-workspace-up",
+          "args": [],
+          "title": "Move column to workspace up",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + wheel up move column to workspace up mouse & scroll move-column-to-workspace-up"
+        },
+        {
+          "id": "bind_117",
+          "line_no": 117,
+          "raw_line": "    Mod+WheelScrollRight      hotkey-overlay-title=\"Focus column right\" { focus-column-right; }\n",
+          "key_spec": "Mod+WheelScrollRight",
+          "norm_spec": "Mod+WheelScrollRight",
+          "caps": [
+            "Super",
+            "Wheel Right"
+          ],
+          "display": "Super + Wheel Right",
+          "props": "hotkey-overlay-title=\"Focus column right\"",
+          "action": "focus-column-right",
+          "action_name": "focus-column-right",
+          "args": [],
+          "title": "Focus column right",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + wheel right focus column right mouse & scroll focus-column-right"
+        },
+        {
+          "id": "bind_118",
+          "line_no": 118,
+          "raw_line": "    Mod+WheelScrollLeft       hotkey-overlay-title=\"Focus column left\" { focus-column-left; }\n",
+          "key_spec": "Mod+WheelScrollLeft",
+          "norm_spec": "Mod+WheelScrollLeft",
+          "caps": [
+            "Super",
+            "Wheel Left"
+          ],
+          "display": "Super + Wheel Left",
+          "props": "hotkey-overlay-title=\"Focus column left\"",
+          "action": "focus-column-left",
+          "action_name": "focus-column-left",
+          "args": [],
+          "title": "Focus column left",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + wheel left focus column left mouse & scroll focus-column-left"
+        },
+        {
+          "id": "bind_119",
+          "line_no": 119,
+          "raw_line": "    Mod+Ctrl+WheelScrollRight hotkey-overlay-title=\"Move column right\" { move-column-right; }\n",
+          "key_spec": "Mod+Ctrl+WheelScrollRight",
+          "norm_spec": "Mod+Ctrl+WheelScrollRight",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Wheel Right"
+          ],
+          "display": "Super + Ctrl + Wheel Right",
+          "props": "hotkey-overlay-title=\"Move column right\"",
+          "action": "move-column-right",
+          "action_name": "move-column-right",
+          "args": [],
+          "title": "Move column right",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + wheel right move column right mouse & scroll move-column-right"
+        },
+        {
+          "id": "bind_120",
+          "line_no": 120,
+          "raw_line": "    Mod+Ctrl+WheelScrollLeft  hotkey-overlay-title=\"Move column left\" { move-column-left; }\n",
+          "key_spec": "Mod+Ctrl+WheelScrollLeft",
+          "norm_spec": "Mod+Ctrl+WheelScrollLeft",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Wheel Left"
+          ],
+          "display": "Super + Ctrl + Wheel Left",
+          "props": "hotkey-overlay-title=\"Move column left\"",
+          "action": "move-column-left",
+          "action_name": "move-column-left",
+          "args": [],
+          "title": "Move column left",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + wheel left move column left mouse & scroll move-column-left"
+        },
+        {
+          "id": "bind_122",
+          "line_no": 122,
+          "raw_line": "    Mod+Shift+WheelScrollDown      hotkey-overlay-title=\"Focus column right\" { focus-column-right; }\n",
+          "key_spec": "Mod+Shift+WheelScrollDown",
+          "norm_spec": "Mod+Shift+WheelScrollDown",
+          "caps": [
+            "Super",
+            "Shift",
+            "Wheel Down"
+          ],
+          "display": "Super + Shift + Wheel Down",
+          "props": "hotkey-overlay-title=\"Focus column right\"",
+          "action": "focus-column-right",
+          "action_name": "focus-column-right",
+          "args": [],
+          "title": "Focus column right",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + shift + wheel down focus column right mouse & scroll focus-column-right"
+        },
+        {
+          "id": "bind_123",
+          "line_no": 123,
+          "raw_line": "    Mod+Shift+WheelScrollUp        hotkey-overlay-title=\"Focus column left\" { focus-column-left; }\n",
+          "key_spec": "Mod+Shift+WheelScrollUp",
+          "norm_spec": "Mod+Shift+WheelScrollUp",
+          "caps": [
+            "Super",
+            "Shift",
+            "Wheel Up"
+          ],
+          "display": "Super + Shift + Wheel Up",
+          "props": "hotkey-overlay-title=\"Focus column left\"",
+          "action": "focus-column-left",
+          "action_name": "focus-column-left",
+          "args": [],
+          "title": "Focus column left",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + shift + wheel up focus column left mouse & scroll focus-column-left"
+        },
+        {
+          "id": "bind_124",
+          "line_no": 124,
+          "raw_line": "    Mod+Ctrl+Shift+WheelScrollDown hotkey-overlay-title=\"Move column right\" { move-column-right; }\n",
+          "key_spec": "Mod+Ctrl+Shift+WheelScrollDown",
+          "norm_spec": "Mod+Ctrl+Shift+WheelScrollDown",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Wheel Down"
+          ],
+          "display": "Super + Ctrl + Shift + Wheel Down",
+          "props": "hotkey-overlay-title=\"Move column right\"",
+          "action": "move-column-right",
+          "action_name": "move-column-right",
+          "args": [],
+          "title": "Move column right",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + shift + wheel down move column right mouse & scroll move-column-right"
+        },
+        {
+          "id": "bind_125",
+          "line_no": 125,
+          "raw_line": "    Mod+Ctrl+Shift+WheelScrollUp   hotkey-overlay-title=\"Move column left\" { move-column-left; }\n",
+          "key_spec": "Mod+Ctrl+Shift+WheelScrollUp",
+          "norm_spec": "Mod+Ctrl+Shift+WheelScrollUp",
+          "caps": [
+            "Super",
+            "Ctrl",
+            "Shift",
+            "Wheel Up"
+          ],
+          "display": "Super + Ctrl + Shift + Wheel Up",
+          "props": "hotkey-overlay-title=\"Move column left\"",
+          "action": "move-column-left",
+          "action_name": "move-column-left",
+          "args": [],
+          "title": "Move column left",
+          "category": "Mouse & Scroll",
+          "editable": false,
+          "is_group": false,
+          "search": "super + ctrl + shift + wheel up move column left mouse & scroll move-column-left"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# ==============================================================================
+#  ✦ Eva Linux v2 — Configuration Restoration Utility
+# ==============================================================================
+
+set -Eeuo pipefail
+
+BACKUP_ROOT="${HOME}/eva_backups"
+
+if [[ ! -d "${BACKUP_ROOT}" ]]; then
+    printf "No Eva backups found in %s\n" "${BACKUP_ROOT}" >&2
+    exit 1
+fi
+
+# List available backups
+mapfile -t BACKUPS < <(find "${BACKUP_ROOT}" -maxdepth 1 -type d -name "backup_*" | sort -r)
+
+if [[ ${#BACKUPS[@]} -eq 0 ]]; then
+    printf "No backups found in %s\n" "${BACKUP_ROOT}" >&2
+    exit 1
+fi
+
+TARGET_BACKUP="${1:-}"
+
+if [[ -z "${TARGET_BACKUP}" ]]; then
+    printf "\n=== Eva Linux Available Backups ===\n"
+    for i in "${!BACKUPS[@]}"; do
+        b_name="$(basename "${BACKUPS[$i]}")"
+        b_time="$(stat -c %y "${BACKUPS[$i]}" | cut -d. -f1)"
+        printf "  [%d] %s (%s)\n" "$((i+1))" "${b_name}" "${b_time}"
+    done
+    printf "\nSelect a backup number to restore [1-%d]: " "${#BACKUPS[@]}"
+    read -r choice
+    if [[ ! "${choice}" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#BACKUPS[@]} )); then
+        printf "Invalid selection. Exiting.\n" >&2
+        exit 1
+    fi
+    TARGET_BACKUP="${BACKUPS[$((choice-1))]}"
+fi
+
+if [[ ! -d "${TARGET_BACKUP}" ]]; then
+    printf "Backup directory not found: %s\n" "${TARGET_BACKUP}" >&2
+    exit 1
+fi
+
+printf "\nRestoring configuration from: %s\n" "${TARGET_BACKUP}"
+printf "Are you sure? This will replace your current desktop configurations [y/N]: "
+read -r confirm
+if [[ ! "${confirm}" =~ ^[Yy]$ ]]; then
+    printf "Restoration canceled.\n"
+    exit 0
+fi
+
+# Restore ~/.config directories
+if [[ -d "${TARGET_BACKUP}/config" ]]; then
+    for item in "${TARGET_BACKUP}/config"/*; do
+        if [[ -e "${item}" ]]; then
+            dest="${HOME}/.config/$(basename "${item}")"
+            rm -rf "${dest}"
+            cp -r "${item}" "${dest}"
+            printf "  Restored ~/.config/%s\n" "$(basename "${item}")"
+        fi
+    done
+fi
+
+# Restore ~/.local/state
+if [[ -d "${TARGET_BACKUP}/state/noctalia" ]]; then
+    rm -rf "${HOME}/.local/state/noctalia"
+    mkdir -p "${HOME}/.local/state"
+    cp -r "${TARGET_BACKUP}/state/noctalia" "${HOME}/.local/state/noctalia"
+    printf "  Restored ~/.local/state/noctalia\n"
+fi
+
+printf "\n✓ Restoration complete. Please reload Niri (Super + Shift + C) or restart your session.\n"

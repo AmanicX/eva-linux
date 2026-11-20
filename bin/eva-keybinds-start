@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Generate keybind overlay data and start the Quickshell keybinds daemon.
+set -Eeuo pipefail
+
+# Find generator
+if command -v eva-keybinds-manager >/dev/null 2>&1; then
+    GENERATOR="eva-keybinds-manager"
+elif [[ -x "/usr/share/eva/keybinds/gen-keybinds.py" ]]; then
+    GENERATOR="/usr/share/eva/keybinds/gen-keybinds.py"
+elif [[ -x "/usr/share/astra/keybinds/gen-keybinds.py" ]]; then
+    GENERATOR="/usr/share/astra/keybinds/gen-keybinds.py"
+else
+    SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" 2>/dev/null && pwd -P)"
+    GENERATOR="${SCRIPT_DIR}/eva-keybinds-manager"
+fi
+
+if [[ -n "${GENERATOR:-}" ]]; then
+    "$GENERATOR" >/dev/null 2>&1 || true
+fi
+
+if command -v qs >/dev/null 2>&1; then
+    exec qs -c keybinds -d
+else
+    exec quickshell -c keybinds -d
+fi

@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""
+Eva Linux v2 — Wallpaper Synchronization Utility
+Synchronizes the active Noctalia desktop wallpaper with:
+  1. SilentSDDM Login Theme (without changing layout or components)
+  2. HyperFluent GRUB Theme (converts to boot-accessible background.png)
+  3. Plymouth Boot Splash (if supported)
+"""
+
+import sys
+import os
+import time
+import shutil
+import argparse
+import subprocess
+from pathlib import Path
+
+DEFAULT_WALLPAPER = os.path.expanduser("~/Pictures/Wallpapers/eva-crimson-temple.jpg")
+NOCTALIA_SETTINGS = os.path.expanduser("~/.local/state/noctalia/settings.toml")
+SDDM_THEME_DIR = "/usr/share/sddm/themes/silent"
+SDDM_CONFIG_DIR = f"{SDDM_THEME_DIR}/configs"
+GRUB_THEMES = [
+    "/boot/grub/themes/hyperfluent",
+    "/boot/grub/themes/eva",
+    "/boot/grub/themes/astra",
+    "/usr/share/grub/themes/hyperfluent"
+]
+
+def get_noctalia_wallpaper():
+    """Retrieve current wallpaper from Noctalia CLI or settings.toml."""
+    # Try noctalia msg wallpaper-get
+    try:
+        res = subprocess.run(["noctalia", "msg", "wallpaper-get"], capture_output=True, text=True, timeout=2)
+        if res.returncode == 0 and res.stdout.strip():
+            wp = res.stdout.strip()
+            if os.path.isfile(wp):
+                return wp
+    except Exception:
+        pass
+
+    # Try reading settings.toml
+    if os.path.isfile(NOCTALIA_SETTINGS):
+        try:
+            with open(NOCTALIA_SETTINGS, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("path = "):
+                        raw_path = line.split("=", 1)[1].strip().strip('"\'')
+                        expanded = os.path.expanduser(raw_path)
+                        if os.path.isfile(expanded):
+                            return expanded
+        except Exception:
+            pass
+
+    return DEFAULT_WALLPAPER if os.path.isfile(DEFAULT_WALLPAPER) else None
+
+def sync_sddm(wallpaper_path):
+    """Synchronize wallpaper to SilentSDDM theme without modifying theme layout."""
+    if not os.path.isdir(SDDM_THEME_DIR):
+        return False, "SilentSDDM theme directory not found"
+
+    bg_target = f"{SDDM_THEME_DIR}/backgrounds/eva-wallpaper.jpg"
+    try:
+        # If running as root or with write permission
+        if os.access(os.path.dirname(bg_target), os.W_OK):
+            shutil.copy2(wallpaper_path, bg_target)
+        else:
+            res = subprocess.run(["sudo", "cp", wallpaper_path, bg_target], capture_output=True)
+            if res.returncode != 0:
+                return False, "Permission denied copying wallpaper to SDDM"
+
+        # Update or verify active config
+        conf_target = f"{SDDM_CONFIG_DIR}/eva.conf"
+        if not os.path.isfile(conf_target):
+            # Generate clean preset pointing to eva-wallpaper.jpg based on base.conf
+            base_conf = f"{SDDM_CONFIG_DIR}/base.conf"
+            if os.path.isfile(base_conf):
+                with open(base_conf, "r", encoding="utf-8") as f:
+                    content = f.read()
+                content = content.replace('background = "backgrounds/default.jpg"', f'background = "{bg_target}"')
+                content = content.replace('background = "backgrounds/default.png"', f'background = "{bg_target}"')
+                tmp_conf = "/tmp/eva-sddm.conf"
+                with open(tmp_conf, "w", encoding="utf-8") as f:
+                    f.write(content)
+                subprocess.run(["sudo", "cp", tmp_conf, conf_target], check=False)
+                os.remove(tmp_conf)
+
+        return True, f"SDDM wallpaper synchronized: {bg_target}"
+    except Exception as e:
+        return False, str(e)
+
+def sync_grub(wallpaper_path):
+    """Synchronize wallpaper to HyperFluent GRUB theme background.png."""
+    grub_dir = None
+    for g in GRUB_THEMES:
+        if os.path.isdir(g) and os.path.isfile(f"{g}/theme.txt"):
+            grub_dir = g
+            break
+
+    if not grub_dir:
+        return False, "Supported GRUB theme directory not found"
+
+    target_bg = f"{grub_dir}/background.png"
+    tmp_png = "/tmp/eva-grub-bg.png"
+
+    try:
+        # Convert image to PNG using PIL or ImageMagick
+        try:
+            from PIL import Image
+            with Image.open(wallpaper_path) as im:
+                rgb_im = im.convert("RGB")
+                # Scale or save as PNG
+                rgb_im.save(tmp_png, "PNG")
+        except Exception:
+            subprocess.run(["magick", wallpaper_path, tmp_png], check=True)
+
+        if not os.path.isfile(tmp_png):
+            return False, "Failed to convert wallpaper to PNG for GRUB"
+
+        # Copy to boot partition
+        if os.access(grub_dir, os.W_OK):
+            shutil.copy2(tmp_png, target_bg)
+        else:
+            res = subprocess.run(["sudo", "cp", tmp_png, target_bg], capture_output=True)
+            if res.returncode != 0:
+                return False, "Permission denied copying background to GRUB theme"
+
+        if os.path.isfile(tmp_png):
+            os.remove(tmp_png)
+
+        return True, f"GRUB background synchronized: {target_bg} (no grub-mkconfig rebuild required)"
+    except Exception as e:
+        if os.path.isfile(tmp_png):
+            try:
+                os.remove(tmp_png)
+            except Exception:
+                pass
+        return False, str(e)
+
+def sync_all(wallpaper_path=None):
+    """Run full synchronization."""
+    wp = wallpaper_path or get_noctalia_wallpaper()
+    if not wp or not os.path.isfile(wp):
+        print("Error: Could not locate a valid wallpaper to synchronize.", file=sys.stderr)
+        return 1
+
+    print(f"✦ Eva Linux Wallpaper Sync: {wp}")
+    sddm_ok, sddm_msg = sync_sddm(wp)
+    print(f"  [SDDM] {'✓' if sddm_ok else '✗'} {sddm_msg}")
+
+    grub_ok, grub_msg = sync_grub(wp)
+    print(f"  [GRUB] {'✓' if grub_ok else '✗'} {grub_msg}")
+
+    return 0
+
+def watch_mode():
+    """Watch Noctalia settings file for wallpaper changes and sync automatically."""
+    print("✦ Eva Linux Wallpaper Watcher active. Monitoring Noctalia settings...")
+    last_mtime = 0
+    last_wp = None
+
+    while True:
+        try:
+            if os.path.isfile(NOCTALIA_SETTINGS):
+                mtime = os.path.getmtime(NOCTALIA_SETTINGS)
+                if mtime != last_mtime:
+                    last_mtime = mtime
+                    current_wp = get_noctalia_wallpaper()
+                    if current_wp and current_wp != last_wp:
+                        last_wp = current_wp
+                        sync_all(current_wp)
+        except Exception as e:
+            print(f"Watcher error: {e}", file=sys.stderr)
+        time.sleep(3)
+
+def main():
+    parser = argparse.ArgumentParser(description="Eva Linux v2 Wallpaper Synchronizer")
+    parser.add_argument("wallpaper", nargs="?", default=None, help="Path to wallpaper image (optional)")
+    parser.add_argument("--watch", action="store_true", help="Run in continuous background watcher mode")
+    args = parser.parse_args()
+
+    if args.watch:
+        watch_mode()
+    else:
+        sys.exit(sync_all(args.wallpaper))
+
+if __name__ == "__main__":
+    main()

@@ -3,30 +3,216 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AstraOS - Curated Arch Linux Distribution | AmanicX</title>
-  <meta name="description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
-  <link rel="canonical" href="https://amanicx.github.io/astra-os/">
+  <title>Eva Linux v2 Stable — Curated Wayland Desktop Installer | AmanicX</title>
+  <meta name="description" content="Eva Linux v2 Stable transforms a base Arch Linux installation into a coherent, high-performance Wayland environment pairing Niri scrollable tiling with Noctalia 5, Kitty, LazyVim, SilentSDDM, HyperFluent GRUB, and real-time wallpaper sync.">
+  <link rel="canonical" href="https://amanicx.github.io/eva-linux/">
   <meta name="theme-color" content="#0B0D12">
 
   <!-- OpenGraph -->
-  <meta property="og:title" content="AstraOS - Curated Arch Linux Distribution | AmanicX">
-  <meta property="og:description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
+  <meta property="og:title" content="Eva Linux v2 Stable — Curated Wayland Desktop Installer | AmanicX">
+  <meta property="og:description" content="A modular, script-based setup installer for Arch Linux featuring Niri scrollable tiling, Noctalia 5 shell, live keybind cheatsheet overlay, and zero-risk wallpaper sync.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://amanicx.github.io/astra-os/">
-  <meta property="og:image" content="https://amanicx.github.io/astra-os/assets/wallpaper.png">
+  <meta property="og:url" content="https://amanicx.github.io/eva-linux/">
+  <meta property="og:image" content="site-assets/screenshot-desktop.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AstraOS - Curated Arch Linux Distribution | AmanicX">
-  <meta name="twitter:description" content="AstraOS is a curated Arch-based Linux distribution for developers and power users who want a coherent, quiet, and beautiful desktop without assembling it themselves. It pairs the horizontal scrollable tiling model of Niri with the Noctalia v5 shell, shipping with a pinned package archive snapshot, seeded Kitty terminal with Oh My Posh, pre-baked LazyVim editor, Btrfs subvolumes, custom SDDM Astronaut theme, and custom system tools.">
-  <meta name="twitter:image" content="https://amanicx.github.io/astra-os/assets/wallpaper.png">
+  <meta name="twitter:title" content="Eva Linux v2 Stable | AmanicX">
+  <meta name="twitter:description" content="Modular Wayland desktop setup installer featuring Niri, Noctalia 5, Kitty, LazyVim, SilentSDDM, and automated wallpaper sync.">
+  <meta name="twitter:image" content="site-assets/screenshot-desktop.jpg">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="../shared/assets/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="shared/assets/favicon.svg">
 
   <!-- Unified Stylesheets -->
-  <link rel="stylesheet" href="../shared/styles/design-system.css">
-  <link rel="stylesheet" href="../shared/styles/motion.css">
+  <link rel="stylesheet" href="shared/styles/design-system.css">
+  <link rel="stylesheet" href="shared/styles/motion.css">
 
-  <!-- Instant Theme Script (Zero-FOUC) -->
+  <style>
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .badge-v2 {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: rgba(225, 29, 72, 0.15);
+      border: 1px solid rgba(225, 29, 72, 0.4);
+      color: #FB7185;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .badge-script {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-medium);
+      color: var(--text-secondary);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .install-box {
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .command-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--bg-surface-0);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      overflow-x: auto;
+    }
+    .command-bar code {
+      white-space: nowrap;
+      user-select: all;
+    }
+    .preview-card {
+      position: relative;
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      transition: transform var(--duration-base) var(--ease-out-cubic), border-color var(--duration-base);
+    }
+    .preview-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+    .preview-card picture img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .preview-caption {
+      padding: 1rem 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface-glass-heavy);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+    .feature-card {
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: all var(--duration-base);
+    }
+    .feature-card:hover {
+      border-color: var(--border-medium);
+      background: var(--bg-surface-2);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: rgba(225, 29, 72, 0.12);
+      border: 1px solid rgba(225, 29, 72, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FB7185;
+      margin-bottom: 0.5rem;
+    }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .step-item {
+      display: flex;
+      gap: 1.25rem;
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: var(--accent-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .step-body h4 {
+      margin: 0 0 0.35rem 0;
+      font-size: 1.05rem;
+    }
+    .step-body p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.925rem;
+      line-height: 1.5;
+    }
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .shortcut-table th, .shortcut-table td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .shortcut-table th {
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    kbd {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: var(--bg-surface-3);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+  </style>
+
   <script>
     (function () {
       try {
@@ -41,268 +227,330 @@
 <body>
   <div id="scroll-progress"></div>
 
-    <!-- Floating Pill Navigation (Nexora Inspired) -->
+  <!-- Floating Navigation -->
   <div class="nav-wrapper">
     <header class="nav-bar">
-      <a href="../" class="nav-brand" aria-label="AmanicX Ecosystem Home">
-        <img class="nav-brand-mark" src="../shared/assets/favicon.svg" alt="AmanicX" width="26" height="26">
-        <span>AmanicX</span>
+      <a href="./" class="nav-brand" aria-label="Eva Linux Home">
+        <img class="nav-brand-mark" src="shared/assets/favicon.svg" alt="AmanicX" width="26" height="26">
+        <span>Eva Linux</span>
       </a>
 
       <nav class="nav-links" aria-label="Main Navigation">
-        <a href="../" class="nav-link ">Overview</a>
-        <a href="../apps/" class="nav-link ">Apps</a>
-        <a href="../eva/" class="nav-link ">Eva</a>
-        <a href="../astra/" class="nav-link ">Astra</a>
-        <a href="../astra-os/" class="nav-link active">AstraOS</a>
+        <a href="./" class="nav-link active">Home</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#keybinds" class="nav-link">Shortcuts</a>
+        <a href="#install" class="nav-link">Install</a>
+        <a href="catalog/" class="nav-link">Components</a>
+        <a href="releases/" class="nav-link">Releases</a>
       </nav>
 
       <div class="nav-controls">
-        <div class="theme-switcher" role="group" aria-label="Theme mode switcher">
-          <button class="theme-btn" data-mode="dark" title="Dark Theme" aria-label="Dark Theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </button>
-          <button class="theme-btn" data-mode="light" title="Light Theme" aria-label="Light Theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          </button>
-          <button class="theme-btn" data-mode="system" title="System Theme" aria-label="System Theme">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-          </button>
-        </div>
-
-        <a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" aria-label="GitHub Profile">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <a href="https://github.com/AmanicX/eva-linux" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="GitHub Repository">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           <span>GitHub</span>
         </a>
       </div>
     </header>
   </div>
 
+  <main class="page-container" style="max-width: 1140px; margin: 0 auto; padding: 5rem 1.5rem 6rem;">
 
-  <!-- AstraOS Hero -->
-  <section class="section-lg" style="position:relative; overflow:hidden;">
-    <div class="ambient-flare flare-crimson" style="top:-80px; left:50%; width:650px; height:650px; transform:translateX(-50%);"></div>
-    <div class="container" style="text-align:center; position:relative; z-index:2;">
-      <div style="display:inline-flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;" class="reveal">
-        <img src="../shared/assets/icons/astra-os.svg" alt="AstraOS Logo" width="48" height="48" style="border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.4);">
-        <span class="badge badge-dev" style="font-size:0.8125rem;">v1.0 Preview</span>
+    <!-- Hero Section -->
+    <section class="hero-section" style="padding: 3rem 0 2rem; text-align: center;">
+      <div class="hero-badge-row" style="justify-content: center;">
+        <span class="badge-v2">✦ Eva Linux v2.0 Stable</span>
+        <span class="badge-script">Modular Setup Installer — Not an ISO</span>
+        <span class="badge-script">Arch Linux Compatible</span>
       </div>
 
-      <h1 class="title-display reveal delay-100" style="margin-bottom:1.5rem; max-width:920px; margin-left:auto; margin-right:auto;">
-        Curated Arch Linux with Niri & Noctalia
+      <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; letter-spacing: -0.03em; margin: 0.5rem 0 1.25rem; line-height: 1.1;">
+        The Curated Wayland Desktop <br/>
+        <span style="background: linear-gradient(135deg, #FFF 30%, #FDA4AF 70%, #E11D48 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">For Power Users & Developers</span>
       </h1>
-      <p class="lead reveal delay-200" style="margin:0 auto 2.5rem;">
-        A curated, design-driven Arch-based Linux distribution featuring the Niri scrollable tiling compositor and Noctalia v5 desktop shell.
+
+      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 720px; margin: 0 auto 2rem; line-height: 1.6;">
+        Transform any standard Arch Linux installation into a coherent, high-performance desktop environment pairing Niri’s scrollable tiling with the Noctalia 5 shell, native keybind editing, and zero-risk bootloader synchronization.
       </p>
 
-      <div class="reveal delay-300" style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:4rem;">
-        <a href="#install" class="btn btn-lg btn-primary">
-          <span>Installation Guide & Hardware Specs</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="./releases/" class="btn btn-lg btn-secondary">
-          <span>Build ISO from Source</span>
-        </a>
+      <!-- Quick Command Bar -->
+      <div class="install-box" style="max-width: 760px; margin: 0 auto 2.5rem; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span style="font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">One-Line Quick Bootstrap</span>
+          <span style="font-size: 0.8125rem; color: #34D399;">● Tested Stable</span>
+        </div>
+        <div class="command-bar">
+          <code id="install-cmd">curl -fsSL https://raw.githubusercontent.com/AmanicX/eva-linux/main/install.sh | bash</code>
+          <button class="btn btn-primary btn-sm" onclick="copyInstallCmd(this)">Copy</button>
+        </div>
+        <div style="margin-top: 0.85rem; font-size: 0.8125rem; color: var(--text-muted); display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <span>✓ Idempotent & Safe</span>
+          <span>✓ Automated Backup Included</span>
+          <span>✓ Interactive GPU & Browser Selection</span>
+        </div>
       </div>
 
-      <!-- Wallpaper & Desktop Preview -->
-      <div class="reveal delay-400 mockup-window" style="max-width:1040px; margin:0 auto;">
-        <div class="mockup-header">
-          <div class="mockup-dots">
-            <span class="mockup-dot"></span>
-            <span class="mockup-dot"></span>
-            <span class="mockup-dot"></span>
+      <!-- Genuine Desktop Screenshot Preview -->
+      <div class="preview-card" style="margin-top: 2rem;">
+        <picture>
+          <source srcset="site-assets/screenshot-desktop.webp" type="image/webp">
+          <img src="site-assets/screenshot-desktop.jpg" alt="Eva Linux v2 Stable Desktop with Noctalia Control Center" loading="eager" width="1920" height="1080">
+        </picture>
+        <div class="preview-caption">
+          <span><strong>Actual Desktop Capture:</strong> Niri scrollable compositor + Noctalia 5 capsule bar & control center</span>
+          <span style="font-family: var(--font-mono); font-size: 0.8125rem;">Tokyo-Night & Oasis Abyss Palette</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" style="padding: 4rem 0 2rem;">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 3rem;">
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem;">Crafted for Focus and Flow</h2>
+        <p style="color: var(--text-secondary); margin: 0;">Every component in Eva Linux v2 is curated to produce a quiet, responsive, and reliable workstation.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
           </div>
-          <span style="font-size:0.8125rem; color:var(--text-muted); font-family:var(--font-mono);">AstraOS - Niri Wayland Compositor + Noctalia v5</span>
-          <span class="badge badge-dev" style="padding:0.15rem 0.5rem; font-size:0.7rem;">UEFI ONLY</span>
-        </div>
-        <div style="background:var(--bg-surface-0); padding:0.5rem; display:flex; justify-content:center;">
-          <img src="../astra-os/assets/wallpaper.png" alt="AstraOS Desktop Wallpaper" style="border-radius:var(--radius-md); width:100%; height:auto;">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Architectural Pillars -->
-  <section class="section" style="background:var(--bg-surface-0); border-top:1px solid var(--border-subtle); border-bottom:1px solid var(--border-subtle);">
-    <div class="container">
-      <div style="text-align:center; margin-bottom:4rem;">
-        <div class="eyebrow reveal">CURATED ENVIRONMENT</div>
-        <h2 class="title-section reveal delay-100">Every Detail Pre-Configured</h2>
-        <p class="lead reveal delay-200" style="margin:1rem auto 0;">
-          AstraOS pairs modern Wayland scrollable tiling with the tools developers actually use every day.
-        </p>
-      </div>
-
-      <div class="grid-2x2">
-        
-        <div class="card reveal delay-100">
-          <div class="badge badge-dev" style="margin-bottom:1rem;">WINDOW COMPOSITOR</div>
-          <h3 class="title-card" style="margin-bottom:0.75rem;">Niri Scrollable Tiling</h3>
-          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
-            Windows arrange themselves along an infinite horizontal ribbon. Scroll smoothly between tasks without squishing windows or manually juggling complex grid layouts.
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Niri Infinite Tiling</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            A scrollable-tiling Wayland window manager built on the concept of an infinite horizontal ribbon. Preset column widths (33%, 50%, 66%) keep your workflow organized without microscopic window shrinking.
           </p>
         </div>
 
-        <div class="card reveal delay-200">
-          <div class="badge badge-dev" style="margin-bottom:1rem;">DESKTOP SHELL</div>
-          <h3 class="title-card" style="margin-bottom:0.75rem;">Noctalia v5 Wayland Shell</h3>
-          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
-            Integrated status bar, system monitors, network controls, volume slider, notifications, and application launcher triggered via <code>Super + Space</code>.
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Noctalia 5 Shell</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            Features a floating capsule top bar, interactive media widgets, integrated workspace overview, and a unified control center for quick toggles, brightness, and audio devices.
           </p>
         </div>
 
-        <div class="card reveal delay-300">
-          <div class="badge badge-dev" style="margin-bottom:1rem;">DEVELOPER CORE</div>
-          <h3 class="title-card" style="margin-bottom:0.75rem;">Kitty + Zsh + LazyVim</h3>
-          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
-            Kitty GPU terminal with Oh My Posh 1_shell prompt, fastfetch diagnostics, and a pinned Neovim tree with LazyVim fully pre-baked and cached for instant offline launch.
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Zero-Risk Wallpaper Sync</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            Changing your wallpaper in Noctalia automatically synchronizes the background of SilentSDDM and HyperFluent GRUB. GRUB background updates directly in place without executing risky <code>grub-mkconfig</code> rebuilds.
           </p>
         </div>
 
-        <div class="card reveal delay-400">
-          <div class="badge badge-dev" style="margin-bottom:1rem;">STORAGE & RELIABILITY</div>
-          <h3 class="title-card" style="margin-bottom:0.75rem;">Btrfs Subvolumes & Snapshots</h3>
-          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
-            Configured with <code>@</code> (root), <code>@home</code>, <code>@snapshots</code>, and <code>@pkg</code> subvolumes. Built on the Arch Linux Archive snapshot <code>2026/10/18</code> for reproducible stability.
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Kitty & LazyVim</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            Pre-seeded GPU terminal with background blur, JetBrains Mono font, and Noctalia palette synchronization. Neovim is configured out-of-the-box with LazyVim, Treesitter, and LSP tooling.
           </p>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">SilentSDDM & Plymouth</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            Pure upstream SilentSDDM login greeter with layout preservation, paired with a two-step Plymouth boot splash and the fluent HyperFluent bootloader theme.
+          </p>
+        </div>
 
-  <!-- Hardware Requirements & Installation Walkthrough -->
-  <section class="section-lg" id="install">
-    <div class="container container-narrow">
-      <div style="margin-bottom:3.5rem;">
-        <div class="eyebrow reveal">INSTALLATION & REQUIREMENTS</div>
-        <h2 class="title-section reveal delay-100" style="margin-bottom:1rem;">System Compatibility & Setup</h2>
-        <p class="lead reveal delay-200">
-          AstraOS targets modern 64-bit UEFI systems. Secure Boot must be disabled.
-        </p>
-      </div>
-
-      <!-- Requirements Table -->
-      <div class="card card-glass reveal delay-300" style="margin-bottom:3rem;">
-        <h3 class="title-card" style="margin-bottom:1.25rem;">Hardware Requirements</h3>
-        <div style="display:flex; flex-direction:column; gap:0.875rem; font-size:0.9375rem;">
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-            <span style="color:var(--text-muted);">Processor</span>
-            <span style="font-weight:600;">64-bit x86_64 (Intel or AMD)</span>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
           </div>
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-            <span style="color:var(--text-muted);">Firmware</span>
-            <span style="font-weight:600; color:var(--accent-primary);">UEFI only (CSM/Legacy not supported)</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-            <span style="color:var(--text-muted);">Secure Boot</span>
-            <span style="font-weight:600; color:#F59E0B;">Disabled</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-            <span style="color:var(--text-muted);">Memory (RAM)</span>
-            <span style="font-weight:600;">4 GB minimum (8 GB recommended)</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
-            <span style="color:var(--text-muted);">Storage</span>
-            <span style="font-weight:600;">25 GB free disk space (Btrfs root)</span>
-          </div>
-          <div style="display:flex; justify-content:space-between;">
-            <span style="color:var(--text-muted);">Graphics</span>
-            <span style="font-weight:600;">AMD / Intel open drivers (Mesa); NVIDIA 580xx</span>
-          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Backup & Restoration</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin: 0;">
+            Every installation automatically creates a timestamped archive of your existing configurations with a manifest. Run <code>eva-restore</code> at any point to roll back in seconds.
+          </p>
         </div>
       </div>
+    </section>
 
-      <!-- Installation Steps -->
-      <div class="card reveal delay-400">
-        <h3 class="title-card" style="margin-bottom:1.25rem;">Live Session & Installation Process</h3>
-        <ol style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9375rem; line-height:1.8; margin-bottom:2rem;">
-          <li>Flash the generated ISO image to a USB flash drive using <code>dd</code>:
-            <div class="cmd-box" style="margin:0.75rem 0;">
-              <code>sudo dd if=astraos-v1-x86_64.iso of=/dev/sdX bs=4M status=progress conv=fsync</code>
-              <button class="copy-btn" data-copy-text="sudo dd if=astraos-v1-x86_64.iso of=/dev/sdX bs=4M status=progress conv=fsync">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
+    <!-- Keybind Popup Section -->
+    <section id="keybinds" style="padding: 3rem 0; border-top: 1px solid var(--border-subtle);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 3rem; align-items: center;">
+        <div>
+          <span class="badge-v2" style="margin-bottom: 0.75rem;">Interactive Cheatsheet</span>
+          <h2 style="font-size: 2.2rem; font-weight: 700; margin: 0.5rem 0 1rem; line-height: 1.2;">
+            Never Memorize Shortcuts Again.
+          </h2>
+          <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+            Press <kbd>Super + Shift + /</kbd> anywhere in your session to reveal the native Wayland cheatsheet overlay.
+          </p>
+          <ul style="color: var(--text-secondary); padding-left: 1.25rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <li><strong>Live Keyboard Capture:</strong> Click "Edit" and press keys directly on your keyboard to assign shortcuts.</li>
+            <li><strong>Collision Resolution:</strong> Built-in conflict detection offers instant Replace or Swap modes.</li>
+            <li><strong>Sandbox Validation:</strong> Automatically validates syntax against <code>niri validate</code> before applying, with instantaneous rollback on error.</li>
+            <li><strong>Frosted Glass Aesthetic:</strong> Hardware-accelerated background blur matching your wallpaper tone.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="preview-card">
+            <picture>
+              <source srcset="site-assets/screenshot-keybinds.webp" type="image/webp">
+              <img src="site-assets/screenshot-keybinds.png" alt="Eva Linux Interactive Keybind Cheatsheet" loading="lazy" width="1111" height="548">
+            </picture>
+            <div class="preview-caption">
+              <span><strong>Quickshell Cheatsheet Overlay:</strong> Real-time search & interactive live editing</span>
+              <kbd>Super + Shift + /</kbd>
             </div>
-          </li>
-          <li>Boot the USB stick in <strong>UEFI mode</strong>. The system boots into the SDDM login screen and automatically logs into the live Niri desktop.</li>
-          <li>Live session credentials:
-            <ul style="margin-left:1.5rem; margin-top:0.25rem;">
-              <li><strong>User:</strong> <code>astra</code></li>
-              <li><strong>Password:</strong> <code>astra</code> (for lockscreen and tty fallback)</li>
-              <li><strong>Sudo:</strong> Passwordless in live environment</li>
-            </ul>
-          </li>
-          <li>Launch the Astra Installer from the application menu (<code>Super + Space</code>) to partition and install to disk.</li>
-        </ol>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-          <a href="./catalog/" class="btn btn-secondary">Inspect Package Architecture</a>
-          <a href="./releases/" class="btn btn-primary">Build ISO from Source</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-    <!-- Unified Ecosystem Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div style="display:flex; align-items:center; gap:0.625rem; font-weight:700; font-size:1.125rem; margin-bottom:0.75rem;">
-            <img src="../shared/assets/favicon.svg" alt="AmanicX" width="24" height="24">
-            <span>AmanicX Ecosystem</span>
           </div>
-          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6; margin-bottom:1.25rem;">
-            Software systems engineered for autonomy, control, and privacy. Built with open standards and verified local performance.
-          </p>
-          <div class="badge badge-dev">CRIMSON SYSTEM</div>
-        </div>
-
-        <div>
-          <div class="footer-title">Software Projects</div>
-          <ul class="footer-links">
-            <li><a href="../eva/">Eva Studio</a></li>
-            <li><a href="../astra/">Astra Assistant</a></li>
-            <li><a href="../astra-os/">AstraOS Linux</a></li>
-            <li><a href="../apps/">Application Catalog</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="footer-title">Releases & Docs</div>
-          <ul class="footer-links">
-            <li><a href="../eva/releases/">Eva Downloads (v2.2.2)</a></li>
-            <li><a href="../astra/releases/">Astra Downloads (v0.1.0-pre)</a></li>
-            <li><a href="../astra-os/releases/">AstraOS Build & ISO</a></li>
-            <li><a href="../eva/catalog/">Eva Evolution Catalog</a></li>
-            <li><a href="../astra/catalog/">Astra Architecture</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="footer-title">Community & Source</div>
-          <ul class="footer-links">
-            <li><a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer">GitHub Organization</a></li>
-            <li><a href="https://github.com/AmanicX/eva" target="_blank" rel="noopener noreferrer">Eva Repository</a></li>
-            <li><a href="https://github.com/AmanicX/astra" target="_blank" rel="noopener noreferrer">Astra Repository</a></li>
-            <li><a href="https://github.com/AmanicX/astra-os" target="_blank" rel="noopener noreferrer">AstraOS Repository</a></li>
-          </ul>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <div>&copy; 2026 AmanicX. Released under open-source licenses (MIT & Apache-2.0).</div>
-        <div>Hosted natively on GitHub Pages with automated release sync.</div>
+      <!-- Essential Shortcuts Table -->
+      <div style="margin-top: 3.5rem;">
+        <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem;">Essential Default Shortcuts</h3>
+        <table class="shortcut-table">
+          <thead>
+            <tr>
+              <th>Shortcut</th>
+              <th>Action</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>/</kbd></td>
+              <td><strong>Keybind Cheatsheet</strong></td>
+              <td>Toggle the interactive shortcut overlay & editor</td>
+            </tr>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>Space</kbd></td>
+              <td><strong>Application Launcher</strong></td>
+              <td>Open Noctalia search and application menu</td>
+            </tr>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>Alt</kbd> + <kbd>Space</kbd></td>
+              <td><strong>Wallpaper Picker</strong></td>
+              <td>Open Noctalia wallpaper selector (auto-syncs to boot & login)</td>
+            </tr>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>Enter</kbd></td>
+              <td><strong>Terminal</strong></td>
+              <td>Spawn Kitty GPU terminal with active theme</td>
+            </tr>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>B</kbd></td>
+              <td><strong>Web Browser</strong></td>
+              <td>Launch default web browser</td>
+            </tr>
+            <tr>
+              <td><kbd>Super</kbd> + <kbd>E</kbd></td>
+              <td><strong>File Manager</strong></td>
+              <td>Open Nautilus file explorer</td>
+            </tr>
+            <tr>
+              <td><kbd>Print</kbd></td>
+              <td><strong>Region Screenshot</strong></td>
+              <td>Interactive area capture to clipboard & <code>~/Pictures/Screenshots</code></td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>Print</kbd></td>
+              <td><strong>Full Screenshot</strong></td>
+              <td>Capture entire display</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Installation Steps Section -->
+    <section id="install" style="padding: 4rem 0 2rem; border-top: 1px solid var(--border-subtle);">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 3rem;">
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem;">Simple & Safe Installation</h2>
+        <p style="color: var(--text-secondary); margin: 0;">Designed to run idempotently on top of any standard Arch Linux system.</p>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Start with Base Arch Linux</h4>
+            <p>Install standard Arch Linux or boot into an existing Arch installation. Ensure your user has <code>sudo</code> permissions and an active network connection.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Run the Installer</h4>
+            <p>Execute the bootstrap command or clone the git repository manually:</p>
+            <div class="command-bar" style="margin-top: 0.75rem;">
+              <code>curl -fsSL https://raw.githubusercontent.com/AmanicX/eva-linux/main/install.sh | bash</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Interactive Hardware & Preferences Selection</h4>
+            <p>The installer will detect your GPU (AMD, Intel, NVIDIA) and prompt you for preferred browser, AUR helper (<code>yay</code> or <code>paru</code>), and optional Eva AI Chatbot.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Reboot & Enjoy</h4>
+            <p>Log in through SilentSDDM into your brand new Niri session. All configurations, keybindings, and wallpaper synchronizations are immediately active.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upstream Attribution -->
+    <section style="padding: 3rem 0; border-top: 1px solid var(--border-subtle); text-align: center;">
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem;">Built Upon Open Source Craft</h3>
+      <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto 1.5rem; font-size: 0.95rem; line-height: 1.5;">
+        Eva Linux relies on the generous work of upstream authors: <strong>YaLixDee</strong> (Niri), <strong>Clement Fombonne</strong> (Noctalia), <strong>outfoxxed</strong> (Quickshell), <strong>uiriansan</strong> (SilentSDDM), <strong>Coopydood</strong> (HyperFluent), and <strong>folke</strong> (LazyVim).
+      </p>
+      <a href="catalog/" class="btn btn-secondary btn-sm">View Component Catalog & Attribution</a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border-subtle); padding: 3rem 1.5rem; background: var(--bg-surface-0); text-align: center; font-size: 0.875rem; color: var(--text-muted);">
+    <div style="max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="shared/assets/favicon.svg" alt="AmanicX" width="20" height="20">
+        <span style="font-weight: 600; color: var(--text-primary);">Eva Linux v2 Stable</span>
+        <span>— AmanicX Ecosystem</span>
+      </div>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="https://github.com/AmanicX/eva-linux" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary);">GitHub</a>
+        <a href="releases/" style="color: var(--text-secondary);">Releases</a>
+        <a href="catalog/" style="color: var(--text-secondary);">Catalog</a>
+        <a href="LICENSE" style="color: var(--text-secondary);">MIT License</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="../shared/scripts/theme.js"></script>
-  <script src="../shared/scripts/motion.js"></script>
-  <script src="../shared/scripts/ecosystem-client.js"></script>
+  <script>
+    function copyInstallCmd(btn) {
+      const code = document.getElementById('install-cmd').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = '#34D399';
+        btn.style.borderColor = '#34D399';
+        btn.style.color = '#000';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
-

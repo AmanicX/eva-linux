@@ -1,107 +1,69 @@
-# AstraOS — Upstream Credits & Attributions
+# Eva Linux v2 Stable — Upstream Credits & Attribution
 
-AstraOS is built upon the ingenuity, craft, and generosity of the open-source community. This document formally recognizes and thanks the creators, maintainers, and contributors whose projects make AstraOS possible.
+Eva Linux is built upon the ingenuity, craft, and generosity of the open-source community. This document formally recognizes and credits the creators, maintainers, and contributors whose projects make Eva Linux possible.
 
 ---
 
-## 1. Core Desktop & Window Management
+## 1. Core Desktop Compositor & Shell
 
 ### [Niri](https://github.com/YaLixDee/niri)
-- **Author / Maintainers:** YaLixDee and contributors
+- **Author / Maintainer:** YaLixDee and contributors
 - **License:** GPL-3.0-or-later
-- **Role in AstraOS:** Window Compositor
-- **Contribution:** Niri provides the groundbreaking scrollable tiling window manager architecture that defines the window layout and fluid interaction model of AstraOS.
+- **Role in Eva Linux:** Window Compositor
+- **Contribution:** Provides the scrollable tiling window manager architecture that defines the fluid, infinite horizontal desktop interaction model of Eva Linux.
 
 ### [Noctalia](https://github.com/noctalia-dev/noctalia) (v5)
-- **Author / Maintainers:** Clement Fombonne and the Noctalia development team
+- **Author / Maintainer:** Clement Fombonne and the Noctalia development team
 - **License:** MIT
-- **Role in AstraOS:** Desktop Shell & UI Environment
-- **Contribution:** Noctalia v5 provides the sleek, modern top bar, system controls, quick settings, workspace visualizer, and notification center.
+- **Role in Eva Linux:** Desktop Shell & UI Environment
+- **Contribution:** Noctalia v5 powers the sleek capsule top bar, system control center, quick settings, workspace visualizer, and dynamic wallpaper color extraction.
 
 ### [Quickshell](https://github.com/outfoxxed/quickshell)
-- **Author / Maintainers:** outfoxxed and contributors
+- **Author / Maintainer:** outfoxxed and contributors
 - **License:** LGPL-3.0-only
-- **Role in AstraOS:** QML Shell Toolkit
-- **Contribution:** Powers Noctalia's native Wayland QML interface and the AstraOS keybinding cheat sheet overlay.
+- **Role in Eva Linux:** Wayland QML Shell Toolkit
+- **Contribution:** Powers Noctalia's native Wayland QML interface and the Eva Linux interactive keybinding cheatsheet and editor overlay.
 
 ---
 
 ## 2. Bootloader, Display & Session Greeter
 
 ### [SilentSDDM](https://github.com/uiriansan/SilentSDDM)
-- **Author / Maintainers:** uiriansan and contributors
+- **Author / Maintainer:** uiriansan and contributors
 - **License:** GPL-3.0-only
-- **Role in AstraOS:** Display Manager Greeter Theme
-- **Contribution:** Provides the minimalist, calm login interface used in installed AstraOS systems, customized with 7 AstraOS wallpaper presets and an automated preset switcher (`astra-sddm-theme`).
+- **Role in Eva Linux:** Display Manager Greeter Theme
+- **Contribution:** Provides the calm, minimalist login interface for Eva Linux. Used in its original upstream form with only background wallpaper synchronization.
 
-### [GNU GRUB](https://www.gnu.org/software/grub/)
-- **Author / Maintainers:** Free Software Foundation and the GNU GRUB team
-- **License:** GPL-3.0-or-later
-- **Role in AstraOS:** Installed System Bootloader
-- **Contribution:** Reliable UEFI bootloader providing Btrfs subvolume boot capability and automated multi-boot OS detection via `os-prober`.
+### [HyperFluent GRUB Theme](https://github.com/Coopydood/HyperFluent-GRUB-Theme)
+- **Author / Maintainer:** Coopydood and contributors
+- **License:** MIT
+- **Role in Eva Linux:** Bootloader Theme
+- **Contribution:** Provides the modern boot selection menu. Eva Linux synchronizes the desktop wallpaper to HyperFluent's `background.png` without regenerating `grub.cfg`.
 
-### [systemd-boot](https://systemd.io/) & [archiso](https://gitlab.archlinux.org/archlinux/archiso)
-- **Author / Maintainers:** The systemd project & Arch Linux team
-- **License:** LGPL-2.1-or-later / GPL-3.0
-- **Role in AstraOS:** Live ISO Bootloader & Image Builder
-- **Contribution:** Powers the clean, branded UEFI boot menu on the live installer medium.
+### [Plymouth](https://www.freedesktop.org/wiki/Software/Plymouth/)
+- **Author / Maintainers:** Ray Strode, Charlie Brej, and the freedesktop.org Plymouth team
+- **License:** GPL-2.0-or-later
+- **Role in Eva Linux:** Graphical Boot Splash
 
 ---
 
-## 3. Terminal & Shell Experience
+## 3. Terminal, Editor & Modern CLI Stack
 
 ### [Kitty](https://github.com/kovidgoyal/kitty)
-- **Author / Maintainers:** Kovid Goyal and contributors
+- **Author / Maintainer:** Kovid Goyal and contributors
 - **License:** GPL-3.0-only
-- **Role in AstraOS:** GPU-Accelerated Terminal Emulator
-- **Contribution:** Provides lightning-fast terminal rendering, true color, and font glyph support configured with the AstraOS palette.
+- **Role in Eva Linux:** Default GPU-accelerated Terminal Emulator
 
-### [Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh)
-- **Author / Maintainers:** Jan De Dobbeleer and contributors
-- **License:** MIT
-- **Role in AstraOS:** Shell Prompt Engine
-- **Contribution:** Powers the responsive, informative `1_shell` prompt across Zsh sessions.
-
-### [Zsh](https://www.zsh.org/) & Plugins
-- **Author / Maintainers:** Zsh Development Group, zsh-users
-- **License:** MIT-like / GPL
-- **Role in AstraOS:** Interactive Login Shell
-- **Contribution:** Enhanced with fast-syntax-highlighting, zsh-autosuggestions, and history-substring-search.
-
----
-
-## 4. Development & Editing
-
-### [LazyVim](https://github.com/LazyVim/LazyVim) & [Neovim](https://github.com/neovim/neovim)
-- **Author / Maintainers:** Folke Lemaitre (LazyVim), Neovim core team and community
+### [Neovim](https://github.com/neovim/neovim) & [LazyVim](https://github.com/LazyVim/LazyVim)
+- **Authors / Maintainers:** Neovim team and folke
 - **License:** Apache-2.0 / Vim License
-- **Role in AstraOS:** Default Code & Configuration Editor
-- **Contribution:** Pre-baked, pinned, zero-delay LazyVim installation with full LSP, Treesitter, and custom AstraOS Kitty color coordination.
+- **Role in Eva Linux:** Integrated Development Environment
 
----
-
-## 5. Visual Artwork & Astronomy Imagery
-
-### Original AstraOS Artwork
-- **Author / Designer:** AmanicX (AstraOS Project)
-- **License:** MIT / Project License
-- **Assets:** AstraOS star mark, wordmark, lockup SVG, and the orbital 4K wallpapers (`astraos-default.png`, `astraos-aurora.png`, `astraos-ember.png`, `astraos-lunar.png`).
-
-### [NASA](https://www.nasa.gov/) Imagery
-- **Earthrise (Apollo 8):** NASA / William Anders (`as08-14-2383`) — Public Domain
-- **Carina Nebula:** NASA / ESA / CSA / STScI (James Webb Space Telescope) — Public Domain / CC-BY-4.0
-- **Hubble Deep Field:** NASA / ESA (`PIA12110`) — Public Domain
-
----
-
-## 6. Distribution Foundation
-
-### [Arch Linux](https://archlinux.org/) & Arch Linux Archive (ALA)
-- **Maintainers:** The Arch Linux team and Aaron Griffin, Judd Vinet
-- **License:** Various open-source licenses
-- **Role in AstraOS:** Operating System Base
-- **Contribution:** Provides the lightweight, rolling base packages pinned to reproducible daily snapshots for rock-solid stability.
-
----
-
-*Thank you to all authors, maintainers, and community members who build the free and open-source software that AstraOS is proud to ship.*
+### Modern Utilities
+- **[PipeWire & WirePlumber](https://gitlab.freedesktop.org/pipewire/pipewire):** Wim Taymans, Pauli Virtanen, George Kiagiadakis (MIT / LGPL-2.1)
+- **[Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh):** Jan De Dobbeleer (MIT)
+- **[Fastfetch](https://github.com/fastfetch-cli/fastfetch):** Linus Dierheimer (MIT)
+- **[Btop](https://github.com/aristocratos/btop):** Jakob P. Liljenberg (Apache-2.0)
+- **[Matugen](https://github.com/InioX/matugen):** InioX (GPL-3.0)
+- **[JetBrains Mono Nerd Font](https://www.jetbrains.com/lp/mono/):** JetBrains & Ryan L McIntyre (OFL-1.1)
+- **[Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme):** Papirus Development Team (GPL-3.0)

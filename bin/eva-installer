@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# ==============================================================================
+#  ✦ Eva Linux v2 Stable — Modular Desktop Setup Orchestrator
+#  https://github.com/AmanicX/eva-linux
+# ==============================================================================
+
+set -Eeuo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd -P)"
+MODULES_DIR="${SCRIPT_DIR}/modules"
+
+# Default flags
+export OPT_NON_INTERACTIVE=0
+export OPT_SKIP_UPDATE=0
+export OPT_SKIP_BACKUP=0
+
+usage() {
+    cat << 'HELP'
+Eva Linux v2 Stable — Desktop Setup Installer
+
+Usage:
+  ./setup.sh [options]
+  or:
+  bash bin/eva-installer [options]
+
+Options:
+  -y, --yes          Non-interactive mode (use recommended defaults for all prompts)
+  --skip-update      Skip system update (pacman -Syu)
+  --skip-backup      Skip configuration backup step
+  -h, --help         Display this help message and exit
+
+Description:
+  Transforms a base Arch Linux installation into the complete Eva Linux v2
+  desktop environment featuring Niri, Noctalia 5, Kitty, Neovim/LazyVim,
+  Quickshell keybind overlay, SilentSDDM, and HyperFluent GRUB theming.
+HELP
+    exit 0
+}
+
+# Parse CLI options
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -y|--yes)
+            export OPT_NON_INTERACTIVE=1
+            shift
+            ;;
+        --skip-update)
+            export OPT_SKIP_UPDATE=1
+            shift
+            ;;
+        --skip-backup)
+            export OPT_SKIP_BACKUP=1
+            shift
+            ;;
+        -h|--help)
+            usage
+            ;;
+        *)
+            printf "Unknown option: %s\nRun with --help for usage.\n" "$1" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Source library
+source "${MODULES_DIR}/lib.sh"
+
+# Source modules
+source "${MODULES_DIR}/00-detect.sh"
+source "${MODULES_DIR}/01-backup.sh"
+source "${MODULES_DIR}/02-system-update.sh"
+source "${MODULES_DIR}/03-aur-helper.sh"
+source "${MODULES_DIR}/04-browser.sh"
+source "${MODULES_DIR}/05-desktop-packages.sh"
+source "${MODULES_DIR}/06-desktop-config.sh"
+source "${MODULES_DIR}/07-keybind-popup.sh"
+source "${MODULES_DIR}/08-sddm.sh"
+source "${MODULES_DIR}/09-grub.sh"
+source "${MODULES_DIR}/10-plymouth.sh"
+source "${MODULES_DIR}/11-wallpaper.sh"
+source "${MODULES_DIR}/12-eva-ai.sh"
+source "${MODULES_DIR}/13-services.sh"
+source "${MODULES_DIR}/14-verify.sh"
+
+# Banner
+clear || true
+cat << 'BANNER'
+  ______              _     _                  
+ |  ____|            | |   (_)                 
+ | |__ __   ____ _   | |    _ _ __  _   ___  __
+ |  __|\ \ / / _` |  | |   | | '_ \| | | \ \/ /
+ | |____\ V / (_| |  | |___| | | | | |_| |>  < 
+ |______|\_/ \__,_|  |______|_|_| |_|\__,_/_/\_\
+                                                
+BANNER
+printf "  ${C_CRIMSON}${C_BOLD}✦ Eva Linux v2 Stable${C_RESET} — Script-based Desktop Setup Installer\n"
+printf "  ${C_MUTED}https://github.com/AmanicX/eva-linux${C_RESET}\n\n"
+
+# Verify non-root user execution
+if [[ ${EUID} -eq 0 && -z ${SUDO_USER:-} ]]; then
+    step_error "Do not run eva-installer directly as root."
+    printf "Please run as your regular user (with sudo privileges):\n  ./setup.sh\n" >&2
+    exit 1
+fi
+
+step_info "Requesting sudo authentication to prepare system installation..."
+require_sudo
+
+# Execute modules in structured pipeline
+run_detect
+run_backup
+run_system_update
+run_aur_helper
+run_browser
+run_desktop_packages
+run_desktop_config
+run_keybind_popup
+run_sddm
+run_grub
+run_plymouth
+run_wallpaper
+run_eva_ai
+run_services
+run_verify

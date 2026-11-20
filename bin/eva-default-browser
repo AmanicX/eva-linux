@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Open the default web browser via XDG desktop handler.
+set -Eeuo pipefail
+
+exec xdg-open "${1:-https://github.com/AmanicX/eva-linux}"

@@ -1,0 +1,626 @@
+#!/usr/bin/env python3
+"""
+Eva Linux v2 Niri Keybind Manager & Cheatsheet Generator
+- Parses ~/.config/niri/keybinds.kdl
+- Intelligently groups repetitive patterns (e.g. Super + 1–9)
+- Human-friendly descriptions and logical categorization
+- Conflict detection and interactive resolution
+- Safe editing with niri validation and automatic rollback
+- Emits keybinds.json for the Quickshell cheatsheet overlay
+"""
+
+import sys
+import os
+import re
+import json
+import shlex
+import shutil
+import argparse
+import subprocess
+
+CONFIG = os.path.expanduser(os.environ.get("KEYBINDS_CONFIG", "~/.config/niri/keybinds.kdl"))
+OUT = os.path.expanduser(os.environ.get("KEYBINDS_OUT", "~/.config/quickshell/keybinds/keybinds.json"))
+REPO_CONFIG = "/run/media/apex/New Volume/amanicx-ecosystem/astra-os/packages/astra-desktop-config/files/etc/skel/.config/niri/keybinds.kdl"
+NIRI_CONFIG = os.path.expanduser("~/.config/niri/config.kdl")
+
+# ---------------------------------------------------------------- Modifier & Key Mapping
+
+MOD_CANONICAL = ["Mod", "Ctrl", "Alt", "Shift", "ISO_Level3_Shift"]
+
+MOD_MAP = {
+    "Mod": "Super",
+    "Super": "Super",
+    "Win": "Super",
+    "Ctrl": "Ctrl",
+    "Control": "Ctrl",
+    "Alt": "Alt",
+    "Shift": "Shift",
+    "ISO_Level3_Shift": "AltGr",
+    "Mod5": "AltGr",
+}
+
+KEY_DISPLAY_MAP = {
+    "Return": "Enter",
+    "Slash": "/",
+    "Question": "?",
+    "BackSlash": "\\",
+    "backslash": "\\",
+    "BracketLeft": "[",
+    "BracketRight": "]",
+    "BraceLeft": "{",
+    "BraceRight": "}",
+    "Comma": ",",
+    "Period": ".",
+    "Minus": "-",
+    "Equal": "=",
+    "Plus": "+",
+    "Semicolon": ";",
+    "Colon": ":",
+    "Apostrophe": "'",
+    "Quote": "\"",
+    "Grave": "`",
+    "Tilde": "~",
+    "Page_Down": "PageDown",
+    "Page_Up": "PageUp",
+    "Escape": "Esc",
+    "Print": "Print",
+    "Space": "Space",
+    "Tab": "Tab",
+    "Delete": "Delete",
+    "Insert": "Insert",
+    "Home": "Home",
+    "End": "End",
+    "BackSpace": "Backspace",
+    "Left": "Left",
+    "Right": "Right",
+    "Up": "Up",
+    "Down": "Down",
+    "WheelScrollDown": "Wheel Down",
+    "WheelScrollUp": "Wheel Up",
+    "WheelScrollLeft": "Wheel Left",
+    "WheelScrollRight": "Wheel Right",
+    "TouchpadScrollDown": "Touchpad Down",
+    "TouchpadScrollUp": "Touchpad Up",
+    "XF86AudioRaiseVolume": "Volume Up",
+    "XF86AudioLowerVolume": "Volume Down",
+    "XF86AudioMute": "Mute Audio",
+    "XF86AudioMicMute": "Mute Mic",
+    "XF86AudioPlay": "Play / Pause",
+    "XF86AudioStop": "Stop Media",
+    "XF86AudioPrev": "Previous Track",
+    "XF86AudioNext": "Next Track",
+    "XF86MonBrightnessUp": "Brightness Up",
+    "XF86MonBrightnessDown": "Brightness Down",
+}
+
+# ---------------------------------------------------------------- Parse & Normalize
+
+def normalize_key_spec(spec):
+    parts = spec.split("+")
+    mods = []
+    key = parts[-1]
+    for p in parts[:-1]:
+        norm = p
+        if p.lower() in ("mod", "super", "win", "mod4"):
+            norm = "Mod"
+        elif p.lower() in ("ctrl", "control"):
+            norm = "Ctrl"
+        elif p.lower() in ("alt", "mod1"):
+            norm = "Alt"
+        elif p.lower() == "shift":
+            norm = "Shift"
+        elif p.lower() in ("altgr", "mod5", "iso_level3_shift"):
+            norm = "ISO_Level3_Shift"
+        mods.append(norm)
+    
+    # Canonical sorting
+    sorted_mods = sorted(set(mods), key=lambda m: MOD_CANONICAL.index(m) if m in MOD_CANONICAL else 99)
+    return "+".join(sorted_mods + [key])
+
+def key_caps(spec):
+    parts = spec.split("+")
+    caps = []
+    for p in parts[:-1]:
+        caps.append(MOD_MAP.get(p, p))
+    last = parts[-1]
+    caps.append(KEY_DISPLAY_MAP.get(last, last.upper() if len(last) == 1 else last))
+    return caps
+
+BIND_RE = re.compile(r"^\s*([^\s{]+)\s+(.*?)\{\s*(.*?)\s*;?\s*\}\s*$")
+TITLE_RE = re.compile(r'hotkey-overlay-title="((?:[^"\\]|\\.)*)"')
+
+ACTION_DESCRIPTIONS = {
+    "close-window": "Close focused window",
+    "toggle-overview": "Toggle workspace overview",
+    "toggle-window-floating": "Toggle floating / tiling layout",
+    "switch-focus-between-floating-and-tiling": "Switch focus between floating and tiling",
+    "toggle-column-tabbed-display": "Toggle tabbed column view",
+    "maximize-column": "Toggle column maximized width",
+    "fullscreen-window": "Toggle window fullscreen",
+    "maximize-window-to-edges": "Maximize window to screen edges",
+    "expand-column-to-available-width": "Expand column to all available space",
+    "center-column": "Center focused column on screen",
+    "center-visible-columns": "Center all visible columns",
+    "switch-preset-column-width": "Cycle column width forward",
+    "switch-preset-column-width-back": "Cycle column width backward",
+    "switch-preset-window-height": "Cycle window height preset",
+    "reset-window-height": "Reset window to automatic height",
+    "consume-or-expel-window-left": "Consume / expel window left",
+    "consume-or-expel-window-right": "Consume / expel window right",
+    "consume-window-into-column": "Consume adjacent window into column",
+    "expel-window-from-column": "Expel bottom window from column",
+    "focus-column-left": "Focus column to the left",
+    "focus-column-right": "Focus column to the right",
+    "focus-window-down": "Focus window below in column",
+    "focus-window-up": "Focus window above in column",
+    "focus-column-first": "Focus first column on workspace",
+    "focus-column-last": "Focus last column on workspace",
+    "move-column-left": "Move column left",
+    "move-column-right": "Move column right",
+    "move-window-down": "Move window down in column",
+    "move-window-up": "Move window up in column",
+    "move-column-to-first": "Move column to start of workspace",
+    "move-column-to-last": "Move column to end of workspace",
+    "focus-monitor-left": "Focus monitor to the left",
+    "focus-monitor-right": "Focus monitor to the right",
+    "focus-monitor-up": "Focus monitor above",
+    "focus-monitor-down": "Focus monitor below",
+    "move-column-to-monitor-left": "Move column to monitor left",
+    "move-column-to-monitor-right": "Move column to monitor right",
+    "move-column-to-monitor-up": "Move column to monitor above",
+    "move-column-to-monitor-down": "Move column to monitor below",
+    "focus-workspace-down": "Switch to workspace down",
+    "focus-workspace-up": "Switch to workspace up",
+    "focus-workspace-previous": "Switch to previous workspace",
+    "move-column-to-workspace-down": "Move column to workspace down",
+    "move-column-to-workspace-up": "Move column to workspace up",
+    "move-workspace-down": "Move current workspace down",
+    "move-workspace-up": "Move current workspace up",
+    "screenshot": "Interactive region screenshot",
+    "screenshot-screen": "Full-screen screenshot",
+    "screenshot-window": "Active window screenshot",
+    "toggle-keyboard-shortcuts-inhibit": "Toggle keyboard shortcuts inhibitor",
+    "power-off-monitors": "Turn off display monitors (DPMS)",
+    "quit": "Quit Niri desktop session",
+}
+
+def human_description(action_name, args, title):
+    if title:
+        return title
+    if action_name == "spawn" and args:
+        cmd = args[0]
+        base = os.path.basename(cmd)
+        if base == "kitty":
+            return "Open terminal (Kitty)"
+        if "browser" in cmd:
+            return "Open default web browser"
+        if base == "nautilus":
+            return "Open file manager (Nautilus)"
+        if base == "noctalia":
+            if len(args) > 2 and args[1] == "panel-toggle":
+                panel = args[2]
+                if panel == "launcher":
+                    return "Application launcher"
+                if panel == "wallpaper":
+                    return "Wallpaper picker"
+                if panel == "control-center":
+                    return "Control Center"
+                if panel == "clipboard":
+                    return "Clipboard history"
+                if panel == "session":
+                    return "Session menu (power / logout)"
+            if len(args) > 1 and args[1] == "settings-toggle":
+                return "Noctalia settings"
+            if len(args) > 2 and args[1] == "media":
+                act = args[2]
+                return f"Media: {act.title()}"
+            if len(args) > 1 and args[1] == "window-switcher":
+                return "Window switcher"
+            if len(args) > 2 and args[1] == "session" and args[2] == "lock":
+                return "Lock screen"
+            if len(args) > 1:
+                return f"Noctalia {args[1].replace('-', ' ').title()}"
+        if "astra-keybinds-toggle" in cmd:
+            return "Keyboard shortcuts cheatsheet"
+        return "Run " + " ".join([base] + args[1:])
+    
+    if action_name == "set-column-width" and args:
+        return f"Adjust column width ({args[0]})"
+    if action_name == "set-window-height" and args:
+        return f"Adjust window height ({args[0]})"
+    if action_name == "focus-workspace" and args:
+        return f"Switch to workspace {args[0]}"
+    if action_name == "move-column-to-workspace" and args:
+        return f"Move column to workspace {args[0]}"
+    if action_name == "move-window-to-workspace" and args:
+        return f"Move window to workspace {args[0]}"
+
+    return ACTION_DESCRIPTIONS.get(action_name, action_name.replace("-", " ").title())
+
+def classify_action(key_spec, action_name, args, title):
+    t = (title or "").lower()
+    if "WheelScroll" in key_spec or "TouchpadScroll" in key_spec:
+        return "Mouse & Scroll"
+    if key_spec.startswith("XF86Audio") or key_spec.startswith("XF86Mon") or any(w in t for w in ["volume", "brightness", "track", "media", "mute"]):
+        return "Media & Audio"
+    if action_name in ("screenshot", "screenshot-screen", "screenshot-window") or key_spec.startswith("Print") or "screenshot" in t:
+        return "Screenshots"
+    if action_name in ("quit", "power-off-monitors", "toggle-keyboard-shortcuts-inhibit") or any(w in t for w in ["lock", "quit", "cheatsheet", "keybind", "session"]):
+        return "System & Session"
+    if "workspace" in action_name or "workspace" in t:
+        return "Workspaces"
+    if "monitor" in action_name or "monitor" in t:
+        return "Monitors"
+    if action_name == "spawn":
+        cmd = args[0] if args else ""
+        if any(w in cmd for w in ["kitty", "browser", "nautilus"]) or any(w in t for w in ["terminal", "browser", "files", "launcher", "wallpaper"]):
+            return "Applications"
+        if any(w in t for w in ["control center", "clipboard", "settings"]):
+            return "System & Session"
+    if any(k in action_name for k in ["move-column", "move-window", "maximize", "fullscreen", "set-column-width", "set-window-height", "switch-preset", "reset-window", "consume", "expel", "center"]):
+        return "Window Movement & Sizing"
+    if any(k in action_name for k in ["focus-column", "focus-window"]):
+        return "Navigation & Focus"
+    if any(k in action_name for k in ["close-window", "toggle-overview", "toggle-window-floating", "switch-focus-between", "toggle-column-tabbed", "window-switcher"]):
+        return "Window Management"
+    return "Window Management"
+
+# ---------------------------------------------------------------- Parse Keybinds File
+
+def parse_file(path):
+    binds = []
+    in_binds = False
+    depth = 0
+    if not os.path.exists(path):
+        return []
+
+    with open(path, encoding="utf-8") as f:
+        for line_no, raw in enumerate(f, 1):
+            line = raw.strip()
+            if not in_binds:
+                if re.match(r"^\s*binds\s*\{", line):
+                    in_binds = True
+                    depth = line.count("{") - line.count("}")
+                continue
+            depth += line.count("{") - line.count("}")
+            if depth <= 0:
+                in_binds = False
+                continue
+            if line.startswith("//") or line.startswith("/-"):
+                continue
+            m = BIND_RE.match(line)
+            if not m:
+                continue
+            key_spec, props, action = m.groups()
+            try:
+                tokens = shlex.split(action)
+            except Exception:
+                tokens = action.split()
+            if not tokens:
+                continue
+            title_m = TITLE_RE.search(props)
+            title = title_m.group(1) if title_m else ""
+            norm_spec = normalize_key_spec(key_spec)
+            caps = key_caps(norm_spec)
+            display = " + ".join(caps)
+            desc = human_description(tokens[0], tokens[1:], title)
+            category = classify_action(key_spec, tokens[0], tokens[1:], desc)
+
+            binds.append({
+                "id": f"bind_{line_no}",
+                "line_no": line_no,
+                "raw_line": raw,
+                "key_spec": key_spec,
+                "norm_spec": norm_spec,
+                "caps": caps,
+                "display": display,
+                "props": props.strip(),
+                "action": action.strip(),
+                "action_name": tokens[0],
+                "args": tokens[1:],
+                "title": desc,
+                "category": category,
+                "editable": not ("WheelScroll" in key_spec or "TouchpadScroll" in key_spec),
+            })
+    return binds
+
+# ---------------------------------------------------------------- Group Repetitive Patterns
+
+def group_repetitive(binds):
+    consumed = set()
+    candidates = {}
+    for i, b in enumerate(binds):
+        parts = b["norm_spec"].split("+")
+        key = parts[-1]
+        mods = "+".join(parts[:-1])
+        if key.isdigit() and b["args"] and b["args"][-1] == key:
+            key_num = int(key)
+            pattern_id = (mods, b["action_name"])
+            if pattern_id not in candidates:
+                candidates[pattern_id] = []
+            candidates[pattern_id].append((key_num, i, b))
+
+    grouped_patterns = {}
+    for pattern_id, items in candidates.items():
+        items.sort(key=lambda x: x[0])
+        nums = [x[0] for x in items]
+        if len(nums) >= 3 and nums == list(range(nums[0], nums[0] + len(nums))):
+            grouped_patterns[pattern_id] = items
+            for _, idx, _ in items:
+                consumed.add(idx)
+
+    results = []
+    processed_patterns = set()
+    for i, b in enumerate(binds):
+        if i in consumed:
+            parts = b["norm_spec"].split("+")
+            mods = "+".join(parts[:-1])
+            pattern_id = (mods, b["action_name"])
+            if pattern_id in grouped_patterns and pattern_id not in processed_patterns:
+                processed_patterns.add(pattern_id)
+                items = grouped_patterns[pattern_id]
+                first_num = items[0][0]
+                last_num = items[-1][0]
+                mods_parts = mods.split("+") if mods else []
+                caps = [("Super" if m == "Mod" else m) for m in mods_parts]
+                caps.append(f"{first_num}–{last_num}")
+                display = " + ".join(caps)
+
+                action_name = items[0][2]["action_name"]
+                if action_name == "focus-workspace":
+                    title = f"Switch to workspace {first_num}–{last_num}"
+                elif action_name == "move-column-to-workspace":
+                    title = f"Move column to workspace {first_num}–{last_num}"
+                elif action_name == "move-window-to-workspace":
+                    title = f"Move window to workspace {first_num}–{last_num}"
+                else:
+                    title = f"{action_name.replace('-', ' ').title()} {first_num}–{last_num}"
+
+                sub_items = []
+                for num, idx, item in items:
+                    sub_items.append({
+                        "id": item["id"],
+                        "line_no": item["line_no"],
+                        "key_spec": item["key_spec"],
+                        "norm_spec": item["norm_spec"],
+                        "caps": item["caps"],
+                        "display": item["display"],
+                        "action": item["action"],
+                        "title": item["title"] or f"{title.split(' ')[0]} {num}",
+                        "num": num,
+                        "category": item["category"],
+                        "editable": True,
+                    })
+
+                results.append({
+                    "id": f"group_{items[0][2]['line_no']}",
+                    "is_group": True,
+                    "group_type": action_name,
+                    "mods": mods,
+                    "num_range": f"{first_num}–{last_num}",
+                    "caps": caps,
+                    "display": display,
+                    "title": title,
+                    "category": items[0][2]["category"],
+                    "action": f"{action_name} [{first_num}–{last_num}]",
+                    "sub_items": sub_items,
+                    "editable": True,
+                })
+        else:
+            b["is_group"] = False
+            results.append(b)
+    return results
+
+# ---------------------------------------------------------------- Conflict Detection
+
+def check_conflict(binds, new_spec, target_line_no=None):
+    norm_new = normalize_key_spec(new_spec)
+    for b in binds:
+        if target_line_no is not None and b["line_no"] == target_line_no:
+            continue
+        if b["norm_spec"] == norm_new:
+            return {
+                "conflict": True,
+                "conflicting_line_no": b["line_no"],
+                "conflicting_key": b["display"],
+                "conflicting_title": b["title"],
+                "key_spec": b["key_spec"]
+            }
+    return {"conflict": False}
+
+# ---------------------------------------------------------------- Safe Apply & Validation
+
+def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
+    """
+    Safely modify keybind in CONFIG, validate with niri, reload, and sync to REPO_CONFIG.
+    """
+    if not os.path.exists(CONFIG):
+        return False, f"Config file not found: {CONFIG}"
+
+    # Read live file
+    with open(CONFIG, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    if target_line_no < 1 or target_line_no > len(lines):
+        return False, f"Invalid line number {target_line_no}"
+
+    # Target line modification
+    target_idx = target_line_no - 1
+    t_line = lines[target_idx]
+    m = re.match(r"^(\s*)([^\s{]+)(\s+.*?)$", t_line)
+    if not m:
+        return False, f"Could not match binding syntax on line {target_line_no}"
+
+    indent, old_key, rest = m.groups()
+    new_norm = normalize_key_spec(new_spec)
+    newline = "\n" if t_line.endswith("\n") else ""
+    new_line = f"{indent}{new_norm}{rest}{newline}"
+
+    test_lines = list(lines)
+    test_lines[target_idx] = new_line
+
+    if mode == "swap" and swap_line_no is not None:
+        if swap_line_no < 1 or swap_line_no > len(lines):
+            return False, f"Invalid swap line number {swap_line_no}"
+        s_idx = swap_line_no - 1
+        s_line = lines[s_idx]
+        sm = re.match(r"^(\s*)([^\s{]+)(\s+.*?)$", s_line)
+        if sm:
+            s_indent, _, s_rest = sm.groups()
+            s_newline = "\n" if s_line.endswith("\n") else ""
+            test_lines[s_idx] = f"{s_indent}{old_key}{s_rest}{s_newline}"
+
+    # Write test file in the SAME directory so relative includes succeed
+    config_dir = os.path.dirname(CONFIG)
+    test_keybinds_path = os.path.join(config_dir, "keybinds.test_validate.kdl")
+    test_main_path = os.path.join(config_dir, "config.test_validate.kdl")
+
+    try:
+        with open(test_keybinds_path, "w", encoding="utf-8") as f:
+            f.writelines(test_lines)
+
+        with open(NIRI_CONFIG, "r", encoding="utf-8") as f:
+            main_cfg = f.read()
+
+        main_cfg_test = main_cfg.replace('include "keybinds.kdl"', 'include "keybinds.test_validate.kdl"')
+        with open(test_main_path, "w", encoding="utf-8") as f:
+            f.write(main_cfg_test)
+
+        # Validate with niri validate
+        v_res = subprocess.run(["niri", "validate", "-c", test_main_path], capture_output=True, text=True)
+        if v_res.returncode != 0:
+            err_msg = v_res.stderr.strip() or v_res.stdout.strip() or "Niri configuration validation failed"
+            return False, err_msg
+
+        # Validation succeeded! Safely write to live keybinds.kdl
+        backup_path = CONFIG + ".bak"
+        shutil.copy2(CONFIG, backup_path)
+
+        with open(CONFIG, "w", encoding="utf-8") as f:
+            f.writelines(test_lines)
+
+        # Also sync to /dev/sda4 repository copy if writable
+        if os.path.exists(REPO_CONFIG):
+            try:
+                with open(REPO_CONFIG, "w", encoding="utf-8") as rf:
+                    rf.writelines(test_lines)
+            except Exception as e:
+                print(f"Warning: could not sync to repo config: {e}", file=sys.stderr)
+
+        # Tell Niri to reload
+        subprocess.run(["niri", "msg", "action", "load-config-file"], check=False)
+
+        # Regenerate JSON
+        generate_json()
+
+        return True, "Keybind updated and reloaded successfully"
+
+    finally:
+        if os.path.exists(test_keybinds_path):
+            os.remove(test_keybinds_path)
+        if os.path.exists(test_main_path):
+            os.remove(test_main_path)
+
+# ---------------------------------------------------------------- Output JSON Generation
+
+CATEGORY_ORDER = [
+    "Applications",
+    "Window Management",
+    "Window Movement & Sizing",
+    "Navigation & Focus",
+    "Workspaces",
+    "Monitors",
+    "Media & Audio",
+    "Screenshots",
+    "System & Session",
+    "Mouse & Scroll",
+]
+
+def generate_json():
+    binds = parse_file(CONFIG)
+    grouped = group_repetitive(binds)
+
+    category_buckets = {c: [] for c in CATEGORY_ORDER}
+    for item in grouped:
+        cat = item.get("category", "Window Management")
+        if cat not in category_buckets:
+            category_buckets[cat] = []
+        
+        # Build search keywords
+        search_terms = [item["display"].lower(), item["title"].lower(), cat.lower(), item.get("action", "").lower()]
+        if item.get("is_group"):
+            for s in item.get("sub_items", []):
+                search_terms.append(s["display"].lower())
+                search_terms.append(s["title"].lower())
+        item["search"] = " ".join(search_terms)
+
+        category_buckets[cat].append(item)
+
+    groups_out = []
+    total_count = 0
+    for cat in CATEGORY_ORDER:
+        items = category_buckets.get(cat, [])
+        if items:
+            groups_out.append({
+                "name": cat,
+                "count": len(items),
+                "items": items
+            })
+            total_count += len(items)
+
+    out_data = {
+        "total": total_count,
+        "raw_total": len(binds),
+        "categories": [g["name"] for g in groups_out],
+        "groups": groups_out
+    }
+
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(out_data, f, ensure_ascii=False, indent=2)
+
+    # Also sync to sda4 package directory if it exists
+    sda4_skel_out = "/run/media/apex/New Volume/amanicx-ecosystem/astra-os/packages/astra-keybinds/files/etc/skel/.config/quickshell/keybinds/keybinds.json"
+    if os.path.exists(os.path.dirname(sda4_skel_out)):
+        try:
+            with open(sda4_skel_out, "w", encoding="utf-8") as sf:
+                json.dump(out_data, sf, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    return out_data
+
+# ---------------------------------------------------------------- CLI Interface
+
+def main():
+    parser = argparse.ArgumentParser(description="Niri Keybind Manager & Cheatsheet Generator")
+    parser.add_argument("--check-conflict", metavar="NEW_KEY", help="Check if NEW_KEY conflicts with existing bindings")
+    parser.add_argument("--target-line", type=int, default=None, help="Target line number being edited")
+    parser.add_argument("--apply", nargs=2, metavar=("LINE_NO", "NEW_KEY"), help="Apply NEW_KEY to line LINE_NO")
+    parser.add_argument("--mode", choices=["replace", "swap"], default="replace", help="Conflict resolution mode")
+    parser.add_argument("--swap-line", type=int, default=None, help="Conflicting line number to swap with")
+    parser.add_argument("--json", action="store_true", help="Output results as JSON")
+
+    args = parser.parse_args()
+
+    if args.check_conflict:
+        binds = parse_file(CONFIG)
+        res = check_conflict(binds, args.check_conflict, target_line_no=args.target_line)
+        print(json.dumps(res, indent=2))
+        return 0
+
+    if args.apply:
+        line_no = int(args.apply[0])
+        new_key = args.apply[1]
+        success, msg = apply_edit(line_no, new_key, mode=args.mode, swap_line_no=args.swap_line)
+        out = {"success": success, "message": msg}
+        print(json.dumps(out, indent=2))
+        return 0 if success else 1
+
+    # Default action: generate keybinds.json
+    data = generate_json()
+    print(f"Generated {OUT}: {data['total']} entries ({data['raw_total']} raw bindings) across {len(data['groups'])} categories.")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

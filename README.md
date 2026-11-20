@@ -1,277 +1,151 @@
-<p align="center">
-  <img src="packages/astra-branding/files/usr/share/astra/branding/astraos-lockup.svg" alt="Astra Linux" width="560">
-</p>
+<div align="center">
 
-<h1 align="center">Astra Linux</h1>
+# ✦ Eva Linux v2 Stable
 
-<p align="center">
-  A focused, design-driven, cosmic Linux desktop experience built around
-  <strong>Niri</strong> and <strong>Noctalia v5</strong>.
-</p>
+**A script-based desktop setup installer transforming Arch Linux into an elegant, high-performance Wayland environment.**
 
-<p align="center">
-  <a href="https://archlinux.org"><img src="https://img.shields.io/badge/Base-Arch%20Linux-1793d1?logo=archlinux&logoColor=white&style=flat-square" alt="Arch Linux"></a>
-  <a href="https://github.com/YaLixDee/niri"><img src="https://img.shields.io/badge/Compositor-Niri-67e8f9?style=flat-square" alt="Niri"></a>
-  <a href="https://github.com/noctalia-dev/noctalia"><img src="https://img.shields.io/badge/Shell-Noctalia%20v5-2dd4bf?style=flat-square" alt="Noctalia v5"></a>
-  <a href="https://github.com/AmanicX/astra-os"><img src="https://img.shields.io/badge/Setup-Interactive%20Bash-f59e0b?logo=gnubash&logoColor=white&style=flat-square" alt="Interactive Setup"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-38bdf8?style=flat-square" alt="MIT License"></a>
-  <img src="https://img.shields.io/badge/Status-Active-2ea043?style=flat-square" alt="Active">
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Arch%20Linux%20%7C%20x86__64-brightgreen.svg)](https://archlinux.org)
+[![Compositor](https://img.shields.io/badge/Compositor-Niri%2026.04-orange.svg)](https://github.com/YaLixDee/niri)
+[![Desktop Shell](https://img.shields.io/badge/Shell-Noctalia%205-purple.svg)](https://github.com/noctalia-dev/noctalia)
+
+<br/>
+
+<img src="assets/screenshots/desktop-v2-stable.png" alt="Eva Linux v2 Stable Desktop" width="95%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" />
+
+</div>
 
 ---
 
-## 🌌 Overview
+## ✦ Overview
 
-**Astra Linux** transforms a minimal Arch Linux installation into a fully configured, coherent, and distraction-free desktop computing environment. 
+**Eva Linux is NOT an ISO.** It is a modular, idempotent, and script-based desktop setup installer.
 
-Instead of presenting an empty window manager or bloated generic desktop, Astra Linux harmoniously pairs the innovative scrollable tiling model of **Niri** with the refined, modern Wayland shell of **Noctalia v5**. Every detail is pre-configured:
-- **Terminal & Prompt:** GPU-accelerated **Kitty** with the transparent Noctalia palette, paired with **Zsh** and the **Oh-My-Posh** (`1_shell`) cosmic prompt.
-- **System Info & Fastfetch:** Pre-configured **Fastfetch** featuring the custom Astra celestial diamond star ASCII logo in solar gold (`#e6a45a`) and void cyan (`#5ee6f2`).
-- **Developer Suite:** **Neovim** pre-configured with **LazyVim** and custom base16 theme synchronization, plus the **OpenCode** terminal AI coding agent.
-- **Curated Wallpapers:** Bright, high-resolution aesthetic daylight landscapes and celestial horizons with **zero logos**, integrated into Noctalia's wallpaper switcher.
-- **Cosmic Theming:** Custom 1080p cosmic **GRUB** theme, a 24-frame pulsing star **Plymouth** boot splash, and **SilentSDDM** login greeter with 10 presets.
-- **Hardware Integration:** Automatic detection and configuration of CPU microcode, GPU stacks (NVIDIA, AMD, Intel), and Virtual Machine guest additions (VirtualBox, VMware, QEMU/KVM).
+Eva Linux transforms any compatible, minimal or existing **Arch Linux** installation into a cohesive, developer-grade desktop featuring:
+- **Niri Compositor:** An infinite, scrollable-tiling Wayland window manager built with smooth physics and zero screen tearing.
+- **Noctalia 5 Shell:** A modern QML desktop shell providing an interactive capsule top bar, system control center, and dynamic theming.
+- **Interactive Keybind Overlay:** A native Wayland cheatsheet and live shortcut editor (`Super + Shift + /`) with real-time conflict detection and sandbox validation.
+- **Kitty Terminal & LazyVim:** GPU-accelerated terminal paired with a full-featured Neovim development environment.
+- **Pure Upstream Theming:** Upstream [SilentSDDM](https://github.com/uiriansan/SilentSDDM) login greeter and [HyperFluent](https://github.com/Coopydood/HyperFluent-GRUB-Theme) GRUB bootloader theme, customized exclusively with background wallpaper synchronization.
+- **Automated Wallpaper Synchronization:** Changing your desktop wallpaper in Noctalia automatically updates your SDDM login screen and GRUB bootloader background safely without running `grub-mkconfig`.
 
 ---
 
-## ⚡ Quick Installation
+## ✦ Key Features
 
-Install a minimal Arch Linux base system (using the standard `archinstall` script or manual bootstrap), reboot into your new installation as a regular user with `sudo` permissions, and run:
+### 1. Scrollable Tiling with Niri
+- **Dynamic Columns:** Infinite horizontal desktop scrolling with column width presets (`33%`, `50%`, `66%`).
+- **Hardware-Accelerated Blur:** Frosted glass blur behind overlays, popups, and floating windows.
+- **Multi-Monitor:** Seamless workspace handling across multi-monitor setups.
 
-### Option 1: Instant One-Liner (Recommended — No manual git clone needed)
+### 2. Noctalia 5 Desktop Shell
+- **Capsule Top Bar:** Clean top bar displaying launcher, wallpaper selector, active window title, clock, media widgets, and hardware stats.
+- **Control Center:** Unified panel for Wi-Fi, Bluetooth, Audio sinks, Night Light, Caffeine, and power modes.
+- **Material You / Community Themes:** Automated color scheme generation based on your active wallpaper.
+
+### 3. Native Keybind Cheatsheet & Live Editor
+<div align="center">
+  <img src="assets/screenshots/keybinds-popup.png" alt="Eva Linux Keybind Cheatsheet" width="85%" style="border-radius: 10px;" />
+</div>
+
+- **Shortcut:** Press `Super + Shift + /` anytime to toggle the cheatsheet overlay.
+- **Search:** Instant fuzzy filtering by key name, category, or command.
+- **Interactive Editing:** Click "Edit", press your desired shortcut on your keyboard, resolve conflicts (Replace or Swap), and apply changes live. The editor runs `niri validate` in a sandbox before saving to `~/.config/niri/keybinds.kdl`, automatically rolling back on error.
+
+### 4. Zero-Risk Wallpaper Synchronization
+- Changing wallpaper via `Super + Alt + Space` or `noctalia msg wallpaper-set` triggers `eva-wallpaper-sync`.
+- **SilentSDDM:** Updates `/usr/share/sddm/themes/silent/backgrounds/eva-wallpaper.jpg`. Theme layout, fonts, and controls remain 100% upstream-identical.
+- **HyperFluent GRUB:** Converts wallpaper to boot-accessible PNG at `/boot/grub/themes/hyperfluent/background.png`. **`grub-mkconfig` is never executed during wallpaper sync**, eliminating any risk of breaking boot entries.
+
+### 5. Robust Backup & Restoration
+- Creates a timestamped snapshot of all existing configs in `~/eva_backups/backup_YYYYMMDD_HHMMSS/` with a manifest.
+- Run `eva-restore` at any time to selectively roll back your desktop configuration.
+
+---
+
+## ✦ Installation
+
+### Requirements
+- **Operating System:** Arch Linux or Arch-based distribution (rolling release).
+- **Architecture:** `x86_64`.
+- **Permissions:** Standard user with `sudo` privileges.
+- **Connectivity:** Active internet connection.
+
+### Method 1: Quick Bootstrap (One Command)
+Run the bootstrap installer in your terminal:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AmanicX/astra-os/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AmanicX/eva-linux/main/install.sh | bash
 ```
 
-*(You can also use `bash -c "$(curl -fsSL https://raw.githubusercontent.com/AmanicX/astra-os/main/install.sh)"`)*
-
-### Option 2: Manual Clone
+### Method 2: Manual Git Installation
+Clone the repository and run the setup script:
 
 ```bash
-# 1. Clone the Astra Linux repository
-git clone https://github.com/AmanicX/astra-os.git
-cd astra-os
-
-# 2. Run the setup script
-./setup-fixed.sh
+git clone https://github.com/AmanicX/eva-linux.git
+cd eva-linux
+chmod +x setup.sh
+./setup.sh
 ```
 
-*(You can also run `./install.sh`, which acts as an entrypoint wrapper).*
+### Installer CLI Options
+```bash
+./setup.sh --help
+
+Options:
+  -y, --yes          Non-interactive mode (use recommended defaults for all prompts)
+  --skip-update      Skip system update (pacman -Syu)
+  --skip-backup      Skip configuration backup step
+  -h, --help         Display usage information
+```
 
 ---
 
-## 🛠️ What `setup-fixed.sh` Does (Detailed Breakdown)
-
-The setup script executes a structured, 9-stage installation pipeline:
-
-### 1. Pre-flight Environment Checks
-- **User Validation:** Verifies the script is run by a regular user with `sudo` privileges (preventing root execution so `makepkg` and AUR helpers build safely).
-- **Distribution Detection:** Confirms an Arch Linux base via `/etc/arch-release` or `/etc/os-release`.
-- **Sudo Session Keep-Alive:** Authenticates once and maintains an unprivileged background keep-alive process, preventing password prompts during long package downloads.
-- **Network Check:** Verifies internet connectivity to Arch Linux package repositories.
-
-### 2. Base Tooling & AUR Helper Setup
-- Installs essential compilation tools: `base-devel`, `git`, `curl`, and `wget`.
-- Enables the `[multilib]` repository in `/etc/pacman.conf` if commented.
-
-- **AUR Helper Selection:**
-  - `paru` *(Default)*: Automatically clones and compiles `paru-bin` from the AUR via `makepkg`.
-  - `yay`: Clones and compiles `yay-bin` from the AUR.
-  - `skip`: Skips helper installation if you already have one or manage AUR packages manually.
-
-### 3. Hardware & Driver Detection
-- **CPU Microcode:** Inspects `/proc/cpuinfo` and installs `intel-ucode` for Intel CPUs or `amd-ucode` for AMD CPUs.
-- **Virtual Machine Guest Integration:** Probes virtualization via `systemd-detect-virt`:
-  - **VirtualBox:** Installs `virtualbox-guest-utils` and enables `vboxservice.service` for seamless display resizing, clipboard sharing, and time sync.
-  - **VMware:** Installs `open-vm-tools` and enables `vmtoolsd.service`.
-  - **QEMU / KVM:** Installs `qemu-guest-agent` and `spice-vdagent`.
-- **GPU Graphics Stack:** Probes display controllers via PCI IDs:
-  - **NVIDIA (`10de:`):** Installs `nvidia-open`, `nvidia-utils`, `lib32-nvidia-utils`, `nvidia-settings`, enables `nvidia-suspend`/`resume` services, and appends `nvidia-drm.modeset=1 nvidia_drm.fbdev=1` to the kernel bootline.
-  - **AMD (`1002:`):** Installs `mesa`, `vulkan-radeon`, `lib32-mesa`, `lib32-vulkan-radeon`, and `libva-utils`.
-  - **Intel (`8086:`):** Installs `mesa`, `vulkan-intel`, `lib32-mesa`, `lib32-vulkan-intel`, `intel-media-driver`, and `libva-utils`.
-  - **Fallback:** Installs universal `mesa` and `lib32-mesa`.
-
-### 4. Desktop Packages & Applications
-- **Wayland Session:** `niri`, `noctalia`, `quickshell`, `xwayland-satellite`, `xorg-xwayland`, `wl-clipboard`, `brightnessctl`, `playerctl`, `grim`, `slurp`.
-- **Terminal & Shell:** `kitty`, `zsh`, `zsh-autosuggestions`, `zsh-syntax-highlighting`, and `oh-my-posh-bin` (from AUR).
-- **Developer Tools:** `neovim`, `opencode`, `nodejs`, `npm`, `python-pynvim`, `python-json5`, `python-tomlkit`, `tree-sitter-cli`, `fzf`, `ripgrep`, `fd`, `bat`, `eza`, `zoxide`, `lazygit`, `btop`, `fastfetch`.
-- **Audio & Media:** `pipewire`, `wireplumber`, `pipewire-audio`, `pipewire-pulse`, `pipewire-alsa`, `pipewire-jack`, `pavucontrol`, `mpv`.
-- **File Management & Utilities:** `nautilus`, `file-roller`, `gvfs`, `gvfs-mtp`, `gvfs-smb`, `ffmpegthumbnailer`, `loupe`, `gnome-text-editor`, `gnome-calculator`, `gnome-disk-utility`.
-- **Qt6 Runtime:** `qt5-wayland`, `qt6-wayland`, `qt6-svg`, `qt6-declarative`, `qt6-5compat`, `qt6-virtualkeyboard`, `qt6-multimedia-ffmpeg`.
-- **Typography & Icons:** `ttf-jetbrains-mono-nerd`, `noto-fonts`, `noto-fonts-emoji`, `ttf-liberation`, `adwaita-fonts`, `adw-gtk-theme`, `papirus-icon-theme`.
-- **Browser Selection:**
-  - `Firefox` *(Default)*: Official repository.
-  - `Helium Browser`: Lightweight modern browser (`helium-browser-bin` from AUR).
-  - `Chromium`: Official repository.
-  - `Brave`: Privacy browser (`brave-bin` from AUR).
-
-### 5. Astra Linux System Branding
-- Creates `/usr/lib/astralinux-release` and symlinks `/etc/os-release` with Astra Linux distribution identity:
-  ```ini
-  NAME="Astra Linux"
-  PRETTY_NAME="Astra Linux"
-  ID=astralinux
-  ID_LIKE=arch
-  BUILD_ID=rolling
-  ANSI_COLOR="38;2;94;230;242"
-  LOGO=astraos-logo
-  ```
-- Installs Astra branding assets (including the custom Fastfetch ASCII logo and vector marks) to `/usr/share/astra/branding/`.
-- Installs Astra icons into `/usr/share/icons/hicolor/` and rebuilds the icon cache.
-- Deploys high-resolution bright wallpapers into `/usr/share/backgrounds/astraos/`.
-
-### 6. GRUB Cosmic Theming
-- Installs the Astra Linux GRUB theme into `/boot/grub/themes/astra/`.
-- Configures `/etc/default/grub` with:
-  - `GRUB_DISTRIBUTOR="Astra Linux"`
-  - `GRUB_THEME="/boot/grub/themes/astra/theme.txt"`
-  - `GRUB_GFXMODE="1920x1080,auto"`
-  - Kernel parameters: `quiet splash loglevel=3 rd.udev.log_priority=3 vt.global_cursor_default=0`
-  - Dual-boot detection via `os-prober`.
-- Executes `grub-mkconfig -o /boot/grub/grub.cfg`.
-
-### 7. Plymouth Boot Splash
-- Installs the `astra` Plymouth theme (featuring a 24-frame pulsing cosmic star animation) into `/usr/share/plymouth/themes/astra/`.
-- Configures `/etc/plymouth/plymouthd.conf` with `Theme=astra` and `ShowDelay=0`.
-- Adds the `plymouth` hook to `HOOKS=(... udev plymouth ...)` in `/etc/mkinitcpio.conf`.
-- Rebuilds all initramfs images via `mkinitcpio -P` for smooth, flicker-free boot transitions.
-
-### 8. SilentSDDM Display Manager & Presets
-- Deploys the minimalist SilentSDDM greeter into `/usr/share/sddm/themes/silent/`.
-- Installs 10 presets into `/usr/share/sddm/themes/silent/configs/`.
-- Configures `/etc/sddm.conf.d/astra.conf` with:
-  - `DisplayServer=x11` on `MinimumVT=7` (ensuring clean hardware VT handoff when launching the Wayland session on VT 1, avoiding black screens in VMs).
-  - Explicit session default set to `niri.desktop`.
-- Pre-seeds `/var/lib/sddm/state.conf` to direct SDDM immediately into Niri.
-- Installs the `astra-sddm-theme` preset switcher utility into `/usr/local/bin/`.
-- Enables `sddm.service` for automatic graphical login.
-
-### 9. Desktop Dotfiles & User Configuration
-- Deploys configurations to both `$HOME` and `/etc/skel` (ensuring existing and future users receive the full setup):
-  - `~/.config/niri/`: Scrollable tiling layout, keybindings, window rules, and appearance.
-  - `~/.config/noctalia/` & `~/.local/state/noctalia/`: Desktop shell bar, control center, and settings.
-  - `~/.config/kitty/`: GPU-accelerated terminal config, transparent styling, and font settings.
-  - `~/.config/nvim/`: Full LazyVim starter with automatic lazy.nvim bootstrap and dynamic Noctalia color synchronization.
-  - `~/.config/opencode/`: OpenCode AI assistant settings and Matugen theme (`tui.json`, `cli.json`).
-  - `~/.config/ohmyposh/`: Cosmic `1_shell.omp.json` prompt theme.
-  - `~/.config/quickshell/`: Interactive keybind overlay widget (`Super + Shift + /`).
-  - `~/.config/fastfetch/`: System information monitor pre-configured with the Astra star ASCII logo.
-  - `~/.config/environment.d/10-astra.conf`: Wayland environment defaults (`WLR_NO_HARDWARE_CURSORS=1`, `WLR_RENDERER_ALLOW_SOFTWARE=1`).
-  - `~/.zshrc`: Shell history, compinit, autosuggestions, and Oh-My-Posh integration.
-- Updates GNOME/GTK `dconf` databases.
-- Sets the default login shell to `/bin/zsh` via `chsh`.
-- Enables essential system services (`NetworkManager`, `bluetooth`, `power-profiles-daemon`, `fstrim`, `systemd-timesyncd`).
-- Sets default systemd target to `graphical.target`.
-
----
-
-## ⌨️ Essential Keyboard Shortcuts
+## ✦ Core Default Keybindings
 
 | Shortcut | Action | Description |
 |---|---|---|
-| `Super + Return` | Open Terminal | Launches Kitty terminal with transparent Noctalia theme. |
-| `Super + Space` | App Launcher | Toggles Noctalia application launcher panel. |
-| `Super + S` | Control Center | Toggles Noctalia quick settings, audio, and network panel. |
-| `Super + B` | Web Browser | Launches default web browser (configured during setup). |
-| `Super + E` | File Manager | Opens Nautilus file manager. |
-| `Super + Shift + /` | Keybind Cheatsheet | Toggles interactive Quickshell keybinding overlay. |
-| `Super + Left / Right` | Navigate Columns | Moves focus left and right along Niri's infinite ribbon. |
-| `Super + 1` .. `9` | Switch Workspace | Focuses workspace 1 through 9. |
-| `Super + Shift + 1` .. `9` | Move Window | Moves the focused window to workspace 1 through 9. |
-| `Super + Alt + L` | Lock Screen | Locks the session with Noctalia lockscreen. |
-| `Super + Alt + Space` | Wallpaper Picker | Opens Noctalia interactive wallpaper selector. |
-| `Super + Alt + Return` | Noctalia Settings | Opens Noctalia desktop customization interface. |
+| `Super + Shift + /` | **Keybind Cheatsheet** | Open the interactive shortcut overlay |
+| `Super + Space` | **App Launcher** | Toggle Noctalia application menu |
+| `Super + Alt + Space` | **Wallpaper Picker** | Open Noctalia wallpaper selector |
+| `Super + Enter` | **Terminal** | Open Kitty GPU-accelerated terminal |
+| `Super + B` | **Web Browser** | Launch default browser |
+| `Super + E` | **File Manager** | Open Nautilus |
+| `Super + Q` | **Close Window** | Close the currently focused window |
+| `Super + F` | **Fullscreen** | Toggle window fullscreen mode |
+| `Super + Shift + F` | **Floating** | Toggle floating / tiling layout |
+| `Alt + Tab` | **Window Switcher** | Open Wayland window switcher |
+| `Print` | **Screenshot (Region)** | Interactive region selection screenshot |
+| `Ctrl + Print` | **Screenshot (Full)** | Capture entire screen to `~/Pictures/Screenshots` |
+| `Alt + Print` | **Screenshot (Window)** | Capture active window |
+| `Super + 1–9` | **Workspaces** | Switch to workspace 1 through 9 |
+| `Super + Shift + 1–9` | **Move Window** | Move column to workspace 1 through 9 |
 
 ---
 
-## 🎨 SilentSDDM Preset Switcher
+## ✦ Optional Components
 
-Astra Linux includes pre-configured presets for the SilentSDDM login greeter. You can switch presets anytime using the `astra-sddm-theme` command:
-
-```bash
-# List all available presets
-astra-sddm-theme list
-
-# View the current active preset
-astra-sddm-theme current
-
-# Switch to a preset (requires root)
-sudo astra-sddm-theme set astra-daylight
-```
-
-### Available Presets:
-1. `astra-orbital` — Default bright daylight mountain vista *(Default)*
-2. `astra-daylight` — Daylight alpine mountain panorama (no logos)
-3. `astra-sunrise` — Warm minimalist sunrise river and valley (no logos)
-4. `astra-alpine` — Clear blue sky over mountain range (no logos)
-5. `astra-aurora` — Vibrant teal aurora spectrum
-6. `astra-ember` — Warm amber celestial dust field
-7. `astra-lunar` — Deep violet lunar twilight
-8. `astra-earthrise` — NASA Apollo 8 Earthrise (`as08-14-2383`)
-9. `astra-carina` — James Webb Space Telescope Cosmic Cliffs
-10. `astra-deepfield` — Hubble Deep Field (`PIA12110`)
+- **Eva Advanced AI Chatbot:** Multi-theme, memory-aware AI character and world chat studio. Can be installed during setup or skipped.
+- **Browser Selection:** Choose between Firefox, Zen Browser, Brave, Chromium, Google Chrome, or Vivaldi during setup.
+- **AUR Helper:** Automatic detection and selection between `yay` and `paru`.
 
 ---
 
-## 🖥️ VirtualBox / VM Configuration Notes
+## ✦ Upstream Attribution & Credits
 
-If running Astra Linux inside a virtual machine (e.g. **VirtualBox**):
+Eva Linux is built upon exceptional projects by the open-source community:
 
-1. **Enable 3D Acceleration:** Niri requires an active OpenGL/KMS render node (`/dev/dri/renderD128`). In VirtualBox, ensure **Enable 3D Acceleration** is checked under **VM Settings > Display** (or run `VBoxManage modifyvm "<VM_NAME>" --accelerate3d on`).
-2. **Graphics Controller:** Use `VMSVGA` with at least 128MB of Video RAM.
-3. **Cursor Support:** Astra Linux automatically sets `WLR_NO_HARDWARE_CURSORS=1` in `/etc/environment` so software-rendered cursors do not disappear or freeze in virtualized environments.
-4. **DRM & VT Handoff:** SDDM is configured with `MinimumVT=7` to guarantee a clean kernel VT switch to VT 1 upon login, ensuring the virtual display adapter initializes Wayland immediately without blank screens.
-
----
-
-## ⚙️ CLI Options & Non-Interactive Automation
-
-The setup script supports automated, non-interactive installations via command-line arguments:
-
-```bash
-Usage: ./setup.sh [OPTIONS]
-
-Options:
-  --aur <paru|yay|skip>     Select AUR helper (default: paru)
-  --browser <name>          Select browser (firefox|helium|chromium|brave|none)
-  -y, --yes                 Non-interactive mode (accepts all defaults)
-  --no-drivers              Skip automatic hardware & GPU driver installation
-  --no-rebrand              Skip /etc/os-release rebranding
-  --no-grub                 Skip GRUB theme installation
-  --no-plymouth             Skip Plymouth boot splash installation
-  --no-sddm                 Skip SDDM theme installation
-  --no-dotfiles             Skip desktop dotfiles deployment
-  -h, --help                Show help message
-```
-
-*Example non-interactive run:*
-```bash
-./setup.sh --aur paru --browser firefox --yes
-```
+- **[Niri](https://github.com/YaLixDee/niri)** by YaLixDee — Scrollable tiling Wayland compositor (GPL-3.0-or-later)
+- **[Noctalia](https://github.com/noctalia-dev/noctalia)** by Clement Fombonne & team — Desktop shell environment (MIT)
+- **[Quickshell](https://github.com/outfoxxed/quickshell)** by outfoxxed — Native Wayland QML toolkit (LGPL-3.0-only)
+- **[SilentSDDM](https://github.com/uiriansan/SilentSDDM)** by uiriansan — Minimalist SDDM greeter (GPL-3.0-only)
+- **[HyperFluent GRUB Theme](https://github.com/Coopydood/HyperFluent-GRUB-Theme)** by Coopydood — Modern GRUB theme (MIT)
+- **[Kitty](https://github.com/kovidgoyal/kitty)** by Kovid Goyal — Fast GPU terminal (GPL-3.0-only)
+- **[LazyVim](https://github.com/LazyVim/LazyVim)** by folke — Modular Neovim configuration (Apache-2.0)
 
 ---
 
-## 🤝 Upstream Credits & Attributions
+## ✦ License
 
-Astra Linux is made possible by these outstanding open-source projects:
-
-- **[Niri](https://github.com/YaLixDee/niri)** by YaLixDee and contributors *(Scrollable tiling Wayland compositor)*
-- **[Noctalia](https://github.com/noctalia-dev/noctalia)** (v5) by Clement Fombonne and the Noctalia team *(Desktop shell, status bar, and control center)*
-- **[SilentSDDM](https://github.com/uiriansan/SilentSDDM)** by uiriansan *(Clean, minimalist SDDM greeter)*
-- **[LazyVim](https://github.com/LazyVim/LazyVim)** by Folke Lemaitre & **[Neovim](https://github.com/neovim/neovim)** *(High-performance development environment)*
-- **[OpenCode](https://opencode.ai)** *(Open-source terminal AI coding assistant)*
-- **[Kitty](https://github.com/kovidgoyal/kitty)** by Kovid Goyal *(GPU-accelerated terminal emulator)*
-- **[Oh My Posh](https://github.com/JanDeDobbeleer/oh-my-posh)** by Jan De Dobbeleer *(Prompt theme engine)*
-- **[Quickshell](https://github.com/outfoxxed/quickshell)** by outfoxxed *(Wayland QML desktop widget toolkit)*
-- **[Fastfetch](https://github.com/fastfetch-cli/fastfetch)** by Linus Dierheimer and contributors *(Modern, blazing-fast system information tool)*
-- **[GNU GRUB](https://www.gnu.org/software/grub/)** & **[Plymouth](https://www.freedesktop.org/wiki/Software/Plymouth/)** *(Bootloader and graphical boot splash)*
-- **[Arch Linux](https://archlinux.org/)** *(The simple, lightweight, flexible base)*
-- **NASA / ESA / CSA / STScI** *(Historic Apollo 8 Earthrise, JWST Carina Nebula, and Hubble Deep Field imagery)*
-
----
-
-## 📄 License
-
-Astra Linux is open-source software licensed under the **[MIT License](LICENSE)**.  
-Third-party upstream projects retain their respective open-source licenses (see [`THIRD_PARTY.md`](THIRD_PARTY.md)).
+This project is licensed under the [MIT License](LICENSE).
+Third-party themes and components retain their respective upstream licenses. See [CREDITS.md](CREDITS.md) for full details.
