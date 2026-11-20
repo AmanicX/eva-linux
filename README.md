@@ -8,6 +8,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Arch%20Linux%20%7C%20x86__64-brightgreen.svg)](https://archlinux.org)
 [![Compositor](https://img.shields.io/badge/Compositor-Niri%2026.04-orange.svg)](https://github.com/YaLixDee/niri)
 [![Desktop Shell](https://img.shields.io/badge/Shell-Noctalia%205-purple.svg)](https://github.com/noctalia-dev/noctalia)
+[![Official Website](https://img.shields.io/badge/Website-amanicx.github.io%2Feva--linux-crimson.svg)](https://amanicx.github.io/eva-linux/)
 
 <br/>
 
@@ -20,6 +21,8 @@
 ## ✦ Overview
 
 **Eva Linux is NOT an ISO.** It is a modular, idempotent, and script-based desktop setup installer.
+
+> **Official Website:** For interactive screenshots, system documentation, and architecture overviews, visit [amanicx.github.io/eva-linux](https://amanicx.github.io/eva-linux/).
 
 Eva Linux transforms any compatible, minimal or existing **Arch Linux** installation into a cohesive, developer-grade desktop featuring:
 - **Niri Compositor:** An infinite, scrollable-tiling Wayland window manager built with smooth physics and zero screen tearing.
