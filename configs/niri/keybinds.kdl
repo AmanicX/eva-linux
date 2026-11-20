@@ -31,7 +31,7 @@ binds {
 
     Mod+Return repeat=false hotkey-overlay-title="Open terminal (Kitty)" { spawn "kitty"; }
     Mod+Alt+L repeat=false allow-inhibiting=false hotkey-overlay-title="Lock screen" { spawn "noctalia" "msg" "session" "lock"; }
-    Mod+B repeat=false hotkey-overlay-title="Open default browser" { spawn "/usr/bin/astra-default-browser"; }
+    Mod+B repeat=false hotkey-overlay-title="Open default browser" { spawn "eva-default-browser"; }
     Mod+E repeat=false hotkey-overlay-title="Open files (Nautilus)" { spawn "nautilus"; }
 
     // Optional screen reader: install orca before enabling this shortcut.

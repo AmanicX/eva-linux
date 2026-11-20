@@ -2,7 +2,7 @@
 
 - [x] Wallpaper helper, secure permission rule, and failure regression tests
 - [x] Piped bootstrap and complete verification regression tests
-- [ ] Symlink-safe backups, restoration, and installed helpers
+- [x] Symlink-safe backups, restoration, and installed helpers
 - [ ] Working SDDM preset, image dependencies, optional Plymouth, DM consent
 - [ ] Replace/swap keybind tests and portable Noctalia defaults
 - [ ] README and current installer/security/restoration documentation

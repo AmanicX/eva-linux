@@ -16,6 +16,8 @@ run_keybind_popup() {
     sudo install -m 755 "${script_root}/bin/eva-keybinds-manager" "/usr/local/bin/eva-keybinds-manager"
     sudo install -m 755 "${script_root}/bin/eva-keybinds-start" "/usr/local/bin/eva-keybinds-start"
     sudo install -m 755 "${script_root}/bin/eva-keybinds-toggle" "/usr/local/bin/eva-keybinds-toggle"
+    sudo install -m 755 "${script_root}/bin/eva-restore" "/usr/local/bin/eva-restore"
+    sudo install -m 755 "${script_root}/bin/eva-default-browser" "/usr/local/bin/eva-default-browser"
 
     # Also install to /usr/bin for universal access
     sudo ln -sf "/usr/local/bin/eva-keybinds-start" "/usr/bin/eva-keybinds-start"

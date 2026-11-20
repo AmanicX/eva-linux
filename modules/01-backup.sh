@@ -14,14 +14,19 @@ run_backup() {
     fi
 
     if ! ask_confirm "Do you want to create a timestamped backup of your desktop configurations?" "y"; then
-        step_warn "Configuration backup declined. Proceeding with safe-install protections."
+        step_warn "Configuration backup declined. Existing configurations will be overwritten."
         return 0
     fi
 
     local timestamp
     timestamp="$(date +%Y%m%d_%H%M%S)"
-    local backup_dir="${HOME}/eva_backups/backup_${timestamp}"
+    local backup_dir old_umask
+    old_umask="$(umask)"
+    umask 077
+    mkdir -p "${HOME}/eva_backups"
+    backup_dir="$(mktemp -d "${HOME}/eva_backups/backup_${timestamp}_XXXXXX")"
     mkdir -p "${backup_dir}/config" "${backup_dir}/state" "${backup_dir}/system"
+    umask "${old_umask}"
 
     local manifest="${backup_dir}/manifest.txt"
     {
@@ -49,7 +54,9 @@ run_backup() {
 
     for c in "${configs[@]}"; do
         if [[ -d "${HOME}/.config/${c}" ]]; then
-            cp -r "${HOME}/.config/${c}" "${backup_dir}/config/"
+            # Snapshot contents, including symlinked dotfile trees. Retaining
+            # symlinks here would leave the backup pointing at the live files.
+            cp -aL -- "${HOME}/.config/${c}" "${backup_dir}/config/"
             echo "config/${c}" >> "${manifest}"
             step_info "  Preserved ~/.config/${c}"
         fi
@@ -57,7 +64,7 @@ run_backup() {
 
     # Noctalia local state
     if [[ -d "${HOME}/.local/state/noctalia" ]]; then
-        cp -r "${HOME}/.local/state/noctalia" "${backup_dir}/state/"
+        cp -aL -- "${HOME}/.local/state/noctalia" "${backup_dir}/state/"
         echo "state/noctalia" >> "${manifest}"
         step_info "  Preserved ~/.local/state/noctalia"
     fi

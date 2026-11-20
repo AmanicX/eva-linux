@@ -53,6 +53,7 @@ fi
 
 # Restore ~/.config directories
 if [[ -d "${TARGET_BACKUP}/config" ]]; then
+    mkdir -p "${HOME}/.config"
     for item in "${TARGET_BACKUP}/config"/*; do
         if [[ -e "${item}" ]]; then
             dest="${HOME}/.config/$(basename "${item}")"
@@ -71,4 +72,5 @@ if [[ -d "${TARGET_BACKUP}/state/noctalia" ]]; then
     printf "  Restored ~/.local/state/noctalia\n"
 fi
 
-printf "\n✓ Restoration complete. Please reload Niri (Super + Shift + C) or restart your session.\n"
+printf "\n✓ User configurations restored. Niri watches its config; restart your session if other applications need to reload.\n"
+printf "System files under the backup's system/ directory are reference copies and were not restored automatically.\n"
