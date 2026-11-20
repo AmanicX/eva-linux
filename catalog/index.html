@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Eva Linux Component Architecture | AmanicX</title>
+  <meta name="description" content="Technical architecture and modular components of Eva Linux.">
+  <link rel="canonical" href="https://amanicx.github.io/eva-linux/catalog/">
+  <meta name="theme-color" content="#0B0D12">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Eva Linux Component Architecture | AmanicX">
+  <meta property="og:description" content="Technical architecture and modular components of Eva Linux.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amanicx.github.io/eva-linux/catalog/">
+  <meta property="og:image" content="https://amanicx.github.io/shared/assets/favicon.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eva Linux Component Architecture | AmanicX">
+  <meta name="twitter:description" content="Technical architecture and modular components of Eva Linux.">
+  <meta name="twitter:image" content="https://amanicx.github.io/shared/assets/favicon.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../../shared/assets/favicon.svg">
+
+  <!-- Unified Stylesheets -->
+  <link rel="stylesheet" href="../../shared/styles/design-system.css">
+  <link rel="stylesheet" href="../../shared/styles/motion.css">
+    <link rel="stylesheet" href="./shared/styles/design-system.css">
+  <link rel="stylesheet" href="./shared/styles/motion.css">
+
+  <!-- Instant Theme Script (Zero-FOUC) -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('amanicx_theme') || 'system';
+        var effective = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+        document.documentElement.setAttribute('data-theme', effective);
+        document.documentElement.setAttribute('data-theme-setting', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div id="scroll-progress"></div>
+
+    <!-- Floating Pill Navigation (Nexora Inspired) -->
+  <div class="nav-wrapper">
+    <header class="nav-bar">
+      <a href="../../" class="nav-brand" aria-label="AmanicX Ecosystem Home">
+        <img class="nav-brand-mark" src="../../shared/assets/favicon.svg" alt="AmanicX" width="26" height="26">
+        <span>AmanicX</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="../../" class="nav-link ">Overview</a>
+        <a href="../../apps/" class="nav-link ">Apps</a>
+        <a href="../../eva/" class="nav-link ">Eva</a>
+        <a href="../../astra/" class="nav-link ">Astra</a>
+        <a href="../../eva-linux/" class="nav-link active">Eva Linux</a>
+      </nav>
+
+      <div class="nav-controls">
+        <div class="theme-switcher" role="group" aria-label="Theme mode switcher">
+          <button class="theme-btn" data-mode="dark" title="Dark Theme" aria-label="Dark Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+          <button class="theme-btn" data-mode="light" title="Light Theme" aria-label="Light Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          </button>
+          <button class="theme-btn" data-mode="system" title="System Theme" aria-label="System Theme">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          </button>
+        </div>
+
+        <a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" aria-label="GitHub Profile">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+  </div>
+
+
+  <section class="section-lg">
+    <div class="container container-narrow">
+      <div style="margin-bottom:3.5rem;">
+        <a href="../" style="display:inline-flex; align-items:center; gap:0.5rem; font-size:0.875rem; color:var(--accent-primary); margin-bottom:1rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          Back to Eva Linux Overview
+        </a>
+        <div class="eyebrow">SYSTEM COMPONENTS &amp; SCRIPTS</div>
+        <h1 class="title-section" style="margin-bottom:1rem;">Eva Linux Architecture Catalog</h1>
+        <p class="lead">
+          Eva Linux delivers a modular, script-driven stack where each desktop component is independent, inspectable, and safely upgradeable.
+        </p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:2rem;">
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">eva-core (Installer &amp; Setup Engine)</h3>
+            <span class="badge badge-stable">CORE ENGINE</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            The modular execution runner (<code>install.sh</code> and <code>setup.sh</code>) driving pre-flight validation, package installation via pacman and yay, dotfile symlinking, backup manifest logging, and automated recovery handlers.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">niri-workstation (Infinite Scrollable Compositor)</h3>
+            <span class="badge badge-stable">WAYLAND</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Niri scrollable tiling compositor configuration (<code>~/.config/niri/config.kdl</code>), tuned spring animation physics, column preset rules (33%, 50%, 66%), multi-monitor workspace boundaries, and trackpad gesture mappings.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">noctalia-shell (Desktop Shell &amp; Widgets)</h3>
+            <span class="badge badge-stable">SHELL</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Noctalia 5 desktop shell integrating the top status capsule bar, quick settings flyout, PipeWire audio mixer, MPRIS media playback widget, and application launcher triggered by <code>Super + Space</code>.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">quickshell-overlay (Interactive Keybind Cheatsheet)</h3>
+            <span class="badge badge-stable">OVERLAY</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Interactive Wayland overlay triggered via <code>Super + Shift + /</code> that renders searchable hotkey categories, real-time conflict indicators, and physical key recording for fast customization.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">terminal-dev (Kitty &amp; LazyVim)</h3>
+            <span class="badge badge-stable">DEV TOOLS</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            GPU-accelerated Kitty terminal configured with Tokyo-Night palette, JetBrains Mono Nerd Font, Fastfetch system diagnostics, and LazyVim IDE pre-configured with Treesitter and LSP support.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">eva-wallpaper-sync (Zero-Risk Bootloader Sync)</h3>
+            <span class="badge badge-stable">UTILITY</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Safe synchronization utility that extracts Noctalia's active desktop wallpaper and seamlessly updates SilentSDDM and HyperFluent GRUB background images directly in place without dangerous <code>grub-mkconfig</code> rebuilds.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">eva-restore (Automated Rollback Engine)</h3>
+            <span class="badge badge-stable">SAFETY</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Instant rollback tool located in <code>bin/eva-restore</code>. Restores previous desktop configurations from timestamped tarball archives generated automatically prior to any installer execution.
+          </p>
+        </div>
+
+        <div class="card card-glass">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <h3 class="title-card">Optional Themes (SilentSDDM, HyperFluent GRUB, Plymouth)</h3>
+            <span class="badge badge-preview">OPTIONAL</span>
+          </div>
+          <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.6;">
+            Modular styling packages for your login screen and boot sequence. Users choose whether to install or omit each component during the interactive setup process.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:3.5rem;">
+        <a href="../releases/" class="btn btn-primary">Eva Linux v2.0.0 Releases</a>
+      </div>
+    </div>
+  </section>
+
+    <!-- Unified Ecosystem Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div style="display:flex; align-items:center; gap:0.625rem; font-weight:700; font-size:1.125rem; margin-bottom:0.75rem;">
+            <img src="../../shared/assets/favicon.svg" alt="AmanicX" width="24" height="24">
+            <span>AmanicX Ecosystem</span>
+          </div>
+          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6; margin-bottom:1.25rem;">
+            Software systems engineered for autonomy, control, and privacy. Built with open standards and verified local performance.
+          </p>
+          <div class="badge badge-dev">CRIMSON SYSTEM</div>
+        </div>
+
+        <div>
+          <div class="footer-title">Software Projects</div>
+          <ul class="footer-links">
+            <li><a href="../../eva/">Eva Studio</a></li>
+            <li><a href="../../astra/">Astra Assistant</a></li>
+            <li><a href="../../eva-linux/">Eva Linux</a></li>
+            <li><a href="../../apps/">Application Catalog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Releases & Docs</div>
+          <ul class="footer-links">
+            <li><a href="../../eva/releases/">Eva Downloads (v2.2.2)</a></li>
+            <li><a href="../../astra/releases/">Astra Downloads (v0.1.0-pre)</a></li>
+            <li><a href="../../eva-linux/releases/">Eva Linux (v2.0.0)</a></li>
+            <li><a href="../../eva-linux/catalog/">Eva Linux Architecture</a></li>
+            <li><a href="../../eva/catalog/">Eva Evolution Catalog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-title">Community & Source</div>
+          <ul class="footer-links">
+            <li><a href="https://github.com/AmanicX" target="_blank" rel="noopener noreferrer">GitHub Organization</a></li>
+            <li><a href="https://github.com/AmanicX/eva" target="_blank" rel="noopener noreferrer">Eva Repository</a></li>
+            <li><a href="https://github.com/AmanicX/astra" target="_blank" rel="noopener noreferrer">Astra Repository</a></li>
+            <li><a href="https://github.com/AmanicX/eva-linux" target="_blank" rel="noopener noreferrer">Eva Linux Repository</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 AmanicX. Released under open-source licenses (MIT & Apache-2.0).</div>
+        <div>Hosted natively on GitHub Pages with automated release sync.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../shared/scripts/theme.js"></script>
+  <script src="../../shared/scripts/motion.js"></script>
+  <script src="../../shared/scripts/ecosystem-client.js"></script>
+    <script src="./shared/scripts/theme.js"></script>
+  <script src="./shared/scripts/motion.js"></script>
+  <script src="./shared/scripts/ecosystem-client.js"></script>
+</body>
+</html>
+
