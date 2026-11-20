@@ -105,14 +105,57 @@
       height: auto;
     }
     .preview-caption {
-      padding: 1rem 1.5rem;
+      padding: 0.875rem 1.25rem;
       font-size: 0.875rem;
       color: var(--text-secondary);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.75rem;
       background: var(--bg-surface-glass-heavy);
+      white-space: nowrap;
+    }
+    .keybind-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+      background: var(--bg-surface-3);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-sm);
+      padding: 0.25rem 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+    .keybind-pill kbd {
+      padding: 0.15rem 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-surface-1);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      line-height: 1.2;
+    }
+    .keybind-pill .pill-sep {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      user-select: none;
+      padding: 0 1px;
+    }
+    @media (max-width: 540px) {
+      .preview-caption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.625rem;
+        padding: 0.75rem 1rem;
+      }
+      .keybind-pill {
+        align-self: flex-start;
+      }
     }
     .feature-grid {
       display: grid;
@@ -210,13 +253,14 @@
       border-radius: var(--radius-sm);
       color: var(--text-primary);
       box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      white-space: nowrap;
     }
   </style>
 
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem('amanicx_theme') || 'system';
+        var theme = localStorage.getItem('amanicx_theme') || 'dark';
         var effective = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
         document.documentElement.setAttribute('data-theme', effective);
         document.documentElement.setAttribute('data-theme-setting', theme);
@@ -296,8 +340,11 @@
           <img src="site-assets/screenshot-desktop.jpg" alt="Eva Linux v2 Stable Desktop with Noctalia Control Center" loading="eager" width="1920" height="1080">
         </picture>
         <div class="preview-caption">
-          <span><strong>Actual Desktop Capture:</strong> Niri scrollable compositor + Noctalia 5 capsule bar & control center</span>
-          <span style="font-family: var(--font-mono); font-size: 0.8125rem;">Tokyo-Night & Oasis Abyss Palette</span>
+          <div style="display: flex; align-items: center; gap: 0.6rem; min-width: 0;">
+            <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #E11D48; box-shadow: 0 0 6px rgba(225, 29, 72, 0.8); flex-shrink: 0;"></span>
+            <span style="font-weight: 600; color: var(--text-primary); font-size: 0.85rem; white-space: nowrap;">Live Host Capture: <span style="font-weight: 400; color: var(--text-secondary);">Niri Compositor &amp; Noctalia 5</span></span>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--text-muted); flex-shrink: 0; white-space: nowrap;">Tokyo-Night Palette</span>
         </div>
       </div>
     </section>
@@ -394,11 +441,16 @@
           <div class="preview-card">
             <picture>
               <source srcset="site-assets/screenshot-keybinds.webp" type="image/webp">
-              <img src="site-assets/screenshot-keybinds.png" alt="Eva Linux Interactive Keybind Cheatsheet" loading="lazy" width="1111" height="548">
+              <img src="site-assets/screenshot-keybinds.png" alt="Eva Linux Interactive Keybind Cheatsheet" loading="eager" width="1235" height="887">
             </picture>
             <div class="preview-caption">
-              <span><strong>Quickshell Cheatsheet Overlay:</strong> Real-time search & interactive live editing</span>
-              <kbd>Super + Shift + /</kbd>
+              <div style="display: flex; align-items: center; gap: 0.6rem; min-width: 0;">
+                <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #34D399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.8); flex-shrink: 0;"></span>
+                <span style="font-weight: 600; color: var(--text-primary); font-size: 0.85rem; white-space: nowrap;">Quickshell Cheatsheet</span>
+              </div>
+              <div class="keybind-pill" aria-label="Shortcut: Super + Shift + Slash">
+                <kbd>Super</kbd><span class="pill-sep">+</span><kbd>Shift</kbd><span class="pill-sep">+</span><kbd>/</kbd>
+              </div>
             </div>
           </div>
         </div>

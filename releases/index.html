@@ -25,7 +25,7 @@
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem('amanicx_theme') || 'system';
+        var theme = localStorage.getItem('amanicx_theme') || 'dark';
         var effective = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
         document.documentElement.setAttribute('data-theme', effective);
         document.documentElement.setAttribute('data-theme-setting', theme);
