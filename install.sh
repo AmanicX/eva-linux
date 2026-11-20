@@ -11,10 +11,8 @@
 
 set -Eeuo pipefail
 
-# Re-attach standard input to terminal if piped through curl
-if [[ ! -t 0 && -e /dev/tty ]]; then
-    exec < /dev/tty
-fi
+# Keep stdin attached to the script for `curl | bash`. Interactive prompts in
+# the installer explicitly read /dev/tty; redirecting here discards script input.
 
 # Palette
 if [[ -t 1 ]]; then
@@ -32,20 +30,26 @@ else
 fi
 
 # Root check
-if [[ ${EUID} -eq 0 && -z ${SUDO_USER:-} ]]; then
+if [[ ${EUID} -eq 0 ]]; then
     printf "${C_RED}${C_BOLD}Error:${C_RESET} Do not run this installer directly as root.\nPlease run as your regular user with sudo privileges:\n  curl -fsSL https://raw.githubusercontent.com/AmanicX/eva-linux/main/install.sh | bash\n" >&2
     exit 1
 fi
 
 # Local repository detection (if cloned locally)
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" 2>/dev/null && pwd -P || true)"
+SCRIPT_DIR=""
+if [[ -n "${BASH_SOURCE[0]:-}" ]]; then
+    SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" 2>/dev/null && pwd -P)"
+fi
 if [[ -n "${SCRIPT_DIR}" && -f "${SCRIPT_DIR}/setup.sh" && -d "${SCRIPT_DIR}/modules" ]]; then
     exec bash "${SCRIPT_DIR}/setup.sh" "$@"
 fi
 
 printf "\n${C_CRIMSON}${C_BOLD}✦ Eva Linux v2 Stable${C_RESET} — Fetching installer repository...\n"
-CLONE_DIR="/tmp/eva-linux-$(date +%s)"
-rm -rf "${CLONE_DIR}"
+if ! command -v git >/dev/null 2>&1; then
+    printf 'Git is required. Install it with: sudo pacman -S --needed git\n' >&2
+    exit 1
+fi
+CLONE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/eva-linux.XXXXXXXX")"
 
 if ! git clone --depth 1 "https://github.com/AmanicX/eva-linux.git" "${CLONE_DIR}"; then
     printf "${C_RED}Failed to clone repository from GitHub.${C_RESET}\n" >&2
