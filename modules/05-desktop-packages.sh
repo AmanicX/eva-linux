@@ -12,6 +12,7 @@ run_desktop_packages() {
     local pacman_packages=(
         # Compositor & Display Server
         niri
+        xorg-server
         xorg-xwayland
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
@@ -26,6 +27,8 @@ run_desktop_packages() {
         qt6-wayland
         qt6-5compat
         qt6-virtualkeyboard
+        qt6-multimedia-ffmpeg
+        qt6-imageformats
 
         # Terminal, Shell & Modern CLI Utilities
         kitty
@@ -46,6 +49,8 @@ run_desktop_packages() {
         neovim
         tree-sitter-cli
         lazygit
+        python
+        python-pillow
 
         # Audio, Media & Utilities
         pipewire

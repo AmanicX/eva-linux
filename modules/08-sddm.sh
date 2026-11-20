@@ -5,8 +5,16 @@
 
 set -Eeuo pipefail
 
+configure_sddm_preset() {
+    local theme_dir="$1"
+    sudo cp -- "${theme_dir}/configs/default.conf" "${theme_dir}/configs/eva.conf"
+    sudo sed -i 's|^background[[:space:]]*=.*|background = "eva-wallpaper.jpg"|' "${theme_dir}/configs/eva.conf"
+    sudo sed -i 's|^ConfigFile=.*|ConfigFile=configs/eva.conf|' "${theme_dir}/metadata.desktop"
+}
+
 run_sddm() {
     step_header 9 14 "SilentSDDM Display Manager Setup"
+    export ENABLE_SDDM=0 SDDM_CONFIGURED=0
 
     local script_root
     script_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd -P)"
@@ -14,11 +22,12 @@ run_sddm() {
 
     if [[ "${DETECTED_DM}" != "sddm" ]]; then
         step_warn "Detected display manager: ${DETECTED_DM}"
-        if ! ask_confirm "Do you want to enable and configure SDDM with SilentSDDM?" "y"; then
+        if ! ask_confirm "Use SDDM instead of ${DETECTED_DM} at the next boot (without stopping this session)?" "y"; then
             step_info "SDDM configuration skipped."
             return 0
         fi
     fi
+    export ENABLE_SDDM=1
 
     if ! ask_confirm "Install and configure upstream SilentSDDM theme?" "y"; then
         step_info "SilentSDDM theme installation skipped by user."
@@ -36,11 +45,7 @@ run_sddm() {
     sudo cp "${script_root}/assets/wallpapers/eva-crimson-temple.jpg" /usr/share/sddm/themes/silent/backgrounds/eva-wallpaper.jpg
 
     # 3. Create clean eva preset pointing to eva-wallpaper.jpg
-    sudo mkdir -p /usr/share/sddm/themes/silent/configs
-    if [[ -f /usr/share/sddm/themes/silent/configs/base.conf ]]; then
-        sudo cp /usr/share/sddm/themes/silent/configs/base.conf /usr/share/sddm/themes/silent/configs/eva.conf
-        sudo sed -i 's|background = "backgrounds/.*"|background = "backgrounds/eva-wallpaper.jpg"|g' /usr/share/sddm/themes/silent/configs/eva.conf
-    fi
+    configure_sddm_preset /usr/share/sddm/themes/silent
 
     # 4. Configure SDDM
     step_info "Writing SDDM configuration..."
@@ -55,7 +60,6 @@ GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT
 
 [Theme]
 Current=silent
-ConfigFile=configs/eva.conf
 CursorTheme=Adwaita
 CursorSize=24
 Font=Adwaita Sans
@@ -69,5 +73,6 @@ RememberLastSession=true
 Session=niri.desktop
 CONF
 
+    export SDDM_CONFIGURED=1
     step_success "SilentSDDM theme configured with Eva Linux wallpaper"
 }

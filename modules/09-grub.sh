@@ -7,6 +7,7 @@ set -Eeuo pipefail
 
 run_grub() {
     step_header 10 14 "HyperFluent GRUB Theme Setup"
+    export GRUB_CONFIGURED=0
 
     if [[ "${DETECTED_BOOTLOADER}" != "grub" ]]; then
         step_info "GRUB bootloader not detected on this system. Skipping GRUB theming."
@@ -28,9 +29,12 @@ run_grub() {
     fi
 
     # 1. Back up /etc/default/grub
-    if [[ -f /etc/default/grub ]]; then
-        sudo cp /etc/default/grub "/etc/default/grub.bak-eva-$(date +%Y%m%d%H%M%S)"
+    if [[ ! -f /etc/default/grub ]]; then
+        step_warn "GRUB defaults not found. Leaving bootloader configuration unchanged."
+        return 0
     fi
+    local defaults_backup="/etc/default/grub.bak-eva-$(date +%Y%m%d%H%M%S)"
+    sudo cp /etc/default/grub "${defaults_backup}"
 
     # 2. Deploy Theme to /boot/grub/themes/hyperfluent
     step_info "Deploying HyperFluent theme to /boot/grub/themes/hyperfluent/..."
@@ -39,12 +43,21 @@ run_grub() {
 
     # 3. Synchronize Initial Wallpaper as background.png
     step_info "Generating boot-compatible background.png..."
-    local tmp_bg="/tmp/eva-grub-bg.png"
-    python3 -c "
+    local tmp_bg
+    tmp_bg="$(mktemp --suffix=.png)"
+    if ! python3 - "${script_root}/assets/wallpapers/eva-crimson-temple.jpg" "${tmp_bg}" <<'PY'
+import sys
 from PIL import Image
-im = Image.open('${script_root}/assets/wallpapers/eva-crimson-temple.jpg')
-im.convert('RGB').save('${tmp_bg}', 'PNG')
-" 2>/dev/null || magick "${script_root}/assets/wallpapers/eva-crimson-temple.jpg" "${tmp_bg}"
+with Image.open(sys.argv[1]) as image:
+    image = image.convert("RGB")
+    image.thumbnail((3840, 2160))
+    image.save(sys.argv[2], "PNG")
+PY
+    then
+        rm -f -- "${tmp_bg}"
+        step_error "Failed to convert the GRUB wallpaper. Check python-pillow."
+        return 1
+    fi
 
     if [[ -f "${tmp_bg}" ]]; then
         sudo cp "${tmp_bg}" /boot/grub/themes/hyperfluent/background.png
@@ -61,12 +74,17 @@ im.convert('RGB').save('${tmp_bg}', 'PNG')
 
     # 5. Safe GRUB Config Regeneration (Only done on initial install)
     step_info "Generating grub.cfg..."
-    if sudo grub-mkconfig -o /boot/grub/grub.cfg; then
+    local staged_config
+    staged_config="$(sudo mktemp /boot/grub/grub.cfg.eva.XXXXXXXX)"
+    if sudo grub-mkconfig -o "${staged_config}"; then
+        sudo mv -f -- "${staged_config}" /boot/grub/grub.cfg
+        export GRUB_CONFIGURED=1
         step_success "HyperFluent GRUB theme installed successfully"
         step_info "Note: Future wallpaper changes update background.png directly without requiring grub-mkconfig."
     else
         step_error "Failed to generate GRUB config. Restoring previous /etc/default/grub..."
-        # Restore backup if available
-        exit 1
+        sudo cp -- "${defaults_backup}" /etc/default/grub
+        sudo rm -f -- "${staged_config}"
+        return 1
     fi
 }
