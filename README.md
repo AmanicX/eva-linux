@@ -1,20 +1,20 @@
-<div align="center">
+<h1 align="center">✦ Eva Linux v2 Stable</h1>
 
-# ✦ Eva Linux v2 Stable
+<p align="center">
+  <strong>A script-based desktop setup installer transforming Arch Linux into an elegant, high-performance Wayland environment.</strong>
+</p>
 
-**A script-based desktop setup installer transforming Arch Linux into an elegant, high-performance Wayland environment.**
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://archlinux.org"><img src="https://img.shields.io/badge/Platform-Arch%20Linux%20%7C%20x86__64-brightgreen.svg" alt="Platform"></a>
+  <a href="https://github.com/YaLixDee/niri"><img src="https://img.shields.io/badge/Compositor-Niri%2026.04-orange.svg" alt="Compositor"></a>
+  <a href="https://github.com/noctalia-dev/noctalia"><img src="https://img.shields.io/badge/Shell-Noctalia%205-purple.svg" alt="Desktop Shell"></a>
+  <a href="https://amanicx.github.io/eva-linux/"><img src="https://img.shields.io/badge/Website-amanicx.github.io%2Feva--linux-crimson.svg" alt="Official Website"></a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Arch%20Linux%20%7C%20x86__64-brightgreen.svg)](https://archlinux.org)
-[![Compositor](https://img.shields.io/badge/Compositor-Niri%2026.04-orange.svg)](https://github.com/YaLixDee/niri)
-[![Desktop Shell](https://img.shields.io/badge/Shell-Noctalia%205-purple.svg)](https://github.com/noctalia-dev/noctalia)
-[![Official Website](https://img.shields.io/badge/Website-amanicx.github.io%2Feva--linux-crimson.svg)](https://amanicx.github.io/eva-linux/)
-
-<br/>
-
-<img src="assets/screenshots/desktop-v2-stable.png" alt="Eva Linux v2 Stable Desktop" width="95%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" />
-
-</div>
+<p align="center">
+  <img src="assets/screenshots/desktop-v2-stable.png" alt="Eva Linux v2 Stable Desktop" width="95%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" />
+</p>
 
 ---
 
@@ -47,9 +47,9 @@ Eva Linux transforms any compatible, minimal or existing **Arch Linux** installa
 - **Material You / Community Themes:** Automated color scheme generation based on your active wallpaper.
 
 ### 3. Native Keybind Cheatsheet & Live Editor
-<div align="center">
+<p align="center">
   <img src="assets/screenshots/keybinds-popup.png" alt="Eva Linux Keybind Cheatsheet" width="85%" style="border-radius: 10px;" />
-</div>
+</p>
 
 - **Shortcut:** Press `Super + Shift + /` anytime to toggle the cheatsheet overlay.
 - **Search:** Instant fuzzy filtering by key name, category, or command.
