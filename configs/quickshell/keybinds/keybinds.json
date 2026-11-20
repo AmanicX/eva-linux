@@ -97,7 +97,7 @@
         {
           "id": "bind_34",
           "line_no": 34,
-          "raw_line": "    Mod+B repeat=false hotkey-overlay-title=\"Open default browser\" { spawn \"/usr/bin/astra-default-browser\"; }\n",
+          "raw_line": "    Mod+B repeat=false hotkey-overlay-title=\"Open default browser\" { spawn \"eva-default-browser\"; }\n",
           "key_spec": "Mod+B",
           "norm_spec": "Mod+B",
           "caps": [
@@ -106,16 +106,16 @@
           ],
           "display": "Super + B",
           "props": "repeat=false hotkey-overlay-title=\"Open default browser\"",
-          "action": "spawn \"/usr/bin/astra-default-browser\"",
+          "action": "spawn \"eva-default-browser\"",
           "action_name": "spawn",
           "args": [
-            "/usr/bin/astra-default-browser"
+            "eva-default-browser"
           ],
           "title": "Open default browser",
           "category": "Applications",
           "editable": true,
           "is_group": false,
-          "search": "super + b open default browser applications spawn \"/usr/bin/astra-default-browser\""
+          "search": "super + b open default browser applications spawn \"eva-default-browser\""
         },
         {
           "id": "bind_35",

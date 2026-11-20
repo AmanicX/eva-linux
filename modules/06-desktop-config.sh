@@ -15,13 +15,14 @@ run_desktop_config() {
     # 1. Niri Configuration
     step_info "Deploying Niri compositor configuration..."
     mkdir -p "${HOME}/.config/niri"
-    cp -r "${cfg_src}/niri"/* "${HOME}/.config/niri/"
+    cp "${cfg_src}/niri"/*.kdl "${HOME}/.config/niri/"
     # Validate Niri configuration immediately
     if command -v niri >/dev/null 2>&1; then
         if niri validate -c "${HOME}/.config/niri/config.kdl" >/dev/null 2>&1; then
             step_success "Niri configuration validated successfully"
         else
-            step_warn "Niri configuration syntax check reported an issue. Please review ~/.config/niri/config.kdl"
+            step_error "Niri configuration is invalid. Restore your backup before starting a new session."
+            return 1
         fi
     fi
 
@@ -30,7 +31,17 @@ run_desktop_config() {
     mkdir -p "${HOME}/.config/noctalia" "${HOME}/.local/state/noctalia"
     cp -r "${cfg_src}/noctalia"/noctalia-integration.toml "${HOME}/.config/noctalia/" 2>/dev/null || true
     if [[ ! -f "${HOME}/.local/state/noctalia/settings.toml" ]] || ask_confirm "Apply Eva Linux default Noctalia state settings?" "y"; then
-        cp "${cfg_src}/noctalia"/settings.toml "${HOME}/.local/state/noctalia/settings.toml" 2>/dev/null || true
+        python3 - "${cfg_src}/noctalia/settings.toml" "${HOME}/.local/state/noctalia/settings.toml" <<'PY'
+import json
+import os
+from pathlib import Path
+import sys
+
+content = Path(sys.argv[1]).read_text(encoding="utf-8")
+for value in ("~/Pictures/Wallpapers", "~/Pictures/Wallpapers/eva-crimson-temple.jpg"):
+    content = content.replace(json.dumps(value), json.dumps(os.path.expanduser(value)))
+Path(sys.argv[2]).write_text(content, encoding="utf-8")
+PY
         step_success "Noctalia 5 settings deployed"
     fi
 

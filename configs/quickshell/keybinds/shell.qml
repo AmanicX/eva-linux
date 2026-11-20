@@ -222,7 +222,7 @@ ShellRoot {
         checkConflictProc.testDisplay = newDisplay;
         checkConflictProc.command = [
             "python3",
-            "/usr/share/astra/keybinds/gen-keybinds.py",
+            "/usr/local/bin/eva-keybinds-manager",
             "--check-conflict", newSpec,
             "--target-line", String(item.line_no)
         ];
@@ -232,7 +232,7 @@ ShellRoot {
     function executeApply(targetLine, newSpec, mode, swapLine) {
         var args = [
             "python3",
-            "/usr/share/astra/keybinds/gen-keybinds.py",
+            "/usr/local/bin/eva-keybinds-manager",
             "--apply", String(targetLine), newSpec,
             "--mode", mode
         ];

@@ -17,10 +17,10 @@ import shlex
 import shutil
 import argparse
 import subprocess
+import tempfile
 
 CONFIG = os.path.expanduser(os.environ.get("KEYBINDS_CONFIG", "~/.config/niri/keybinds.kdl"))
 OUT = os.path.expanduser(os.environ.get("KEYBINDS_OUT", "~/.config/quickshell/keybinds/keybinds.json"))
-REPO_CONFIG = "/run/media/apex/New Volume/amanicx-ecosystem/astra-os/packages/astra-desktop-config/files/etc/skel/.config/niri/keybinds.kdl"
 NIRI_CONFIG = os.path.expanduser("~/.config/niri/config.kdl")
 
 # ---------------------------------------------------------------- Modifier & Key Mapping
@@ -99,6 +99,8 @@ def normalize_key_spec(spec):
     parts = spec.split("+")
     mods = []
     key = parts[-1]
+    if len(key) == 1 and key.isalpha():
+        key = key.upper()
     for p in parts[:-1]:
         norm = p
         if p.lower() in ("mod", "super", "win", "mod4"):
@@ -430,10 +432,25 @@ def check_conflict(binds, new_spec, target_line_no=None):
 
 # ---------------------------------------------------------------- Safe Apply & Validation
 
+def atomic_write(path, text):
+    destination = os.path.realpath(path)
+    os.makedirs(os.path.dirname(destination), exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=".eva-", dir=os.path.dirname(destination))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as output:
+            output.write(text)
+            output.flush()
+            os.fsync(output.fileno())
+        if os.path.exists(destination):
+            shutil.copymode(destination, temporary)
+        os.replace(temporary, destination)
+    finally:
+        if os.path.exists(temporary):
+            os.remove(temporary)
+
+
 def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
-    """
-    Safely modify keybind in CONFIG, validate with niri, reload, and sync to REPO_CONFIG.
-    """
+    """Validate a staged edit, then save only the user's selected config."""
     if not os.path.exists(CONFIG):
         return False, f"Config file not found: {CONFIG}"
 
@@ -443,6 +460,18 @@ def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
 
     if target_line_no < 1 or target_line_no > len(lines):
         return False, f"Invalid line number {target_line_no}"
+    if not re.fullmatch(r"[A-Za-z0-9_]+(?:\+[A-Za-z0-9_]+)*", new_spec):
+        return False, "Invalid key specification"
+    binds = parse_file(CONFIG)
+    if not any(b["line_no"] == target_line_no for b in binds):
+        return False, "Target line is not an editable binding"
+    conflict = check_conflict(binds, new_spec, target_line_no)
+    if mode not in ("replace", "swap"):
+        return False, "Unknown conflict resolution mode"
+    if mode == "swap" and (
+        not conflict["conflict"] or swap_line_no != conflict["conflicting_line_no"]
+    ):
+        return False, "The conflicting shortcut changed; check it again before swapping"
 
     # Target line modification
     target_idx = target_line_no - 1
@@ -458,6 +487,9 @@ def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
 
     test_lines = list(lines)
     test_lines[target_idx] = new_line
+    if mode == "replace" and conflict["conflict"]:
+        conflict_idx = conflict["conflicting_line_no"] - 1
+        test_lines[conflict_idx] = "// Replaced by Eva keybind editor: " + lines[conflict_idx]
 
     if mode == "swap" and swap_line_no is not None:
         if swap_line_no < 1 or swap_line_no > len(lines):
@@ -472,8 +504,10 @@ def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
 
     # Write test file in the SAME directory so relative includes succeed
     config_dir = os.path.dirname(CONFIG)
-    test_keybinds_path = os.path.join(config_dir, "keybinds.test_validate.kdl")
-    test_main_path = os.path.join(config_dir, "config.test_validate.kdl")
+    fd, test_keybinds_path = tempfile.mkstemp(prefix=".eva-keybinds-", suffix=".kdl", dir=config_dir)
+    os.close(fd)
+    fd, test_main_path = tempfile.mkstemp(prefix=".eva-config-", suffix=".kdl", dir=config_dir)
+    os.close(fd)
 
     try:
         with open(test_keybinds_path, "w", encoding="utf-8") as f:
@@ -482,7 +516,13 @@ def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
         with open(NIRI_CONFIG, "r", encoding="utf-8") as f:
             main_cfg = f.read()
 
-        main_cfg_test = main_cfg.replace('include "keybinds.kdl"', 'include "keybinds.test_validate.kdl"')
+        main_cfg_test = re.sub(
+            r'(?m)^(\s*include\s+)"keybinds\.kdl"',
+            lambda match: f'{match.group(1)}"{os.path.basename(test_keybinds_path)}"',
+            main_cfg,
+        )
+        if main_cfg_test == main_cfg:
+            return False, 'Main config must include "keybinds.kdl" for sandbox validation'
         with open(test_main_path, "w", encoding="utf-8") as f:
             f.write(main_cfg_test)
 
@@ -492,27 +532,27 @@ def apply_edit(target_line_no, new_spec, mode="replace", swap_line_no=None):
             err_msg = v_res.stderr.strip() or v_res.stdout.strip() or "Niri configuration validation failed"
             return False, err_msg
 
-        # Validation succeeded! Safely write to live keybinds.kdl
+        # Refuse to overwrite edits made by another editor during validation.
+        with open(CONFIG, encoding="utf-8") as current:
+            if current.readlines() != lines:
+                return False, "Config changed during validation; retry the edit"
+
+        # Validation succeeded. Keep a rollback copy and replace atomically.
         backup_path = CONFIG + ".bak"
         shutil.copy2(CONFIG, backup_path)
 
-        with open(CONFIG, "w", encoding="utf-8") as f:
-            f.writelines(test_lines)
+        atomic_write(CONFIG, "".join(test_lines))
+        try:
+            generate_json()
+        except Exception as error:
+            atomic_write(CONFIG, "".join(lines))
+            return False, f"Could not update shortcuts database; edit rolled back: {error}"
 
-        # Also sync to /dev/sda4 repository copy if writable
-        if os.path.exists(REPO_CONFIG):
-            try:
-                with open(REPO_CONFIG, "w", encoding="utf-8") as rf:
-                    rf.writelines(test_lines)
-            except Exception as e:
-                print(f"Warning: could not sync to repo config: {e}", file=sys.stderr)
-
-        # Tell Niri to reload
-        subprocess.run(["niri", "msg", "action", "load-config-file"], check=False)
-
-        # Regenerate JSON
-        generate_json()
-
+        reload_result = subprocess.run(
+            ["niri", "msg", "action", "load-config-file"], capture_output=True, text=True,
+        )
+        if reload_result.returncode:
+            return True, "Keybind saved and validated; Niri will load it when the session starts"
         return True, "Keybind updated and reloaded successfully"
 
     finally:
@@ -575,18 +615,7 @@ def generate_json():
         "groups": groups_out
     }
 
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(out_data, f, ensure_ascii=False, indent=2)
-
-    # Also sync to sda4 package directory if it exists
-    sda4_skel_out = "/run/media/apex/New Volume/amanicx-ecosystem/astra-os/packages/astra-keybinds/files/etc/skel/.config/quickshell/keybinds/keybinds.json"
-    if os.path.exists(os.path.dirname(sda4_skel_out)):
-        try:
-            with open(sda4_skel_out, "w", encoding="utf-8") as sf:
-                json.dump(out_data, sf, ensure_ascii=False, indent=2)
-        except Exception:
-            pass
+    atomic_write(OUT, json.dumps(out_data, ensure_ascii=False, indent=2))
 
     return out_data
 
