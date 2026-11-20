@@ -1,0 +1,99 @@
+#!/usr/bin/python3 -I
+"""Privileged, fixed-destination image writer. Never accepts source paths."""
+
+import argparse
+import os
+from pathlib import PurePosixPath
+import stat
+import sys
+
+MAX_BYTES = 64 * 1024 * 1024
+TARGETS = {
+    "sddm": ("/usr/share/sddm/themes/silent/backgrounds", "eva-wallpaper.jpg"),
+    "grub": ("/boot/grub/themes/hyperfluent", "background.png"),
+}
+
+
+def validate_payload(target, data):
+    if not data or len(data) > MAX_BYTES:
+        raise ValueError("Image must be between 1 byte and 64 MiB")
+    signature = b"\xff\xd8\xff" if target == "sddm" else b"\x89PNG\r\n\x1a\n"
+    if not data.startswith(signature):
+        raise ValueError("Expected JPEG for SDDM or PNG for GRUB")
+
+
+def open_trusted_directory(path):
+    """Walk root-owned, non-writable directories without following symlinks."""
+    parts = PurePosixPath(path).parts
+    if not parts or parts[0] != "/" or ".." in parts:
+        raise ValueError("Expected an absolute trusted directory")
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC
+    fd = os.open("/", flags)
+    try:
+        for part in parts[1:]:
+            child = os.open(part, flags, dir_fd=fd)
+            os.close(fd)
+            fd = child
+            info = os.fstat(fd)
+            if info.st_uid != 0 or info.st_mode & 0o022:
+                raise ValueError("Theme directories must be root-owned and not user-writable")
+        return fd
+    except BaseException:
+        os.close(fd)
+        raise
+
+
+def atomic_install(directory_fd, name, data):
+    """Replace only the fixed image entry; never follow an existing symlink."""
+    if name not in {item[1] for item in TARGETS.values()}:
+        raise ValueError("Unsupported image filename")
+    try:
+        info = os.stat(name, dir_fd=directory_fd, follow_symlinks=False)
+    except FileNotFoundError:
+        pass
+    else:
+        if not stat.S_ISREG(info.st_mode):
+            raise ValueError("Refusing a non-regular destination")
+
+    temporary = f".eva-wallpaper-{os.urandom(16).hex()}"
+    fd = os.open(
+        temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+        0o600, dir_fd=directory_fd,
+    )
+    try:
+        with os.fdopen(fd, "wb") as output:
+            output.write(data)
+            os.fchmod(output.fileno(), 0o644)
+            output.flush()
+            os.fsync(output.fileno())
+        os.replace(temporary, name, src_dir_fd=directory_fd, dst_dir_fd=directory_fd)
+        os.fsync(directory_fd)
+    finally:
+        try:
+            os.unlink(temporary, dir_fd=directory_fd)
+        except FileNotFoundError:
+            pass
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("target", choices=TARGETS)
+    args = parser.parse_args()
+    if os.geteuid() != 0:
+        parser.exit(1, "This helper must be invoked through sudo.\n")
+    try:
+        data = sys.stdin.buffer.read(MAX_BYTES + 1)
+        validate_payload(args.target, data)
+        directory, filename = TARGETS[args.target]
+        fd = open_trusted_directory(directory)
+        try:
+            atomic_install(fd, filename, data)
+        finally:
+            os.close(fd)
+    except (OSError, ValueError) as error:
+        parser.exit(1, f"Wallpaper installation refused: {error}\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

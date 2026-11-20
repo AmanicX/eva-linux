@@ -3,6 +3,8 @@
 .env
 *.key
 *.pem
+__pycache__/
+*.pyc
 
 # Build artifacts
 /build/
