@@ -1,4 +1,4 @@
-<h1 align="center">✦ Eva Linux v2 Stable</h1>
+<h1 align="center">✦ Eva Linux v2.1</h1>
 
 <p align="center">
   <strong>A script-based desktop setup installer transforming Arch Linux into an elegant, high-performance Wayland environment.</strong>
@@ -20,7 +20,16 @@
 
 ## ✦ Overview
 
-**Eva Linux is NOT an ISO.** It is a modular, idempotent, and script-based desktop setup installer.
+**Eva Linux is NOT an ISO.** It is a modular, script-based desktop setup installer.
+
+**v2.1 is the security and reliability update.** It fixes the wallpaper privilege
+rule, piped bootstrap, verification, symlink backups, missing helpers, theme
+setup, shortcut replacement, portable defaults, and display-manager consent.
+See [CHANGELOG.md](CHANGELOG.md) for the complete bug-fix summary.
+
+> **Existing v2.0 installations:** Updating Git alone does not replace installed
+> helpers or sudoers files. Remove the old wallpaper rule before using sync
+> again; follow the [security upgrade instructions](docs/SECURITY.md).
 
 > **Official Website:** For interactive screenshots, system documentation, and architecture overviews, visit [amanicx.github.io/eva-linux](https://amanicx.github.io/eva-linux/).
 
@@ -55,14 +64,15 @@ Eva Linux transforms any compatible, minimal or existing **Arch Linux** installa
 - **Search:** Instant fuzzy filtering by key name, category, or command.
 - **Interactive Editing:** Click "Edit", press your desired shortcut on your keyboard, resolve conflicts (Replace or Swap), and apply changes live. The editor runs `niri validate` in a sandbox before saving to `~/.config/niri/keybinds.kdl`, automatically rolling back on error.
 
-### 4. Zero-Risk Wallpaper Synchronization
-- Changing wallpaper via `Super + Alt + Space` or `noctalia msg wallpaper-set` triggers `eva-wallpaper-sync`.
+### 4. Restricted Wallpaper Synchronization
+- The user-session watcher detects wallpaper changes made through Noctalia.
 - **SilentSDDM:** Updates `/usr/share/sddm/themes/silent/backgrounds/eva-wallpaper.jpg`. Theme layout, fonts, and controls remain 100% upstream-identical.
-- **HyperFluent GRUB:** Converts wallpaper to boot-accessible PNG at `/boot/grub/themes/hyperfluent/background.png`. **`grub-mkconfig` is never executed during wallpaper sync**, eliminating any risk of breaking boot entries.
+- **HyperFluent GRUB:** Updates `/boot/grub/themes/hyperfluent/background.png`. Wallpaper sync never runs `grub-mkconfig`; initial GRUB theme installation does.
+- Images are converted as your user and passed as bytes to a fixed-destination helper. There is no passwordless general-purpose `cp` grant. Failed configured backends return an error; absent optional themes are skipped.
 
 ### 5. Robust Backup & Restoration
-- Creates a timestamped snapshot of all existing configs in `~/eva_backups/backup_YYYYMMDD_HHMMSS/` with a manifest.
-- Run `eva-restore` at any time to selectively roll back your desktop configuration.
+- By default, snapshots the listed desktop configurations in `~/eva_backups/backup_YYYYMMDD_HHMMSS_XXXXXX/` with a manifest. Symlink contents are copied into independent snapshots.
+- Run `eva-restore` to choose a snapshot and restore its user configurations. System reference copies are not automatically restored; this is not a package or full-system rollback.
 
 ---
 
@@ -73,8 +83,10 @@ Eva Linux transforms any compatible, minimal or existing **Arch Linux** installa
 - **Architecture:** `x86_64`.
 - **Permissions:** Standard user with `sudo` privileges.
 - **Connectivity:** Active internet connection.
+- **Bootstrap tools:** `bash`, `curl`, and `git` (`sudo pacman -S --needed git curl`).
+- **Before installing:** Review the scripts and back up important data. Setup changes packages, services, and existing desktop configuration; test first in an Arch VM.
 
-### Method 1: Quick Bootstrap (One Command)
+### Method 1: Quick Bootstrap (Latest main)
 Run the bootstrap installer in your terminal:
 
 ```bash
@@ -87,7 +99,7 @@ Clone the repository and run the setup script:
 ```bash
 git clone https://github.com/AmanicX/eva-linux.git
 cd eva-linux
-chmod +x setup.sh
+git switch --detach v2.1
 ./setup.sh
 ```
 
@@ -102,6 +114,11 @@ Options:
   -h, --help         Display usage information
 ```
 
+`--yes` accepts recommended choices; sudo can still require authentication.
+`--skip-update` assumes your package databases and system are already current.
+Declining backup does not prevent existing configs from being overwritten.
+See [docs/INSTALLER.md](docs/INSTALLER.md) for the current installer pipeline.
+
 ---
 
 ## ✦ Core Default Keybindings
@@ -115,14 +132,16 @@ Options:
 | `Super + B` | **Web Browser** | Launch default browser |
 | `Super + E` | **File Manager** | Open Nautilus |
 | `Super + Q` | **Close Window** | Close the currently focused window |
-| `Super + F` | **Fullscreen** | Toggle window fullscreen mode |
-| `Super + Shift + F` | **Floating** | Toggle floating / tiling layout |
+| `Super + F` | **Maximize Column** | Toggle the focused column's maximized width |
+| `Super + Shift + F` | **Fullscreen** | Toggle window fullscreen |
+| `Super + Ctrl + V` | **Floating** | Toggle floating / tiling layout |
 | `Alt + Tab` | **Window Switcher** | Open Wayland window switcher |
 | `Print` | **Screenshot (Region)** | Interactive region selection screenshot |
 | `Ctrl + Print` | **Screenshot (Full)** | Capture entire screen to `~/Pictures/Screenshots` |
 | `Alt + Print` | **Screenshot (Window)** | Capture active window |
 | `Super + 1–9` | **Workspaces** | Switch to workspace 1 through 9 |
-| `Super + Shift + 1–9` | **Move Window** | Move column to workspace 1 through 9 |
+| `Super + Shift + 1–9` | **Move Window** | Move one window to workspace 1 through 9 |
+| `Super + Ctrl + 1–9` | **Move Column** | Move the whole column to workspace 1 through 9 |
 
 ---
 
@@ -131,6 +150,19 @@ Options:
 - **Eva Advanced AI Chatbot:** Multi-theme, memory-aware AI character and world chat studio. Can be installed during setup or skipped.
 - **Browser Selection:** Choose between Firefox, Zen Browser, Brave, Chromium, Google Chrome, or Vivaldi during setup.
 - **AUR Helper:** Automatic detection and selection between `yay` and `paru`.
+- **Login and boot themes:** SDDM switching requires consent; the active session is not stopped. GRUB theming requires an existing GRUB installation. No Eva Plymouth theme is shipped in v2.1, so the existing splash is left unchanged.
+
+## ✦ Validation
+
+```bash
+python3 -m unittest discover -s tests -v
+niri validate -c configs/niri/config.kdl
+```
+
+The regression suite uses temporary homes and fake privileged commands; image
+tests require Pillow. The isolated keybind tests use a real `niri validate`.
+These checks do not replace a complete privileged installation and boot test
+on your hardware.
 
 ---
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  ✦ Eva Linux v2 Stable — Quick Bootstrap Installer
+#  ✦ Eva Linux v2.1 — Quick Bootstrap Installer
 #  https://github.com/AmanicX/eva-linux
 #
 #  Usage:
@@ -44,7 +44,7 @@ if [[ -n "${SCRIPT_DIR}" && -f "${SCRIPT_DIR}/setup.sh" && -d "${SCRIPT_DIR}/mod
     exec bash "${SCRIPT_DIR}/setup.sh" "$@"
 fi
 
-printf "\n${C_CRIMSON}${C_BOLD}✦ Eva Linux v2 Stable${C_RESET} — Fetching installer repository...\n"
+printf "\n${C_CRIMSON}${C_BOLD}✦ Eva Linux v2.1${C_RESET} — Fetching installer repository...\n"
 if ! command -v git >/dev/null 2>&1; then
     printf 'Git is required. Install it with: sudo pacman -S --needed git\n' >&2
     exit 1

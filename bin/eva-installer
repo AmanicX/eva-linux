@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  ✦ Eva Linux v2 Stable — Modular Desktop Setup Orchestrator
+#  ✦ Eva Linux v2.1 — Modular Desktop Setup Orchestrator
 #  https://github.com/AmanicX/eva-linux
 # ==============================================================================
 
@@ -16,7 +16,7 @@ export OPT_SKIP_BACKUP=0
 
 usage() {
     cat << 'HELP'
-Eva Linux v2 Stable — Desktop Setup Installer
+Eva Linux v2.1 — Desktop Setup Installer
 
 Usage:
   ./setup.sh [options]
@@ -30,7 +30,7 @@ Options:
   -h, --help         Display this help message and exit
 
 Description:
-  Transforms a base Arch Linux installation into the complete Eva Linux v2
+  Transforms a base Arch Linux installation into the Eva Linux v2.1
   desktop environment featuring Niri, Noctalia 5, Kitty, Neovim/LazyVim,
   Quickshell keybind overlay, SilentSDDM, and HyperFluent GRUB theming.
 HELP
@@ -93,7 +93,7 @@ cat << 'BANNER'
  |______|\_/ \__,_|  |______|_|_| |_|\__,_/_/\_\
                                                 
 BANNER
-printf "  ${C_CRIMSON}${C_BOLD}✦ Eva Linux v2 Stable${C_RESET} — Script-based Desktop Setup Installer\n"
+printf "  ${C_CRIMSON}${C_BOLD}✦ Eva Linux v2.1${C_RESET} — Script-based Desktop Setup Installer\n"
 printf "  ${C_MUTED}https://github.com/AmanicX/eva-linux${C_RESET}\n\n"
 
 # Verify non-root user execution

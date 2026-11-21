@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Eva Linux v2.0.0 Stable Releases | AmanicX</title>
-  <meta name="description" content="Download and installation instructions for Eva Linux v2.0.0 Stable.">
+  <title>Eva Linux Releases & Changelog | AmanicX</title>
+  <meta name="description" content="Download and installation instructions for Eva Linux releases.">
   <link rel="canonical" href="https://amanicx.github.io/eva-linux/releases/">
   <meta name="theme-color" content="#0B0D12">
 
   <!-- OpenGraph -->
-  <meta property="og:title" content="Eva Linux v2.0.0 Stable Releases | AmanicX">
-  <meta property="og:description" content="Download and installation instructions for Eva Linux v2.0.0 Stable.">
+  <meta property="og:title" content="Eva Linux Releases & Changelog | AmanicX">
+  <meta property="og:description" content="Download and installation instructions for Eva Linux releases.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://amanicx.github.io/eva-linux/releases/">
   <meta property="og:image" content="https://amanicx.github.io/shared/assets/favicon.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Eva Linux v2.0.0 Stable Releases | AmanicX">
-  <meta name="twitter:description" content="Download and installation instructions for Eva Linux v2.0.0 Stable.">
+  <meta name="twitter:title" content="Eva Linux Releases & Changelog | AmanicX">
+  <meta name="twitter:description" content="Download and installation instructions for Eva Linux releases.">
   <meta name="twitter:image" content="https://amanicx.github.io/shared/assets/favicon.svg">
 
   <!-- Favicon -->
@@ -200,45 +200,45 @@
         <div class="eyebrow reveal">OFFICIAL RELEASES &amp; CHANGELOG</div>
         <h1 class="title-section reveal delay-100" style="margin-bottom:1rem;">Eva Linux Releases Hub</h1>
         <p class="lead reveal delay-200" style="margin:0 auto; max-width:680px;">
-          Eva Linux v2.0.0 marks a complete architectural transformation from monolithic scripts into a modular, reliable, and verified Wayland desktop installer.
+          Release history and security updates for the modular Eva Linux Wayland workstation setup installer.
         </p>
       </div>
 
-      <!-- Release v2.0.0 Stable Card -->
+      <!-- Release v2.1 Stable Card -->
       <div class="card card-glass" style="margin-bottom:2.5rem; border:1px solid var(--border-medium);">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem;">
           <div>
-            <h2 class="title-card" style="font-size:1.5rem; margin-bottom:0.25rem;">Eva Linux v2.0.0 Stable</h2>
-            <span style="font-size:0.8125rem; color:var(--text-muted);">Published on November 20, 2026 &bull; Production Release</span>
+            <h2 class="title-card" style="font-size:1.5rem; margin-bottom:0.25rem;">Eva Linux v2.1</h2>
+            <span style="font-size:0.8125rem; color:var(--text-muted);">Published on November 21, 2026 &bull; Security &amp; Reliability Release</span>
           </div>
-          <span class="badge badge-stable" style="font-size:0.8125rem;">v2.0.0 Stable</span>
+          <span class="badge badge-stable" style="font-size:0.8125rem;">v2.1 Stable</span>
         </div>
 
         <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.5rem;">
-          Eva Linux v2.0.0 represents a complete system refactoring. Every component has been audited, rewritten into modular units, tested on live Arch Linux installations, and integrated with upstream repositories.
+          Eva Linux v2.1 is the security and reliability update. It resolves all repository audit findings, tightening privileged wallpaper boundaries, repairing piped bootstrap and verification, isolating backup snapshots, and ensuring safe shortcut management.
         </p>
 
-        <div style="font-size:0.8125rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.75rem;">Key Enhancements in v2.0.0</div>
+        <div style="font-size:0.8125rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.75rem;">Key Enhancements in v2.1</div>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem; font-size:0.875rem; color:var(--text-secondary); margin-bottom:1.75rem;">
           <li style="display:flex; align-items:flex-start; gap:0.6rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" style="margin-top:2px; flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-            <span><strong>Modular Architecture:</strong> Split the installer into decoupled modules for preflight, packages, compositor, shell, terminal, editor, bootloader, and theme configurations.</span>
+            <span><strong>Restricted Wallpaper Privilege:</strong> Replaced the all-user wildcard sudoers rule with a per-user sudoers grant for a root-owned isolated helper (<code>eva-wallpaper-install</code>) accepting bounded image bytes on stdin for two fixed destinations (<code>sddm</code> and <code>grub</code>).</span>
           </li>
           <li style="display:flex; align-items:flex-start; gap:0.6rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" style="margin-top:2px; flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-            <span><strong>Zero-Risk Wallpaper Sync:</strong> <code>eva-wallpaper-sync</code> replaces the active wallpaper across SilentSDDM and HyperFluent GRUB without dangerous <code>grub-mkconfig</code> executions.</span>
+            <span><strong>Piped Bootstrap &amp; Complete Verification:</strong> Fixed piped bootstrap stdin so <code>curl … | bash</code> completes reliably; installer verification runs all checks without premature errexit aborts and reports required failures with a nonzero exit code.</span>
           </li>
           <li style="display:flex; align-items:flex-start; gap:0.6rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" style="margin-top:2px; flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-            <span><strong>Quickshell Cheatsheet Overlay:</strong> Instant <code>Super + Shift + /</code> overlay with searchable categories, keybind conflict detection, and physical key recording.</span>
+            <span><strong>Independent Symlink Backups &amp; Missing Helpers:</strong> Dotfile configuration backups copy symlinked file contents into independent snapshots; installed the missing <code>eva-restore</code> and <code>eva-default-browser</code> commands.</span>
           </li>
           <li style="display:flex; align-items:flex-start; gap:0.6rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" style="margin-top:2px; flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-            <span><strong>Automated Backup &amp; Rollback:</strong> Automated timestamped tarball backups of existing dotfiles and one-command restoration via <code>eva-restore</code>.</span>
+            <span><strong>Theme Configuration &amp; DM Consent:</strong> Generated SilentSDDM presets from default.conf; added Pillow and greeter dependencies; display manager changes require explicit consent and avoid terminating active sessions.</span>
           </li>
           <li style="display:flex; align-items:flex-start; gap:0.6rem;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" style="margin-top:2px; flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>
-            <span><strong>Pure Upstream Repositories:</strong> Replaced bloated or modified forks with official pure upstream releases for SilentSDDM, HyperFluent GRUB, and Plymouth.</span>
+            <span><strong>Shortcut Replacement &amp; Portable Defaults:</strong> Keybind Replace disables conflicting bindings; validated staged edits; removed personal path and monitor references from default configs.</span>
           </li>
         </ul>
 
@@ -253,11 +253,32 @@
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-          <a href="https://github.com/AmanicX/eva-linux/releases/tag/v2.0.0" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <a href="https://github.com/AmanicX/eva-linux/releases/tag/v2.1" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             View Release Tag on GitHub
           </a>
-          <a href="https://github.com/AmanicX/eva-linux" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            Inspect Repository Source
+          <a href="https://github.com/AmanicX/eva-linux/tree/v2.1" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Inspect Repository Source (v2.1)
+          </a>
+        </div>
+      </div>
+
+      <!-- Release v2.0.0 Card -->
+      <div class="card card-glass" style="margin-bottom:2.5rem; border:1px solid var(--border-subtle); opacity:0.9;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem;">
+          <div>
+            <h2 class="title-card" style="font-size:1.35rem; margin-bottom:0.25rem;">Eva Linux v2.0.0</h2>
+            <span style="font-size:0.8125rem; color:var(--text-muted);">Published on November 20, 2026 &bull; Initial Modular Architecture</span>
+          </div>
+          <span class="badge badge-dev" style="font-size:0.8125rem;">v2.0.0</span>
+        </div>
+
+        <p style="font-size:0.9375rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.5rem;">
+          Eva Linux v2.0.0 transformed monolithic scripts into a modular setup installer for Arch Linux featuring Niri scrollable tiling, Noctalia 5 desktop shell, Kitty GPU terminal, LazyVim IDE, Quickshell interactive keybind overlay, SilentSDDM, and HyperFluent GRUB.
+        </p>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <a href="https://github.com/AmanicX/eva-linux/releases/tag/v2.0.0" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            View v2.0.0 Release Tag
           </a>
         </div>
       </div>
@@ -307,7 +328,7 @@
             <ul class="footer-links">
               <li><a href="../../eva/releases/">Eva Downloads (v2.2.2)</a></li>
               <li><a href="../../astra/releases/">Astra Downloads (v0.1.0-pre)</a></li>
-              <li><a href="../../eva-linux/releases/">Eva Linux (v2.0.0)</a></li>
+              <li><a href="../../eva-linux/releases/">Eva Linux (v2.1)</a></li>
               <li><a href="../../eva-linux/catalog/">Architecture & Setup</a></li>
             </ul>
           </div>

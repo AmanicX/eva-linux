@@ -1,5 +1,10 @@
 # AstraOS Phase 0 Audit
 
+> Historical AstraOS/ISO planning record, not the Eva Linux v2.1 validation
+> report. Paths and test claims below describe that earlier project. For the
+> current desktop installer, see [INSTALLER.md](INSTALLER.md), and for v2.1
+> fixes see [../CHANGELOG.md](../CHANGELOG.md).
+
 Status: **read-only audit complete; gate approved with changes on 2026-10-19.**
 The owner's decisions are summarized in `docs/PROGRESS.md` (Gate outcome) and
 `docs/DECISIONS.md` (D-025). The audit itself remains the historical record.

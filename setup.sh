@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  ✦ Eva Linux v2 Stable — Desktop Setup Installer Entrypoint
+#  ✦ Eva Linux v2.1 — Desktop Setup Installer Entrypoint
 #  https://github.com/AmanicX/eva-linux
 # ==============================================================================
 

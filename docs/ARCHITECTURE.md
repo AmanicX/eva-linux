@@ -1,4 +1,4 @@
-# Eva Linux v2 Architecture
+# Eva Linux v2.1 Architecture
 
 Eva Linux is an automated desktop setup installer that transforms a minimal or existing Arch Linux installation into a fully-configured, high-performance Wayland environment.
 
@@ -18,6 +18,7 @@ eva-linux/
 │   ├── eva-keybinds-start      # Quickshell daemon launcher
 │   ├── eva-keybinds-toggle     # Overlay toggle script
 │   ├── eva-wallpaper-sync      # Background wallpaper synchronizer
+│   ├── eva-wallpaper-install   # Restricted privileged image writer
 │   ├── eva-restore             # Configuration rollback tool
 │   └── eva-default-browser     # Browser launcher wrapper
 ├── modules/                    # Isolated, idempotent installation steps
@@ -38,12 +39,15 @@ eva-linux/
 │   ├── 13-services.sh          # Systemd system & user service activation
 │   └── 14-verify.sh            # Sanity checks and post-install validation
 ├── configs/                    # Master configuration templates
-├── themes/                     # Upstream-pure themes (SDDM, GRUB, Plymouth)
+├── themes/                     # Upstream SDDM and GRUB themes; no Eva Plymouth assets
 ├── assets/                     # Genuine screenshots & wallpapers
-├── site-assets/                # Web-optimized assets for the official website
 ├── index.html                  # Official Eva Linux v2 Website
 └── README.md                   # Complete user documentation
 ```
+
+The website generator lives in the `amanicx.github.io` repository. Its Eva
+Linux pages are synchronized here after building; change the generator's
+source/data to prevent future deployments reverting page edits.
 
 ---
 

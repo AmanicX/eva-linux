@@ -6,7 +6,7 @@
 set -Eeuo pipefail
 
 run_verify() {
-    printf "\n${C_CRIMSON}${C_BOLD}✦ Eva Linux v2 Stable — Installation Verification${C_RESET}\n"
+    printf "\n${C_CRIMSON}${C_BOLD}✦ Eva Linux v2.1 — Installation Verification${C_RESET}\n"
     printf "${C_MUTED}%s${C_RESET}\n\n" "═════════════════════════════════════════════════════════════════"
 
     local passed=0 failed=0

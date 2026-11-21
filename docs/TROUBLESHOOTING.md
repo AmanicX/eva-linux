@@ -17,11 +17,17 @@ Or start the daemon manually:
 qs -c keybinds -d
 ```
 
-### 3. Sudo password prompts on wallpaper change
-Ensure the sudoers permission rule is installed:
+### 3. Wallpaper permission failures
+For old installations, remove the insecure legacy rule first; see
+[SECURITY.md](SECURITY.md). In v2.1, validate the per-user rule and inspect
+watcher logs:
 ```bash
-sudo cat /etc/sudoers.d/eva-wallpaper-sync
+sudo visudo -cf "/etc/sudoers.d/eva-wallpaper-$(id -un)"
+journalctl --user -u eva-wallpaper-sync.service -n 50
+eva-wallpaper-sync
 ```
+Do not restore the old passwordless `cp` rule. The watcher uses `sudo -n` and
+reports permission failure rather than prompting from a background process.
 
 ### 4. Audio output issues
 Verify PipeWire and WirePlumber:
